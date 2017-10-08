@@ -54,6 +54,11 @@
         <item name="android:background">@drawable/done</item>
     </style>
 
+    <style name="SpeedyTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@mipmap/ic_launcher_round</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
 
 
 

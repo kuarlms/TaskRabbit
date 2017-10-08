@@ -42,6 +42,10 @@ public class frag_home extends Fragment {
         View view = inflater.inflate(R.layout.home_screen, container, false);
         TextView tvLabel = (TextView) view.findViewById(R.id.tv_home_frag);
         tvLabel.setText(page + " -- " + title);
+
+
+
+
         return view;
     }
 

@@ -8,17 +8,25 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".Actvity.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        android:theme="@style/MyMaterialTheme">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".actvity.Launcher"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/SpeedyTheme">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
+        <activity
+            android:name=".actvity.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/MyMaterialTheme"
+            android:screenOrientation="sensorPortrait">
+
+        </activity>
+
+
     </application>
 
 </manifest>
