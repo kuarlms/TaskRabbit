@@ -17,6 +17,7 @@ import retrofit2.http.Body;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.Callback;
 
 /**
  * Created by kural mughil selvam on 08-10-2017.
@@ -45,8 +46,11 @@ public interface ApiInterface {
     @GET("/2.2/questions/{id}/answers?order=desc&sort=votes&site=stackoverflow")
     Call<ListWrapper<Answer>> getAnswersForQuestion(@Path("id") String questionId);*/
 
+   /* @POST("users/new")
+    void createUser(@Body User user, Callback<User> cb);*/
+
    @POST("user_signup")@FormUrlEncoded
-   Call<signupStatus> createUser(@Header(header) String header_value, @Body SignUpReq signUpReq);
+   void rx_signUp(@Header(header) String header_value, @Body SignUpReq signUpReq, Callback<signupStatus> cn);
 
 
 }
