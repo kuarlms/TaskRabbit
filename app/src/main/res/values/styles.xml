@@ -1,0 +1,60 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
+
+    </style>
+
+    <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="button_style">
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_width">250dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:textColor">#FFFFFD</item>
+    </style>
+    <style name="signup_google">
+        <item name="android:background">@drawable/button_signup</item>
+    </style>
+    <style name="signup_facebook">
+        <item name="android:background">@drawable/button_signupfacebook</item>
+    </style>
+    <style name="signup_login">
+        <item name="android:background">@drawable/button_signup_login</item>
+    </style>
+    <style name="signup_signup">
+        <item name="android:background">@drawable/button_signup_signup</item>
+    </style>
+    <style name="signup_with_email">
+        <item name="android:background">@drawable/signup_with_email</item>
+    </style>
+    <style name="done">
+        <item name="android:background">@drawable/done</item>
+    </style>
+
+
+
+
+</resources>

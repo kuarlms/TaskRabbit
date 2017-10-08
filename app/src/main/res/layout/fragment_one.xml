@@ -1,0 +1,94 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="info.androidhive.materialtabs.fragments.OneFragment">
+
+
+
+
+ <ImageView
+     android:id="@+id/imageView2"
+     android:layout_width="wrap_content"
+     android:layout_height="176dp"
+     android:src="@drawable/b"
+     tools:layout_editor_absoluteY="0dp"
+     tools:layout_editor_absoluteX="0dp"
+     android:layout_alignParentTop="true"
+     android:layout_alignParentRight="true"
+     android:layout_alignParentEnd="true" />
+
+ <TextView
+     android:id="@+id/textView2"
+     android:layout_width="0dp"
+     android:layout_height="wrap_content"
+     android:textAlignment="center"
+     android:text="Assemble Flat-Pack"
+     android:textSize="25dp"
+     android:textStyle="bold"
+     tools:layout_editor_absoluteX="82dp"
+     tools:layout_editor_absoluteY="176dp" />
+
+ <TextView
+     android:id="@+id/textView3"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:text="$13/hr  up"
+     android:textSize="14dp"
+     tools:layout_editor_absoluteX="148dp"
+     tools:layout_editor_absoluteY="210dp"
+     android:layout_centerHorizontal="true"
+     android:layout_below="@+id/textView6" />
+
+ <ImageView
+     android:id="@+id/imageView3"
+     android:layout_width="404dp"
+     android:layout_height="182dp"
+     android:src="@drawable/c"
+     tools:layout_editor_absoluteY="234dp"
+     tools:layout_editor_absoluteX="-11dp"
+     android:layout_below="@+id/textView3"
+     android:layout_alignParentLeft="true"
+     android:layout_alignParentStart="true" />
+
+ <TextView
+     android:id="@+id/textView4"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:text="Personal Assistant"
+     android:textSize="16dp"
+     android:textStyle="bold"
+     tools:layout_editor_absoluteX="82dp"
+     tools:layout_editor_absoluteY="416dp"
+     android:layout_below="@+id/imageView3"
+     android:layout_alignRight="@+id/textView6"
+     android:layout_alignEnd="@+id/textView6" />
+
+ <TextView
+     android:id="@+id/textView5"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:text="$13/hr up"
+     android:textSize="14dp"
+     tools:layout_editor_absoluteX="140dp"
+     tools:layout_editor_absoluteY="446dp"
+     android:layout_below="@+id/imageView3"
+     android:layout_alignRight="@+id/textView3"
+     android:layout_alignEnd="@+id/textView3"
+     android:layout_marginTop="25dp">
+
+ </TextView>
+
+ <TextView
+     android:id="@+id/textView6"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_below="@+id/imageView2"
+     android:layout_centerHorizontal="true"
+     android:text="Assemble Flat-Pack"
+     android:textSize="16dp"
+     android:textStyle="bold"/>
+
+
+</RelativeLayout>
