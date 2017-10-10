@@ -19,4 +19,6 @@ public class Signup_email extends Activity {
         ButterKnife.bind(this);
 
     }
+
+    
 }

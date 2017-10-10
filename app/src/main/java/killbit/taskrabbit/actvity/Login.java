@@ -1,10 +1,10 @@
 package killbit.taskrabbit.actvity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.Button;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,6 +16,9 @@ import killbit.taskrabbit.R;
  */
 
 public class Login extends Activity {
+
+    Intent in_signup;
+
 
     @BindView(R.id.button8)
     Button btn_signUp;
@@ -31,8 +34,9 @@ public class Login extends Activity {
     }
     @OnClick(R.id.button8)
     public void submit() {
-        Toast.makeText(this,
-                "Hello from Butterknife OnClick annotation", Toast.LENGTH_SHORT).show();
+        in_signup = new Intent(Login.this,Signup.class);
+        startActivity(in_signup);
+
     }
 
 }

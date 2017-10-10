@@ -1,10 +1,12 @@
 package killbit.taskrabbit.actvity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import killbit.taskrabbit.R;
 
 /**
@@ -12,6 +14,11 @@ import killbit.taskrabbit.R;
  */
 
 public class Signup extends Activity {
+    Intent in_email_signup;
+
+
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,4 +26,11 @@ public class Signup extends Activity {
         ButterKnife.bind(this);
 
     }
+
+    @OnClick(R.id.button4)
+    public void cu(){
+        in_email_signup = new Intent(Signup.this,Signup_email.class);
+        startActivity(in_email_signup);
+    }
+
 }
