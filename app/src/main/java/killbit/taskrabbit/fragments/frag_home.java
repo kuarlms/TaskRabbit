@@ -64,35 +64,6 @@ public class frag_home extends Fragment {
     }
 
     private void mtd_calReg() {
-       /* mAPIService.rx_signUp(title, body, 1).enqueue(new Callback<Post>() {
-    @Override
-    public void onResponse(Call<Post> call, Response<Post> response) {
-
-        if(response.isSuccessful()) {
-            showResponse(response.body().toString());
-            Log.i(TAG, "post submitted to API." + response.body().toString());
-        }
-    }
-
-    @Override
-    public void onFailure(Call<Post> call, Throwable t) {
-        Log.e(TAG, "Unable to submit post to API.");
-    }
-});
-    }
-
-    public void showResponse(String response) {
-        if(mResponseTv.getVisibility() == View.GONE) {
-            mResponseTv.setVisibility(View.VISIBLE);
-        }
-        mResponseTv.setText(response);*/
-
-    /*    (@Header(ApiInterface.header) String header_value,
-                @Field("title") String title,
-                @Field("body") String body,
-        @Field("userId") long userId)*/
-
-
 
 
 

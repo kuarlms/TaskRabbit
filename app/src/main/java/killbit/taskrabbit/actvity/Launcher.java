@@ -21,7 +21,7 @@ public class Launcher extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         contextOfApplication = getApplicationContext();
-        i = new Intent(Launcher.this,MainActivity.class);
+        i = new Intent(Launcher.this,Login.class);
         Intent2Activity();
 
     }
