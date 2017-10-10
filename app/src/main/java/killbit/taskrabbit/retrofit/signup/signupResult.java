@@ -89,4 +89,15 @@ public class signupResult {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @Override
+    public String toString() {
+        return "signupResult{" +
+                "userId='" + userId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", proPic='" + proPic + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

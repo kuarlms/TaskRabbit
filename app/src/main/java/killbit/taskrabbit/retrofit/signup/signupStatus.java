@@ -30,4 +30,12 @@ public class signupStatus {
     public void setResult(signupResult result) {
         this.result = result;
     }
+
+    @Override
+    public String toString() {
+        return "signupStatus{" +
+                "status=" + status +
+                ", result=" + result +
+                '}';
+    }
 }

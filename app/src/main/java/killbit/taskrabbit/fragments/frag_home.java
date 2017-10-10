@@ -2,20 +2,20 @@ package killbit.taskrabbit.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import killbit.taskrabbit.R;
 import killbit.taskrabbit.retrofit.ApiInterface;
-import killbit.taskrabbit.retrofit.signup.SignUpReq;
+import killbit.taskrabbit.retrofit.ApiUtils;
 import killbit.taskrabbit.retrofit.signup.signupStatus;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static killbit.taskrabbit.retrofit.ApiInterface.retrofit;
 
 /**
  * Created by kural mughil selvam on 07-10-2017.
@@ -24,6 +24,7 @@ import static killbit.taskrabbit.retrofit.ApiInterface.retrofit;
 public class frag_home extends Fragment {
     private String title;
     private int page;
+    ApiInterface mAPIService;
 
     // newInstance constructor for creating fragment with arguments
     public static frag_home newInstance(int page, String title) {
@@ -50,26 +51,80 @@ public class frag_home extends Fragment {
         View view = inflater.inflate(R.layout.home_screen, container, false);
         TextView tvLabel = (TextView) view.findViewById(R.id.tv_home_frag);
         tvLabel.setText(page + " -- " + title);
-        SignUpReq signUpReq = null;
+        mAPIService = ApiUtils.getAPIService();
 
-     //   RestClient.get(this).PostPhoneContacts(sharedpreferences.getString(SharedPrefUtils.SpToken, ""),new ContactsReq(Contact.getInstance().email_list),
-        ApiInterface apiService =
-                retrofit.create(ApiInterface.class);
-        Call<signupStatus> call = apiService.rx_signUp(signUpReq);
-        call.enqueue(new Callback<signupStatus>() {
-            @Override
-            public void onResponse(Call<signupStatus> call, Response<signupStatus> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<signupStatus> call, Throwable t) {
-
-            }
-        });
+        try {
+            mtd_calReg();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         return view;
+    }
+
+    private void mtd_calReg() {
+       /* mAPIService.rx_signUp(title, body, 1).enqueue(new Callback<Post>() {
+    @Override
+    public void onResponse(Call<Post> call, Response<Post> response) {
+
+        if(response.isSuccessful()) {
+            showResponse(response.body().toString());
+            Log.i(TAG, "post submitted to API." + response.body().toString());
+        }
+    }
+
+    @Override
+    public void onFailure(Call<Post> call, Throwable t) {
+        Log.e(TAG, "Unable to submit post to API.");
+    }
+});
+    }
+
+    public void showResponse(String response) {
+        if(mResponseTv.getVisibility() == View.GONE) {
+            mResponseTv.setVisibility(View.VISIBLE);
+        }
+        mResponseTv.setText(response);*/
+
+    /*    (@Header(ApiInterface.header) String header_value,
+                @Field("title") String title,
+                @Field("body") String body,
+        @Field("userId") long userId)*/
+
+
+
+
+
+       mAPIService.rx_signUp(ApiInterface.header_value,"first_name","last_name","email@33.cv","password","147258369").enqueue(new Callback<signupStatus>() {
+           @Override
+           public void onResponse(Call<signupStatus> call, Response<signupStatus> response) {
+             //  Toast.makeText(getActivity(), ""+response.body().getStatus(), Toast.LENGTH_SHORT).show();
+               try {
+               if(response.body().getStatus() == 1){
+                   Toast.makeText(getActivity(), "Signup successfull", Toast.LENGTH_SHORT).show();
+               }else {
+                   Toast.makeText(getActivity(), "ALready Exists", Toast.LENGTH_SHORT).show();
+               }
+
+
+               } catch (Exception e) {
+                   e.printStackTrace();
+               }
+
+
+           }
+
+           @Override
+           public void onFailure(Call<signupStatus> call, Throwable t) {
+               Log.i("Signup e", "post submitted to API." + t.toString());
+           }
+       });
+
+
+
+
+
     }
 
 }
