@@ -20,5 +20,5 @@ public class Signup_email extends Activity {
 
     }
 
-    
+
 }
