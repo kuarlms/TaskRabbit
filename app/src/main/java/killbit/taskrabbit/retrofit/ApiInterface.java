@@ -24,9 +24,10 @@ public interface ApiInterface {
     SharedPrefferences sharedPrefferences = (SharedPrefferences) PreferenceManager.getDefaultSharedPreferences(applicationContext);
 
   static   String header = "app_id";
-  static    String header_value = "pictus_service_rabbit_01";
+  static   String header_value = "pictus_service_rabbit_01";
 
-
+ /* @POST("/commandService/addDevice")
+  void Registration(@Body RegRequest body, Callback<RegResp> callback);*/
 
     @Multipart
     @POST("user_signup")
