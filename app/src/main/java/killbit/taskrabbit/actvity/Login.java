@@ -54,6 +54,14 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
 
 
 
+ /*   keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore |
+    openssl sha1 -binary | openssl base64
+
+    on Windows run this command into Terminal:
+       
+    keytool -exportcert -alias androiddebugkey -keystore %HOMEPATH%\.android\debug.keystore |
+    openssl sha1 -binary | openssl base64*/
+
 
 
     @Override

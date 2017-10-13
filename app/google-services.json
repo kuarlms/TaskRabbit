@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "741712287011",
+    "firebase_url": "https://taskrabbit-fedac.firebaseio.com",
+    "project_id": "taskrabbit-fedac",
+    "storage_bucket": "taskrabbit-fedac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741712287011:android:3f0e0f31a262531e",
+        "android_client_info": {
+          "package_name": "killbit.taskrabbit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "741712287011-skihd3m9jt2qheklvd0jvjl7i12g4smn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "killbit.taskrabbit",
+            "certificate_hash": "4c10168880440f4282861c08d6a65eebea9fc4b3"
+          }
+        },
+        {
+          "client_id": "741712287011-d6suo9rjoepsf1d48ev26kjgolnu7oim.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyjorrCyoxa-IaAI7Q0hLI7uFIjPWgfiM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "741712287011-d6suo9rjoepsf1d48ev26kjgolnu7oim.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
