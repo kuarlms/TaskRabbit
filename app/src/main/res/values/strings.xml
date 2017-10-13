@@ -19,6 +19,8 @@
     <string name="two">TWO</string>
 
 
+    <string name="facebook_app_id">136560893565708</string>
+    <string name="fb_login_protocol_scheme">fb136560893565708</string>
 
     <string name="title_activity_icon_text_tabs">Icon and Text Tabs</string>
     <string name="title_activity_icon_tabs">Icon Tabs</string>

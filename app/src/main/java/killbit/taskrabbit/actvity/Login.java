@@ -9,6 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -36,6 +42,8 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
     GoogleSignInOptions gso;
     SignInButton GSignInButton;
     private String TAG = "gsin";
+    CallbackManager mCallbackManager;
+    LoginButton loginButton;
 
     int RC_SIGN_IN = 9001;
 
@@ -51,6 +59,8 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Initialize Facebook Login button
+        mCallbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_login);
         GSignInButton = findViewById(R.id.btn_google_sign_in);
         ButterKnife.bind(this);
@@ -70,14 +80,47 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
                 signIn();
             }
         });
+
+
+
+        loginButton = findViewById(R.id.button6);
+        loginButton.setReadPermissions("email", "public_profile");
+        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "facebook:onCancel");
+                // ...
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG, "facebook:onError", error);
+
+            }
+        });
+
+
+
+
+
     }
     @OnClick(R.id.button8)
     public void submit() {
         in_signup = new Intent(Login.this,Signup.class);
         startActivity(in_signup);
+        }
+
+    private void handleFacebookAccessToken(AccessToken accessToken) {
+        Toast.makeText(this, ""+accessToken.getUserId(), Toast.LENGTH_SHORT).show();
+
 
     }
-
 
 
     @Override
@@ -115,6 +158,8 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
         }
+
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
     // [END onActivityResult]
 
