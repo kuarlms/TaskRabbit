@@ -19,8 +19,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import killbit.taskrabbit.R;
 import killbit.taskrabbit.adapters.FrgtPageAdapter;
+import killbit.taskrabbit.objects.data_main_home;
+import killbit.taskrabbit.objects.data_sub_home;
 import killbit.taskrabbit.retrofit.ApiInterface;
 import killbit.taskrabbit.retrofit.ApiUtils;
 import killbit.taskrabbit.retrofit.home.Home_Resp;
@@ -36,6 +41,8 @@ public class MainActivity extends AppCompatActivity
     SharedPreferences sp;
     SharedPreferences.Editor  editor ;
     ViewPager vpPager;
+    data_main_home main_cat;
+    List<data_main_home> list_main_cat = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,9 +91,32 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<Home_Resp> call, Response<Home_Resp> response) {
 
+                data_sub_home sub_cat = null;
 
 
-                adapter_view = new FrgtPageAdapter(getSupportFragmentManager(),getApplicationContext());
+                for (int i = 0; i < response.body().getMainCatList().size(); i++) {
+
+
+
+                    for (int j = 0; j < response.body().getMainCatList().get(i).getSubcatList().size() ; j++) {
+                        sub_cat= new data_sub_home(response.body().getMainCatList().get(i).getSubcatList().get(j).getSubcatId(),
+                                response.body().getMainCatList().get(i).getSubcatList().get(j).getSubcatName(),
+                                response.body().getMainCatList().get(i).getSubcatList().get(j).getSubcatImage(),
+                                response.body().getMainCatList().get(i).getSubcatList().get(j).getAvgPrice()       );
+                    }
+
+                    main_cat = new data_main_home(response.body().getMainCatList().get(i).getCatId(),
+                            response.body().getMainCatList().get(i).getCatName(),
+                            response.body().getMainCatList().get(i).getCatIcon(),
+                            response.body().getMainCatList().get(i).getCatTitle(),
+                            sub_cat);
+
+                    list_main_cat.add(main_cat);
+
+                }
+
+
+                adapter_view = new FrgtPageAdapter(getSupportFragmentManager(),getApplicationContext(),list_main_cat);
                 vpPager.setAdapter(adapter_view);
             }
 
