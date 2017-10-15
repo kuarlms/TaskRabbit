@@ -5,9 +5,10 @@ import android.database.Observable;
 import android.preference.PreferenceManager;
 
 import killbit.taskrabbit.actvity.Launcher;
+import killbit.taskrabbit.retrofit.signIn.LoginResp;
 import killbit.taskrabbit.retrofit.signup.signupStatus;
 import killbit.taskrabbit.retrofit.uploadPpic.uplPpicStatus;
-import killbit.taskrabbit.utils.SharedPrefferences;
+import killbit.taskrabbit.utils.sp_task;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -21,7 +22,7 @@ import retrofit2.http.Part;
 
 public interface ApiInterface {
     Context applicationContext = Launcher.getContextOfApplication();
-    SharedPrefferences sharedPrefferences = (SharedPrefferences) PreferenceManager.getDefaultSharedPreferences(applicationContext);
+    sp_task sharedPrefferences = (sp_task) PreferenceManager.getDefaultSharedPreferences(applicationContext);
 
   static   String header = "app_id";
   static   String header_value = "pictus_service_rabbit_01";
@@ -34,13 +35,14 @@ public interface ApiInterface {
     Call<signupStatus> rf_signUp(@Header(header)String header_value,@Part("first_name") String first_name,
                         @Part("last_name") String last_name,
                         @Part("email") String email,
-                        @Part("email") String password,
-                        @Part("email") String phone);
+                        @Part("password") String password,
+                        @Part("phone") String phone,
+                        @Part("zipcode") String zipcode );
 
     @Multipart
     @POST("user_login_process")
-    Call<signupStatus> rf_signIn(@Header(header)String header_value,@Part("login_email") String login_email,
-                                 @Part("login_password") String login_password);
+    Call<LoginResp> rf_signIn(@Header(header)String header_value, @Part("login_email") String login_email,
+                              @Part("login_password") String login_password);
 
     //https://stackoverflow.com/questions/39953457/how-to-upload-image-file-in-retrofit-2
 

@@ -34,9 +34,6 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import killbit.taskrabbit.R;
 
 /**
@@ -52,23 +49,9 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
     private String TAG = "gsin";
     CallbackManager mCallbackManager;
     LoginButton loginButton;
+    Button btn_sigin_email,btn_signup_email;
 
     int RC_SIGN_IN = 9001;
-
-
-    @BindView(R.id.button8)
-    Button btn_signUp;
-
-
-
-
- /*   keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore |
-    openssl sha1 -binary | openssl base64
-
-    on Windows run this command into Terminal:
-
-    keytool -exportcert -alias androiddebugkey -keystore %HOMEPATH%\.android\debug.keystore |
-    openssl sha1 -binary | openssl base64*/
 
 
 
@@ -78,8 +61,10 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_login);
+        btn_sigin_email = findViewById(R.id.button8);
+        btn_signup_email = findViewById(R.id.button7);
+
         GSignInButton = findViewById(R.id.btn_google_sign_in);
-        ButterKnife.bind(this);
          gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -122,17 +107,27 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
 
             }
         });
+            btn_sigin_email.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
+                    in_signup = new Intent(Login.this,Signup_email.class);
+                    startActivity(in_signup);
+                }
+            });
 
+        btn_signup_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                in_signup = new Intent(Login.this,SignIn_email.class);
+                startActivity(in_signup);
+            }
+        });
 
 
     }
-    @OnClick(R.id.button8)
-    public void submit() {
-        in_signup = new Intent(Login.this,Signup.class);
-        startActivity(in_signup);
-        }
+
 
     private void handleFacebookAccessToken(AccessToken accessToken) {
         Toast.makeText(this, ""+accessToken.getUserId(), Toast.LENGTH_SHORT).show();

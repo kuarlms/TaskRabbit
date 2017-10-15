@@ -4,9 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="15dp"
-    tools:context="info.androidhive.materialtabs.Sign_up_with_email">
 
+    >
+    <include layout="@layout/toolbar_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tb_normal"
+        android:visibility="visible"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tb_normal">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:padding="15dp">
 
     <TextView
         android:id="@+id/textView13"
@@ -26,8 +42,8 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView13"
         android:ems="10"
-        android:inputType="textPersonName"
-         />
+        android:inputType="textEmailAddress"
+        />
 
     <TextView
         android:id="@+id/textView14"
@@ -48,7 +64,7 @@
         android:layout_below="@+id/textView14"
         android:ems="10"
         android:inputType="textPersonName"
-         />
+        />
 
     <TextView
         android:id="@+id/textView17"
@@ -68,14 +84,50 @@
         android:layout_below="@+id/textView17"
         android:ems="10"
         android:inputType="textPersonName"
-         />
+        />
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password"
+        android:layout_below="@+id/editText6"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/editText_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Phone"
+        android:layout_below="@+id/editText_password"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/editText_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="phone"
+        android:layout_below="@+id/textView32"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Zipcode"
-        android:layout_below="@+id/editText6"
+        android:layout_below="@+id/editText_phone"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -84,7 +136,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="text"
         android:layout_below="@+id/textView18"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -113,4 +165,8 @@
         android:layout_below="@+id/button9"
         android:layout_marginTop="35dp"
         android:text="@string/sign_up_text2" />
+
+</RelativeLayout>
+    </ScrollView>
+
 </RelativeLayout>

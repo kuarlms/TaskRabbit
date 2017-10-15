@@ -67,7 +67,7 @@ public class frag_home extends Fragment {
 
 
 
-       mAPIService.rf_signUp(ApiInterface.header_value,"first_name","last_name","email@33.cv","password","147258369").enqueue(new Callback<signupStatus>() {
+       mAPIService.rf_signUp(ApiInterface.header_value,"first_name","last_name","email@33.cv","password","147258369","620019").enqueue(new Callback<signupStatus>() {
            @Override
            public void onResponse(Call<signupStatus> call, Response<signupStatus> response) {
              //  Toast.makeText(getActivity(), ""+response.body().getStatus(), Toast.LENGTH_SHORT).show();

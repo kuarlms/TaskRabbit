@@ -2,10 +2,13 @@ package killbit.taskrabbit.actvity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
+import killbit.taskrabbit.utils.sp_task;
 
 /**
  * Created by kural mughil selvam on 08-10-2017.
@@ -17,11 +20,25 @@ public class Launcher extends AppCompatActivity {
     private static final int SPLASH_TIME_OUT = 100;
     public static Context contextOfApplication;
     Intent i ;
+    SharedPreferences sp;
+    SharedPreferences.Editor  editor ;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         contextOfApplication = getApplicationContext();
-        i = new Intent(Launcher.this,Login.class);
+        sp =  getSharedPreferences(sp_task.MyPref, Context.MODE_PRIVATE);
+
+
+
+        if(sp.getBoolean(sp_task.Sp_IsLoggedIn,false)){
+            i = new Intent(Launcher.this,MainActivity.class);
+        }else {
+            i = new Intent(Launcher.this,Login.class);
+        }
+
+
+
+
         Intent2Activity();
 
     }
