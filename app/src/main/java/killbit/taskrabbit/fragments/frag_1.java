@@ -21,14 +21,14 @@ import retrofit2.Response;
  * Created by kural mughil selvam on 07-10-2017.
  */
 
-public class frag_home extends Fragment {
+public class frag_1 extends Fragment {
     private String title;
     private int page;
     ApiInterface mAPIService;
 
     // newInstance constructor for creating fragment with arguments
-    public static frag_home newInstance(int page, String title) {
-        frag_home fragmentFirst = new frag_home();
+    public static frag_1 newInstance(int page, String title) {
+        frag_1 fragmentFirst = new frag_1();
         Bundle args = new Bundle();
         args.putInt("someInt", page);
         args.putString("someTitle", title);
@@ -54,7 +54,7 @@ public class frag_home extends Fragment {
         mAPIService = ApiUtils.getAPIService();
 
         try {
-          //  mtd_calReg();
+            mtd_calReg();
         } catch (Exception e) {
             e.printStackTrace();
         }

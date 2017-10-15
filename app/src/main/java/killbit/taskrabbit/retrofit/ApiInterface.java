@@ -5,6 +5,7 @@ import android.database.Observable;
 import android.preference.PreferenceManager;
 
 import killbit.taskrabbit.actvity.Launcher;
+import killbit.taskrabbit.retrofit.home.Home_Resp;
 import killbit.taskrabbit.retrofit.signIn.LoginResp;
 import killbit.taskrabbit.retrofit.signup.signupStatus;
 import killbit.taskrabbit.retrofit.uploadPpic.uplPpicStatus;
@@ -90,7 +91,7 @@ service.updateProfile(id, fullName, body, other)*/
 
     @Multipart
     @POST("home_page")
-    Call<signupStatus> rf_home_page(@Header(header)String header_value,@Part("email") String email);
+    Call<Home_Resp> rf_home_page(@Header(header)String header_value, @Part("email") String email);
 
     @Multipart
     @POST("booking_step1")

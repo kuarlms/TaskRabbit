@@ -1,9 +1,15 @@
 package killbit.taskrabbit.adapters;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 
+import killbit.taskrabbit.R;
 import killbit.taskrabbit.fragments.frag_home;
 
 /**
@@ -14,8 +20,10 @@ import killbit.taskrabbit.fragments.frag_home;
 public class FrgtPageAdapter extends FragmentPagerAdapter {
 
     int NUM_ITEMS = 3;
-    public FrgtPageAdapter(FragmentManager fragmentManager) {
+    Context mContext;
+    public FrgtPageAdapter(FragmentManager fragmentManager, Context applicationContext) {
         super(fragmentManager);
+        this.mContext = applicationContext;
     }
 
     // Returns total number of pages
@@ -42,7 +50,17 @@ public class FrgtPageAdapter extends FragmentPagerAdapter {
     // Returns the page title for the top indicator
     @Override
     public CharSequence getPageTitle(int position) {
-        return "Page " + position;
+
+        SpannableStringBuilder sb = new SpannableStringBuilder(" Page " + (position + 1)); // space added before text for convenience
+
+        Drawable drawable = mContext.getResources().getDrawable( R.drawable.ic_menu_slideshow );
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        ImageSpan span = new ImageSpan(drawable, ImageSpan.ALIGN_BASELINE);
+        sb.setSpan(span, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        return sb;
+
+     //   return "Page " + position;
     }
 
 

@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include layout="@layout/toolbar_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tb_home"
+        android:visibility="visible"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <android.support.v4.view.ViewPager
         android:layout_marginTop="?attr/actionBarSize"
         android:id="@+id/vpPager_home"
@@ -11,14 +22,18 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
 
+
         <android.support.v4.view.PagerTabStrip
+
             android:id="@+id/pager_header_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:paddingBottom="4dp"
-            android:background="@color/colorAccent"
-            android:paddingTop="4dp" />
+            app:tabIndicatorHeight="4dp"
+            app:tabIndicatorColor="@android:color/white"
+            android:background="@color/colorPrimary"
+
+             />
     </android.support.v4.view.ViewPager>
 
 </RelativeLayout>

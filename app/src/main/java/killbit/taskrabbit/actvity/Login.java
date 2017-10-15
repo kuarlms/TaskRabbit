@@ -1,6 +1,8 @@
 package killbit.taskrabbit.actvity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -35,6 +37,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import killbit.taskrabbit.R;
+import killbit.taskrabbit.utils.sp_task;
 
 /**
  * Created by kural on 10/10/17.
@@ -50,8 +53,10 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
     CallbackManager mCallbackManager;
     LoginButton loginButton;
     Button btn_sigin_email,btn_signup_email;
-
+    SharedPreferences sp;
+    SharedPreferences.Editor  editor ;
     int RC_SIGN_IN = 9001;
+    Intent i ;
 
 
 
@@ -59,6 +64,11 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Initialize Facebook Login button
+        sp =  getSharedPreferences(sp_task.MyPref, Context.MODE_PRIVATE);
+        editor =sp.edit();
+        i = new Intent(Login.this,MainActivity.class);
+
+
         mCallbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_login);
         btn_sigin_email = findViewById(R.id.button8);
@@ -113,6 +123,7 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
 
                     in_signup = new Intent(Login.this,Signup_email.class);
                     startActivity(in_signup);
+
                 }
             });
 
@@ -153,10 +164,11 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
             String id = object.getString("id");
 
             try {
+
                 URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");
                 Log.i("profile_pic", profile_pic + "");
                 bundle.putString("profile_pic", profile_pic.toString());
-
+                editor.putString(sp_task.Sp_profile_pic, profile_pic.toString());
             } catch (MalformedURLException e) {
                 e.printStackTrace();
                 return null;
@@ -165,17 +177,23 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
             bundle.putString("idFacebook", id);
             if (object.has("first_name"))
                 bundle.putString("first_name", object.getString("first_name"));
+            editor.putString(sp_task.Sp_name,object.getString("first_name"));
             if (object.has("last_name"))
                 bundle.putString("last_name", object.getString("last_name"));
             if (object.has("email"))
                 bundle.putString("email", object.getString("email"));
+                editor.putString(sp_task.Sp_email,object.getString("email"));
+                editor.putBoolean(sp_task.Sp_IsLoggedIn,true);
+
             if (object.has("gender"))
                 bundle.putString("gender", object.getString("gender"));
             if (object.has("birthday"))
                 bundle.putString("birthday", object.getString("birthday"));
             if (object.has("location"))
                 bundle.putString("location", object.getJSONObject("location").getString("name"));
-
+            editor.commit();
+            startActivity(i);
+            finish();
             return bundle;
         } catch (JSONException e) {
             Log.d(TAG, "Error parsing JSON");
@@ -230,8 +248,14 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-
-            Toast.makeText(Login.this, ""+acct.getDisplayName(), Toast.LENGTH_SHORT).show();
+            editor.putString(sp_task.Sp_email,acct.getEmail());
+            editor.putString(sp_task.Sp_name,acct.getDisplayName());
+            editor.putString(sp_task.Sp_profile_pic, String.valueOf(acct.getPhotoUrl()));
+            editor.putBoolean(sp_task.Sp_IsLoggedIn,true);
+            editor.commit();
+            startActivity(i);
+            finish();
+           // Toast.makeText(Login.this, ""+acct.getDisplayName(), Toast.LENGTH_SHORT).show();
         } else {
             // Signed out, show unauthenticated UI.
         }
@@ -286,10 +310,12 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(sp.getBoolean(sp_task.Sp_IsLoggedIn,false)){
+            finish();
+        }
 
-
-
-
-
-
+    }
 }

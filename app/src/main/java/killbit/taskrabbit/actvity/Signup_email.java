@@ -102,14 +102,13 @@ public class Signup_email extends Activity implements Validator.ValidationListen
                 et_zip.getText().toString()).enqueue(new Callback<signupStatus>() {
             @Override
             public void onResponse(Call<signupStatus> call, Response<signupStatus> response) {
-                //  Toast.makeText(getActivity(), ""+response.body().getStatus(), Toast.LENGTH_SHORT).show();
+
                 try {
                     if(response.body().getStatus() == 1){
-                        Toast.makeText(getApplicationContext(), "Sign-up successful.", Toast.LENGTH_SHORT).show();
-                        editor.putBoolean(sp_task.Sp_IsLoggedIn,true);
-                        editor.commit();
+                        Toast.makeText(getApplicationContext(), "Sign-up successful, signIn to proceed.", Toast.LENGTH_SHORT).show();
+
                         Intent i ;
-                        i = new Intent(Signup_email.this,MainActivity.class);
+                        i = new Intent(Signup_email.this,SignIn_email.class);
                         startActivity(i);
                         finish();
 

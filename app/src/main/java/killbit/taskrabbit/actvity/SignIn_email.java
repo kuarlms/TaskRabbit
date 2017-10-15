@@ -42,6 +42,7 @@ public class SignIn_email extends Activity implements Validator.ValidationListen
     Button btn_login;
     SharedPreferences sp;
     SharedPreferences.Editor  editor ;
+    Intent i ;
 
     @NotEmpty
     @Email
@@ -58,8 +59,9 @@ public class SignIn_email extends Activity implements Validator.ValidationListen
         setContentView(R.layout.activity_sign_in_with_email);
         ButterKnife.bind(this);
         sp =  getSharedPreferences(sp_task.MyPref, Context.MODE_PRIVATE);
+        editor =sp.edit();
 
-
+        i = new Intent(SignIn_email.this,MainActivity.class);
 
         btn_login = findViewById(R.id.button_login);
 
@@ -67,7 +69,7 @@ public class SignIn_email extends Activity implements Validator.ValidationListen
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(SignIn_email.this, "cc", Toast.LENGTH_LONG).show();
+               // Toast.makeText(SignIn_email.this, "cc", Toast.LENGTH_LONG).show();
                 validator.validate();
             }
         });
@@ -103,19 +105,22 @@ public class SignIn_email extends Activity implements Validator.ValidationListen
               @Override
               public void onResponse(Call<LoginResp> call, Response<LoginResp> response) {
 
-                  if(response.body().getStatus().equals("1")){
+                  if(response.body().getStatus()== 1){
 
-
+                      editor.putString(sp_task.Sp_profile_pic,response.body().getResult().getProPic());
+                      editor.putString(sp_task.Sp_name,response.body().getResult().getFirstName());
+                      editor.putString(sp_task.Sp_email,et_email.getText().toString().trim());
                       editor.putBoolean(sp_task.Sp_IsLoggedIn,true);
                       editor.commit();
-                      Intent i ;
-                      i = new Intent(SignIn_email.this,MainActivity.class);
+
                       startActivity(i);
                       finish();
 
 
                   }else if(response.body().getStatus().equals("0")) {
+
                       Toast.makeText(SignIn_email.this, "Login Failed ,Invalid login detail.", Toast.LENGTH_SHORT).show();
+
                   }
 
 
