@@ -18,6 +18,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -159,20 +160,22 @@ public class MainActivity extends AppCompatActivity
 
                 for (int i = 0; i < response.body().getMainCatList().size(); i++) {
 
-
-
                     for (int j = 0; j < response.body().getMainCatList().get(i).getSubcatList().size() ; j++) {
                         sub_cat= new data_sub_home(response.body().getMainCatList().get(i).getSubcatList().get(j).getSubcatId(),
                                 response.body().getMainCatList().get(i).getSubcatList().get(j).getSubcatName(),
                                 response.body().getMainCatList().get(i).getSubcatList().get(j).getSubcatImage(),
                                 response.body().getMainCatList().get(i).getSubcatList().get(j).getAvgPrice()       );
+
                     }
+                 List<data_sub_home> sub_list = new ArrayList<data_sub_home>();
+                 sub_list.add(sub_cat);
 
                     main_cat = new data_main_home(response.body().getMainCatList().get(i).getCatId(),
                             response.body().getMainCatList().get(i).getCatName(),
                             response.body().getMainCatList().get(i).getCatIcon(),
                             response.body().getMainCatList().get(i).getCatTitle(),
-                            sub_cat);
+                            sub_list);
+                    Log.d("list",sub_cat.getSubcat_name());
 
                     list_main_cat.add(main_cat);
 

@@ -40,7 +40,7 @@ public class frag_home extends Fragment {
         frag_home fragmentFirst = new frag_home();
         Bundle args = new Bundle();
         args.putInt("someInt", page);
-        args.putString("someTitle", list_data.get(2).getSubcat_name());
+        args.putString("someTitle", list_data.get(0).getSubcat_name());
         fragmentFirst.setArguments(args);
         return fragmentFirst;
     }

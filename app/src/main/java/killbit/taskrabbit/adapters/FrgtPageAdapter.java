@@ -28,23 +28,24 @@ import killbit.taskrabbit.objects.data_sub_home;
 
 public class FrgtPageAdapter extends FragmentPagerAdapter {
 
-    int NUM_ITEMS = 3;
+
     Context mContext;
     List<data_main_home> list_main_cat = new ArrayList<>();
     List<data_sub_home> list_sub_cat = new ArrayList<>();
     data_sub_home   sub_data;
 
     public FrgtPageAdapter(FragmentManager fragmentManager, Context applicationContext, List<data_main_home> list_main_cat) {
+
         super(fragmentManager);
         this.mContext = applicationContext;
         this.list_main_cat = list_main_cat;
-        NUM_ITEMS = list_main_cat.size();
+
     }
 
     // Returns total number of pages
     @Override
     public int getCount() {
-        return NUM_ITEMS;
+        return list_main_cat.size();
     }
 
     // Returns the fragment to display for that page
@@ -55,14 +56,14 @@ public class FrgtPageAdapter extends FragmentPagerAdapter {
         for (int i = 0; i <list_main_cat.size() ; i++) {
 
 
-              for (int j = 0; j <list_main_cat.get(i).getSub_data().getAvg_price().length() ; j++) {
+              for (int j = 0; j <list_main_cat.get(i).getSub_data().size() ; j++) {
 
               sub_data = new data_sub_home(
-              list_main_cat.get(j).getSub_data().getSubcat_id(),
-              list_main_cat.get(j).getSub_data().getSubcat_name(),
-              list_main_cat.get(j).getSub_data().getSubcat_image(),
-              list_main_cat.get(j).getSub_data().getAvg_price()) ;
-
+              list_main_cat.get(i).getSub_data().get(j).getSubcat_id(),
+              list_main_cat.get(i).getSub_data().get(j).getSubcat_name(),
+              list_main_cat.get(i).getSub_data().get(j).getSubcat_image(),
+              list_main_cat.get(i).getSub_data().get(j).getAvg_price()) ;
+                //  Log.d("list",list_main_cat.get(i).getCat_title());
                 list_sub_cat.add(sub_data);
             }
 
