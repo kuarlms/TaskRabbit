@@ -14,6 +14,8 @@ public class data_sub_home {
         this.avg_price = avg_price;
     }
 
+
+
     public String getSubcat_id() {
         return subcat_id;
     }

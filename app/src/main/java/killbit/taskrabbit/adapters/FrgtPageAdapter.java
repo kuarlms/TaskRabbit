@@ -19,6 +19,7 @@ import java.util.List;
 
 import killbit.taskrabbit.fragments.frag_home;
 import killbit.taskrabbit.objects.data_main_home;
+import killbit.taskrabbit.objects.data_sub_home;
 
 /**
  * Created by kural mughil selvam on 07-10-2017.
@@ -30,6 +31,9 @@ public class FrgtPageAdapter extends FragmentPagerAdapter {
     int NUM_ITEMS = 3;
     Context mContext;
     List<data_main_home> list_main_cat = new ArrayList<>();
+    List<data_sub_home> list_sub_cat = new ArrayList<>();
+    data_sub_home   sub_data;
+
     public FrgtPageAdapter(FragmentManager fragmentManager, Context applicationContext, List<data_main_home> list_main_cat) {
         super(fragmentManager);
         this.mContext = applicationContext;
@@ -47,9 +51,22 @@ public class FrgtPageAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        for (int i = 0; i <NUM_ITEMS ; i++) {
 
-          return frag_home.newInstance(i, "Page #"+i);
+        for (int i = 0; i <list_main_cat.size() ; i++) {
+
+
+              for (int j = 0; j <list_main_cat.get(i).getSub_data().getAvg_price().length() ; j++) {
+
+              sub_data = new data_sub_home(
+              list_main_cat.get(j).getSub_data().getSubcat_id(),
+              list_main_cat.get(j).getSub_data().getSubcat_name(),
+              list_main_cat.get(j).getSub_data().getSubcat_image(),
+              list_main_cat.get(j).getSub_data().getAvg_price()) ;
+
+                list_sub_cat.add(sub_data);
+            }
+
+          return frag_home.newInstance(i, list_sub_cat);
         }
 
    /*     switch (position) {

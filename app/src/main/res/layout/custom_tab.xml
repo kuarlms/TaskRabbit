@@ -5,4 +5,5 @@
     android:id="@+id/tab"
     android:textColor="@color/colorAccent"
     android:textSize="@dimen/tab_label"
+    android:drawableTop="@drawable/com_facebook_button_icon_white"
     android:fontFamily="@string/font_fontFamily_medium"/>

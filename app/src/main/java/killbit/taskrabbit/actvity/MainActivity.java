@@ -2,23 +2,32 @@ package killbit.taskrabbit.actvity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +51,7 @@ public class MainActivity extends AppCompatActivity
     SharedPreferences.Editor  editor ;
     ViewPager vpPager;
     data_main_home main_cat;
+    TabLayout tabLayout;
     List<data_main_home> list_main_cat = new ArrayList<>();
 
     @Override
@@ -51,10 +61,12 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         vpPager = (ViewPager) findViewById(R.id.vpPager_home);
-        PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_header_home);
+  /*      PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_header_home);
         pagerTabStrip.setDrawFullUnderline(true);
         pagerTabStrip.setTabIndicatorColor(Color.WHITE);
-        pagerTabStrip.setTextColor(Color.WHITE);
+        pagerTabStrip.setTextColor(Color.WHITE);*/
+        tabLayout = (TabLayout) findViewById(R.id.tab_home);
+        tabLayout.setupWithViewPager(vpPager);
 
         sp =  getSharedPreferences(sp_task.MyPref, Context.MODE_PRIVATE);
         editor =sp.edit();
@@ -82,6 +94,57 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    private void setupTabIcons() {
+
+
+        for (int i = 0; i < list_main_cat.size() ; i++) {
+
+     /*       ImageView tabOne = (ImageView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+            Glide.with(getApplicationContext()).load(list_main_cat.get(i).getCat_icon()).into(tabOne);
+          *//*  try {
+                Drawable db = drawableFromUrl(list_main_cat.get(i).getCat_icon());
+                tabOne.setCompoundDrawablesWithIntrinsicBounds(0, db, 0, 0);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }*//*
+            tabLayout.getTabAt(0).setCustomView(tabOne);*/
+            TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+            tabOne.setText(list_main_cat.get(i).getCat_title());
+         //   tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_tab_favourite, 0, 0);
+            tabLayout.getTabAt(i).setCustomView(tabOne);
+            tabOne.clearComposingText();
+
+
+        }
+
+/*        TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        tabOne.setText("ONE");
+        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_tab_favourite, 0, 0);
+        tabLayout.getTabAt(0).setCustomView(tabOne);
+
+        TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        tabTwo.setText("TWO");
+        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_tab_call, 0, 0);
+        tabLayout.getTabAt(1).setCustomView(tabTwo);
+
+        TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        tabThree.setText("THREE");
+        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_tab_contacts, 0, 0);
+        tabLayout.getTabAt(2).setCustomView(tabThree);
+        */
+
+
+    }
+    public static Drawable drawableFromUrl(String url) throws IOException {
+        Bitmap x;
+
+        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+        connection.connect();
+        InputStream input = connection.getInputStream();
+
+        x = BitmapFactory.decodeStream(input);
+        return new BitmapDrawable(x);
+    }
     private void api_home() {
 
         ApiInterface mAPIService;
@@ -118,6 +181,8 @@ public class MainActivity extends AppCompatActivity
 
                 adapter_view = new FrgtPageAdapter(getSupportFragmentManager(),getApplicationContext(),list_main_cat);
                 vpPager.setAdapter(adapter_view);
+                setupTabIcons();
+
             }
 
             @Override

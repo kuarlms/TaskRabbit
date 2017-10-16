@@ -2,6 +2,7 @@ package killbit.taskrabbit.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import killbit.taskrabbit.R;
+import killbit.taskrabbit.adapters.home_screen_adapter;
+import killbit.taskrabbit.objects.data_sub_home;
 import killbit.taskrabbit.retrofit.ApiInterface;
 import killbit.taskrabbit.retrofit.ApiUtils;
 import killbit.taskrabbit.retrofit.signup.signupStatus;
@@ -25,13 +31,16 @@ public class frag_home extends Fragment {
     private String title;
     private int page;
     ApiInterface mAPIService;
+    RecyclerView recyclerView;
+    home_screen_adapter recy_screen_adapter;
+    List< data_sub_home> list_data = new ArrayList<>();
 
     // newInstance constructor for creating fragment with arguments
-    public static frag_home newInstance(int page, String title) {
+    public static frag_home newInstance(int page, List<data_sub_home> list_data) {
         frag_home fragmentFirst = new frag_home();
         Bundle args = new Bundle();
         args.putInt("someInt", page);
-        args.putString("someTitle", title);
+        args.putString("someTitle", list_data.get(2).getSubcat_name());
         fragmentFirst.setArguments(args);
         return fragmentFirst;
     }
@@ -40,8 +49,11 @@ public class frag_home extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        page = getArguments().getInt("someInt", 0);
-        title = getArguments().getString("someTitle");
+        page = getArguments().getInt("someInt", page);
+        title = getArguments().getString("someTitle",title);
+
+
+
     }
 
     // Inflate the view for the fragment based on layout XML
@@ -49,8 +61,16 @@ public class frag_home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_screen, container, false);
+        recyclerView = view.findViewById(R.id.recyclerView_frag_home);
+
+        recy_screen_adapter = new home_screen_adapter(list_data,getActivity().getApplicationContext());
+
+        for (int i = 0; i < list_data.size(); i++) {
+            Toast.makeText(getActivity(), ""+list_data.get(i).getSubcat_name(), Toast.LENGTH_SHORT).show();
+
+        }
         TextView tvLabel = (TextView) view.findViewById(R.id.tv_home_frag);
-        tvLabel.setText(page + " -- " + title);
+        tvLabel.setText(page + " -- " + list_data.size());
         mAPIService = ApiUtils.getAPIService();
 
         try {

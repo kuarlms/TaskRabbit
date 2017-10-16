@@ -1,12 +1,28 @@
 package killbit.taskrabbit.adapters;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+
+import java.util.List;
+
+import killbit.taskrabbit.R;
+import killbit.taskrabbit.objects.data_sub_home;
+
 /**
  * Created by kural mughil selvam on 15-10-2017.
  */
 
-public class home_screen_adapter{}/* extends RecyclerView.Adapter<home_screen_adapter.MyViewHolder>{
+public class home_screen_adapter extends RecyclerView.Adapter<home_screen_adapter.MyViewHolder>{
 
-  *//*  private List<AlertStreamModelList> ListData;
+    private List<data_sub_home> ListData;
     Context context;
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
@@ -14,38 +30,43 @@ public class home_screen_adapter{}/* extends RecyclerView.Adapter<home_screen_ad
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, user_name, time,date;
-        ImageView iv_thumb,iv_playIcon,iv_mic_top_left;
+        public TextView tv_title, tv_cost;
+        ImageView iv_image;
 
 
 
         public MyViewHolder(View view, Context context) {
             super(view);
-            iv_thumb = (ImageView) view.findViewById(R.id.ns_adp_iv_thumb);
-            iv_playIcon = (ImageView) view.findViewById(R.id.ns_adp_iv_playicon);
+            iv_image = view.findViewById(R.id.iv_adp_home);
+            tv_title =view.findViewById(R.id.txt_adp_cat_name);
+            tv_cost =view.findViewById(R.id.txt_adp_cost);
+
 
         }
     }
 
 
-    public home_screen_adapter(List<AlertStreamModelList> ListData, Context context, OnRecyclerListener recyclerListener) {
+    public home_screen_adapter(List<data_sub_home> ListData, Context context) {
         this.ListData = ListData;
         this.context = context;
-        this.recyclerListener =recyclerListener;
+
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.adapter_notification_stream, parent, false);
+                .inflate(R.layout.adapter_home, parent, false);
 
         return new MyViewHolder(itemView, context);
     }
 
     @Override
     public void onBindViewHolder( MyViewHolder holder,  int position) {
-         AlertStreamModelList notificationStreamModelList = ListData.get(position);
-        holder.title.setText(StringUtils.capitalize(notificationStreamModelList.getTitle()).trim());
+        data_sub_home listData = ListData.get(position);
+        holder.tv_title.setText(listData.getSubcat_name());
+        holder.tv_cost.setText(listData.getAvg_price());
+        Glide.with(context).load(listData.getSubcat_image()).into(holder.iv_image);
+
 
 
     }
@@ -58,7 +79,6 @@ public class home_screen_adapter{}/* extends RecyclerView.Adapter<home_screen_ad
     @Override
     public int getItemCount() {
         return ListData.size();
-    }*//*
+    }
 
 }
-*/
