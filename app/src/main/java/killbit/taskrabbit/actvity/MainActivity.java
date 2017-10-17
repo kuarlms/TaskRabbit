@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity
                             response.body().getMainCatList().get(i).getCatIcon(),
                             response.body().getMainCatList().get(i).getCatTitle(),
                             sub_list);
-                    Log.d("list",sub_cat.getSubcat_name());
+                    Log.d("list main",response.body().getMainCatList().get(i).getCatName());
 
                     list_main_cat.add(main_cat);
 

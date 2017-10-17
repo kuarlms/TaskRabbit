@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.text.SpannableStringBuilder;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,8 +32,7 @@ public class FrgtPageAdapter extends FragmentPagerAdapter {
 
     Context mContext;
     List<data_main_home> list_main_cat = new ArrayList<>();
-    List<data_sub_home> list_sub_cat = new ArrayList<>();
-    data_sub_home   sub_data;
+
 
     public FrgtPageAdapter(FragmentManager fragmentManager, Context applicationContext, List<data_main_home> list_main_cat) {
 
@@ -55,18 +55,20 @@ public class FrgtPageAdapter extends FragmentPagerAdapter {
 
         for (int i = 0; i <list_main_cat.size() ; i++) {
 
+            List<data_sub_home> list_sub_cat = new ArrayList<>();
+            data_sub_home   sub_data;
 
-              for (int j = 0; j <list_main_cat.get(i).getSub_data().size() ; j++) {
+            for (int j = 0; j <list_main_cat.get(i).getSub_data().size() ; j++) {
 
               sub_data = new data_sub_home(
               list_main_cat.get(i).getSub_data().get(j).getSubcat_id(),
               list_main_cat.get(i).getSub_data().get(j).getSubcat_name(),
               list_main_cat.get(i).getSub_data().get(j).getSubcat_image(),
               list_main_cat.get(i).getSub_data().get(j).getAvg_price()) ;
-                //  Log.d("list",list_main_cat.get(i).getCat_title());
-                list_sub_cat.add(sub_data);
-            }
 
+             list_sub_cat.add(sub_data);
+            }
+           Log.d("ixx",i+"-"+list_main_cat.get(i).getCat_title());
           return frag_home.newInstance(i, list_sub_cat);
         }
 
