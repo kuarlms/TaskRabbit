@@ -52,37 +52,32 @@ public class FrgtPageAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
+        List<data_sub_home> list_sub_cat = new ArrayList<>();
+        data_sub_home   sub_data;
 
-        for (int i = 0; i <list_main_cat.size() ; i++) {
+        int i =position;
 
-            List<data_sub_home> list_sub_cat = new ArrayList<>();
-            data_sub_home   sub_data;
-
-            for (int j = 0; j <list_main_cat.get(i).getSub_data().size() ; j++) {
+        for (int j = 0; j <list_main_cat.get(i).getSub_data().size() ; j++) {
 
               sub_data = new data_sub_home(
               list_main_cat.get(i).getSub_data().get(j).getSubcat_id(),
               list_main_cat.get(i).getSub_data().get(j).getSubcat_name(),
               list_main_cat.get(i).getSub_data().get(j).getSubcat_image(),
               list_main_cat.get(i).getSub_data().get(j).getAvg_price()) ;
-
+              Log.d("ixx",i+"-"+list_main_cat.get(i).getCat_title()+"--"+list_main_cat.get(i).getSub_data().get(j).getSubcat_name());
              list_sub_cat.add(sub_data);
-            }
-           Log.d("ixx",i+"-"+list_main_cat.get(i).getCat_title());
-          return frag_home.newInstance(i, list_sub_cat);
-        }
 
-   /*     switch (position) {
-            case 0: // Fragment # 0 - This will show FirstFragment
-                return frag_home.newInstance(0, "Page # 1");
-            case 1: // Fragment # 0 - This will show FirstFragment different title
-                return frag_home.newInstance(1, "Page # 2");
-            case 2: // Fragment # 1 - This will show SecondFragment
-                return frag_home.newInstance(2, "Page # 3");
-            default:
-                return null;
-        }*/
-   return null;
+            return frag_home.newInstance(i, list_sub_cat);
+         }
+
+
+
+
+
+
+        return null;
+
+
     }
 
     // Returns the page title for the top indicator

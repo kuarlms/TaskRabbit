@@ -18,7 +18,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -175,14 +174,17 @@ public class MainActivity extends AppCompatActivity
                             response.body().getMainCatList().get(i).getCatIcon(),
                             response.body().getMainCatList().get(i).getCatTitle(),
                             sub_list);
-                    Log.d("list main",response.body().getMainCatList().get(i).getCatName());
+                   //
 
-                    list_main_cat.add(main_cat);
+                 list_main_cat.add(main_cat);
 
                 }
-
+               /* for (int i = 0; i < list_main_cat.size(); i++) {
+                    Log.d("list main",list_main_cat.get(i).getCat_title());
+                }*/
 
                 adapter_view = new FrgtPageAdapter(getSupportFragmentManager(),getApplicationContext(),list_main_cat);
+                vpPager.setOffscreenPageLimit(list_main_cat.size());
                 vpPager.setAdapter(adapter_view);
                 setupTabIcons();
 
