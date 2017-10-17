@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity
     data_main_home main_cat;
     TabLayout tabLayout;
     List<data_main_home> list_main_cat = new ArrayList<>();
+    ProgressBar pb;
+    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         vpPager = (ViewPager) findViewById(R.id.vpPager_home);
+        pb = findViewById(R.id.pb_home_loading);
   /*      PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_header_home);
         pagerTabStrip.setDrawFullUnderline(true);
         pagerTabStrip.setTabIndicatorColor(Color.WHITE);
@@ -189,6 +193,7 @@ public class MainActivity extends AppCompatActivity
                 adapter_view = new FrgtPageAdapter(getSupportFragmentManager(),getApplicationContext(),list_main_cat);
                 vpPager.setOffscreenPageLimit(list_main_cat.size());
                 vpPager.setAdapter(adapter_view);
+                pb.setVisibility(View.GONE);
                 setupTabIcons();
 
             }
@@ -238,7 +243,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+    /*    int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
@@ -253,8 +258,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+*/
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

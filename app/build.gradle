@@ -41,6 +41,7 @@ dependencies {
     compile 'com.mobsandgeeks:android-saripaar:2.0.2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
   //  testCompile 'junit:junit:4.12'
+    compile 'com.nex3z:notification-badge:0.2.0'
 
     compile 'com.github.bumptech.glide:glide:4.2.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.2.0'

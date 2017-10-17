@@ -29,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="?attr/actionBarSize"
         android:layout_centerInParent="true"
+        android:id="@+id/pb_home_loading"
         />
     <android.support.v4.view.ViewPager
         android:layout_marginTop="?attr/actionBarSize"
