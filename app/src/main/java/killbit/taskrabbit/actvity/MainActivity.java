@@ -18,6 +18,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -154,37 +155,40 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<Home_Resp> call, Response<Home_Resp> response) {
 
-                data_sub_home sub_cat = null;
+
 
 
                 for (int i = 0; i < response.body().getMainCatList().size(); i++) {
+                    List<data_sub_home> sub_list = new ArrayList<data_sub_home>();
+
 
                     for (int j = 0; j < response.body().getMainCatList().get(i).getSubcatList().size() ; j++) {
+                        data_sub_home sub_cat = null;
                         sub_cat= new data_sub_home(response.body().getMainCatList().get(i).getSubcatList().get(j).getSubcatId(),
                                 response.body().getMainCatList().get(i).getSubcatList().get(j).getSubcatName(),
                                 response.body().getMainCatList().get(i).getSubcatList().get(j).getSubcatImage(),
-                                response.body().getMainCatList().get(i).getSubcatList().get(j).getAvgPrice()       );
+                                response.body().getMainCatList().get(i).getSubcatList().get(j).getAvgPrice());
+                        sub_list.add(sub_cat);
+                     }
 
-                    }
-                 List<data_sub_home> sub_list = new ArrayList<data_sub_home>();
-                 sub_list.add(sub_cat);
 
-                    main_cat = new data_main_home(response.body().getMainCatList().get(i).getCatId(),
+
+                 main_cat = new data_main_home(response.body().getMainCatList().get(i).getCatId(),
                             response.body().getMainCatList().get(i).getCatName(),
                             response.body().getMainCatList().get(i).getCatIcon(),
                             response.body().getMainCatList().get(i).getCatTitle(),
                             sub_list);
-                   //
 
-                 list_main_cat.add(main_cat);
-
+                list_main_cat.add(main_cat);
+                 Log.d("Sub lis siz",i+"--"+sub_list.size());
+                
                 }
                /* for (int i = 0; i < list_main_cat.size(); i++) {
                     Log.d("list main",list_main_cat.get(i).getCat_title());
                 }*/
 
                 adapter_view = new FrgtPageAdapter(getSupportFragmentManager(),getApplicationContext(),list_main_cat);
-                vpPager.setOffscreenPageLimit(list_main_cat.size());
+               // vpPager.setOffscreenPageLimit(list_main_cat.size());
                 vpPager.setAdapter(adapter_view);
                 setupTabIcons();
 

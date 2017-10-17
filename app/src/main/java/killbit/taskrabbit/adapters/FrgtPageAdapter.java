@@ -57,6 +57,8 @@ public class FrgtPageAdapter extends FragmentPagerAdapter {
 
         int i =position;
 
+        Log.d("ixx--s",i+"-"+ list_main_cat.get(i).getSub_data().size());
+
         for (int j = 0; j <list_main_cat.get(i).getSub_data().size() ; j++) {
 
               sub_data = new data_sub_home(
@@ -64,20 +66,11 @@ public class FrgtPageAdapter extends FragmentPagerAdapter {
               list_main_cat.get(i).getSub_data().get(j).getSubcat_name(),
               list_main_cat.get(i).getSub_data().get(j).getSubcat_image(),
               list_main_cat.get(i).getSub_data().get(j).getAvg_price()) ;
-              Log.d("ixx",i+"-"+list_main_cat.get(i).getCat_title()+"--"+list_main_cat.get(i).getSub_data().get(j).getSubcat_name());
-             list_sub_cat.add(sub_data);
 
-            return frag_home.newInstance(i, list_sub_cat);
+             list_sub_cat.add(sub_data);
          }
 
-
-
-
-
-
-        return null;
-
-
+        return frag_home.newInstance(i, list_sub_cat);
     }
 
     // Returns the page title for the top indicator

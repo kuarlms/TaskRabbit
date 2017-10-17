@@ -39,6 +39,7 @@ public class frag_home extends Fragment {
     public static frag_home newInstance(int page, List<data_sub_home> list_datas) {
         frag_home fragmentFirst = new frag_home();
         fragmentFirst.list_data=list_datas;
+
         Bundle args = new Bundle();
         args.putInt("someInt", page);
         args.putString("someTitle", list_datas.get(0).getSubcat_name());
@@ -63,14 +64,12 @@ public class frag_home extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_screen, container, false);
         recyclerView = view.findViewById(R.id.recyclerView_frag_home);
-        Toast.makeText(getActivity(), ""+list_data.size(), Toast.LENGTH_SHORT).show();
-        recy_screen_adapter = new home_screen_adapter(list_data,getActivity().getApplicationContext());
-
-     /*   for (int i = 0; i < list_data.size(); i++) {
-            Toast.makeText(getActivity(), ""+list_data.get(i).getSubcat_name(), Toast.LENGTH_SHORT).show();
-
-        }*/
         TextView tvLabel = (TextView) view.findViewById(R.id.tv_home_frag);
+
+        recy_screen_adapter = new home_screen_adapter(list_data,getActivity().getApplicationContext());
+        recyclerView.setAdapter(recy_screen_adapter);
+
+
         tvLabel.setText(page + " -- " + list_data.size());
         mAPIService = ApiUtils.getAPIService();
 
