@@ -4,10 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingRight="10dp"
     android:background="#f4f2f2"
-    tools:context="info.androidhive.materialtabs.Assemble_flat_Pack">
+   >
+
+    <include android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/toolbar_normal"
+        android:id="@+id/tb_task"/>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ll_sub"
+        android:background="@color/white"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_below="@+id/tb_task"
+        android:layout_marginBottom="25dp">
     <LinearLayout
+        android:layout_width="345dp"
+        android:layout_height="65dp"
+        android:orientation="vertical"
+
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="13dp"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:text="Sub-Category"/>
+        <Spinner
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="13dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_task"></Spinner>
+
+
+    </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:layout_below="@+id/ll_sub"
         android:orientation="vertical"
         android:paddingTop="5dp"
         android:layout_width="match_parent"
@@ -20,8 +62,8 @@
             android:layout_height="match_parent">
 
         <RelativeLayout
-            android:layout_width="345dp"
-            android:layout_height="65dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
 
     <ImageView
@@ -66,6 +108,7 @@
         android:layout_alignBottom="@+id/textView16"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_marginRight="56dp"
         android:layout_below="@+id/textView15" />
 
         </RelativeLayout>
@@ -125,11 +168,11 @@
             android:id="@+id/textView21"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView20"
-            android:layout_alignStart="@+id/textView20"
-            android:layout_below="@+id/textView20"
             android:text="Now or Later?"
-            android:textSize="14dp" />
+            android:textSize="14dp"
+            android:layout_below="@+id/textView20"
+            android:layout_alignLeft="@+id/textView20"
+            android:layout_alignStart="@+id/textView20" />
 
         <Button
             android:id="@+id/button13"
@@ -139,6 +182,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/textView20"
+            android:layout_marginRight="56dp"
             android:background="@drawable/pluse" />
 
 
@@ -225,7 +269,8 @@
         android:layout_marginTop="5dp"
         android:layout_below="@+id/linearLayout3"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout4">
 
         <android.support.v7.widget.CardView
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -290,8 +335,11 @@
         android:id="@+id/button16"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="118dp"
+
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/linearLayout4"
         style="@style/signup_with_email"
         android:textColor="#fdfdf9"
         android:textAllCaps="false"

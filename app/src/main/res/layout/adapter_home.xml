@@ -4,6 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/Blue"
+    android:id="@+id/parent_item_adp_home"
+    android:addStatesFromChildren="true"
    >
 
     <FrameLayout

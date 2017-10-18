@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -32,6 +33,7 @@ public class home_screen_adapter extends RecyclerView.Adapter<home_screen_adapte
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_title, tv_cost;
         ImageView iv_image;
+        LinearLayout item_parent;
 
 
 
@@ -40,15 +42,17 @@ public class home_screen_adapter extends RecyclerView.Adapter<home_screen_adapte
             iv_image = view.findViewById(R.id.iv_adp_home);
             tv_title =view.findViewById(R.id.txt_adp_cat_name);
             tv_cost =view.findViewById(R.id.txt_adp_cost);
+            item_parent = view.findViewById(R.id.parent_item_adp_home);
 
 
         }
     }
 
 
-    public home_screen_adapter(List<data_sub_home> ListData, Context context) {
+    public home_screen_adapter(List<data_sub_home> ListData, Context context,OnRecyclerListener recyclerListener) {
         this.ListData = ListData;
         this.context = context;
+        this.recyclerListener = recyclerListener;
 
     }
 
@@ -67,6 +71,12 @@ public class home_screen_adapter extends RecyclerView.Adapter<home_screen_adapte
         holder.tv_cost.setText(listData.getAvg_price());
         Glide.with(context).load(listData.getSubcat_image()).into(holder.iv_image);
 
+        holder.item_parent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recyclerListener.onItemClicked(position, (String) holder.tv_title.getText().toString());
+            }
+        });
 
 
     }
@@ -80,5 +90,7 @@ public class home_screen_adapter extends RecyclerView.Adapter<home_screen_adapte
     public int getItemCount() {
         return ListData.size();
     }
+
+
 
 }

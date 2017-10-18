@@ -8,11 +8,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="3dp">
+        android:layout_marginLeft="6dp">
      <ImageButton
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:background="@android:drawable/ic_delete"
+         android:layout_margin="5dp"
+         android:background="@drawable/ic_keyboard_backspace"
          android:id="@+id/tb_normal_back"/>
     </FrameLayout>
 

@@ -1,5 +1,6 @@
 package killbit.taskrabbit.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import killbit.taskrabbit.R;
+import killbit.taskrabbit.actvity.Get_Task_Details;
 import killbit.taskrabbit.adapters.home_screen_adapter;
 import killbit.taskrabbit.objects.data_sub_home;
 import killbit.taskrabbit.retrofit.ApiInterface;
@@ -27,7 +29,7 @@ import retrofit2.Response;
  * Created by kural mughil selvam on 07-10-2017.
  */
 
-public class frag_home extends Fragment {
+public class frag_home extends Fragment implements home_screen_adapter.OnRecyclerListener {
     private String title;
     private int page;
     ApiInterface mAPIService;
@@ -66,7 +68,7 @@ public class frag_home extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView_frag_home);
         TextView tvLabel = (TextView) view.findViewById(R.id.tv_home_frag);
 
-        recy_screen_adapter = new home_screen_adapter(list_data,getActivity().getApplicationContext());
+        recy_screen_adapter = new home_screen_adapter(list_data,getActivity().getApplicationContext(),frag_home.this);
         recyclerView.setAdapter(recy_screen_adapter);
 
 
@@ -118,4 +120,11 @@ public class frag_home extends Fragment {
 
     }
 
+    @Override
+    public void onItemClicked(int position, String data) {
+
+        Intent in_gettask = new Intent(this.getActivity(), Get_Task_Details.class);
+        startActivity(in_gettask);
+        //Toast.makeText(getActivity(), ""+position, Toast.LENGTH_SHORT).show();
+    }
 }
