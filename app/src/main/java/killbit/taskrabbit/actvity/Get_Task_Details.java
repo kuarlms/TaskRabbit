@@ -139,18 +139,30 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
     @OnClick({R.id.card_when,R.id.textView1})
     public void card_when(){
         BottomView = getLayoutInflater().inflate(R.layout.dialouge_when_time,null);
+
+
         dialouge_when = new Dialog(Get_Task_Details.this, R.style.MaterialDialogSheet);
         dialouge_when.setContentView(BottomView);
         TextView tv_heading = dialouge_when.findViewById(R.id.tb_dialouge_heading);
         tv_heading.setText("When");
 
-        SGPickerView  pickerView = (SGPickerView)findViewById(R.id.pickerView);
+        SGPickerView  pickerView = dialouge_when.findViewById(R.id.pickerView);
 
         ArrayList<String> items = new ArrayList<String>();
-        items.add("Funny");
-        items.add("Awesomeeeee");
+        items.add("I'am Flexible");
+        items.add("Morning 8 to 12");
+        items.add("Noon 12 to 5 pm");
+        items.add("Evening 5 pm to 10pm");
+        items.add("Night 10 pm to ...");
         pickerView.setItems(items);
-
+        pickerView.setPickerListener(new SGPickerView.SGPickerViewListener() {
+            @Override
+            public void itemSelected(String item, int index) {
+                Toast.makeText(Get_Task_Details.this, " Index = " + String.valueOf(index) + " Item name " + item, Toast.LENGTH_SHORT).show();
+            /*    pickerView.getCurrentSelectedItemIndex();
+                pickerView.getCurrentSelectedItem();*/
+            }
+        });
 
 
 

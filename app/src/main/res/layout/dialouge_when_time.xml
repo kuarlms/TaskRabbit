@@ -20,27 +20,27 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="350dp"
         android:orientation="vertical"
+        android:weightSum="20"
         android:padding="10dp">
 
-    <android.support.v4.view.ViewPager
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/vp_task_when">
+    <android.support.v7.widget.RecyclerView
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="10"
+    android:id="@+id/rv_task_when_grid">
 
 
-    </android.support.v4.view.ViewPager>
+    </android.support.v7.widget.RecyclerView>
 
         <com.sgiosviews.SGPickerView
             android:id="@+id/pickerView"
+            android:layout_weight="10"
             android:layout_width="match_parent"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="40dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             picker:defaultTextColor="#ccc"
-            picker:selectedTextColor="#666"/>
+            picker:selectedTextColor="@color/Black_nb"/>
 
     </LinearLayout>
 
