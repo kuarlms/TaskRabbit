@@ -8,13 +8,18 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.sgiosviews.SGPickerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import killbit.taskrabbit.R;
@@ -35,48 +40,124 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
 
     //View view = LayoutInflater.from(context).inflate(R.layout.thing, null);
 
- /*   @NotEmpty
-    @BindView(R.id.editText_password)
-    TextView textView16;
+    @NotEmpty
+    @BindView(R.id.textView1x6)
+    EditText textView_task_address;
 
     @NotEmpty
-    @BindView(R.id.textView21)
-    TextView et_phone;
-*/  Dialog mBottomSheetDialog;
+    @BindView(R.id.textView1)
+    TextView textView_task_when;
+
+    @NotEmpty
+    @BindView(R.id.textView16)
+    TextView textView_task_details;
+
+    @NotEmpty
+    @BindView(R.id.textView1zx6)
+    TextView textView_task_vehicle;
+
+
+
+  Dialog dialouge_task,dialouge_when,dialouge_vehicle,dialog_address;
     Validator validator;
     ApiInterface mAPIService;
     SharedPreferences sp;
     SharedPreferences.Editor  editor ;
+    EditText et_task_details,et_task_address;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_task_deatils);
 
-       BottomView = getLayoutInflater().inflate(R.layout.dialouge_task_details,null);
-        mBottomSheetDialog = new Dialog(Get_Task_Details.this, R.style.MaterialDialogSheet);
-        mBottomSheetDialog.setContentView(BottomView);
+
+
         ButterKnife.bind(this);
         validator = new Validator(this);
         validator.setValidationListener(this);
         mAPIService = ApiUtils.getAPIService();
         sp =  getSharedPreferences(sp_task.MyPref, Context.MODE_PRIVATE);
         editor =sp.edit();
-
+        textView_task_address.clearFocus();
 
 
     }
+
+
+
+
+
     @OnClick(R.id.button_done)
     public void btn_submit(){
 
         validator.validate();
 
     }
-    @OnClick(R.id.card_task)
+
+
+
+    @OnClick({R.id.textView16,R.id.card_task})
     public void on_click_task_details(){
-        mBottomSheetDialog.show();
+        BottomView = getLayoutInflater().inflate(R.layout.dialouge_task_details,null);
+        dialouge_task = new Dialog(Get_Task_Details.this, R.style.MaterialDialogSheet);
+        dialouge_task.setContentView(BottomView);
+        TextView tv_heading = dialouge_task.findViewById(R.id.tb_dialouge_heading);
+        tv_heading.setText("Task Details");
+        EditText et_task_details =  dialouge_task.findViewById(R.id.et_dia_task_details);
+
+
+        dialouge_task.show();
     }
 
+
+
+
+    @OnClick({R.id.card_task_address,R.id.textView1x6})
+    public void card_task_address(){
+        BottomView = getLayoutInflater().inflate(R.layout.dialouge_task_address_new,null);
+        dialog_address = new Dialog(Get_Task_Details.this, R.style.MaterialDialogSheet);
+        dialog_address.setContentView(BottomView);
+        TextView tv_heading = dialog_address.findViewById(R.id.tb_dialouge_heading);
+        tv_heading.setText("Task Address");
+        //et_dia_task_address
+
+
+        dialog_address.show();
+    }
+
+    @OnClick({R.id.card_vehice,R.id.textView1zx6})
+    public void card_vehice(){
+        BottomView = getLayoutInflater().inflate(R.layout.dailouge_vechicle_requirement,null);
+        dialouge_vehicle = new Dialog(Get_Task_Details.this, R.style.MaterialDialogSheet);
+        dialouge_vehicle.setContentView(BottomView);
+        TextView tv_heading = dialouge_vehicle.findViewById(R.id.tb_dialouge_heading);
+        tv_heading.setText("Velicle Requirement");
+        dialouge_vehicle.show();
+    }
+
+
+    @OnClick({R.id.card_when,R.id.textView1})
+    public void card_when(){
+        BottomView = getLayoutInflater().inflate(R.layout.dialouge_when_time,null);
+        dialouge_when = new Dialog(Get_Task_Details.this, R.style.MaterialDialogSheet);
+        dialouge_when.setContentView(BottomView);
+        TextView tv_heading = dialouge_when.findViewById(R.id.tb_dialouge_heading);
+        tv_heading.setText("When");
+
+        SGPickerView  pickerView = (SGPickerView)findViewById(R.id.pickerView);
+
+        ArrayList<String> items = new ArrayList<String>();
+        items.add("Funny");
+        items.add("Awesomeeeee");
+        pickerView.setItems(items);
+
+
+
+
+
+        dialouge_when.show();
+    }
+    //card_task_address
 
 
     @Override

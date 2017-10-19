@@ -19,6 +19,8 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_below="@+id/tb_task"
         android:layout_marginBottom="25dp">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -103,15 +105,18 @@
             android:layout_below="@id/textView15ta"
             android:layout_alignLeft="@+id/textView15ta"
             android:layout_alignStart="@+id/textView15ta"
+            android:addStatesFromChildren="true"
             android:layout_marginTop="5dp">
-                <TextView
+                <EditText
                     android:id="@+id/textView1x6"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:text="What is the task location?"
                     android:layout_weight="18"
+                    android:background="@null"
+                    android:hint="What is the task location?"
+                    android:focusableInTouchMode="false"
                     android:textSize="14dp" />
 
                     <ImageButton
@@ -172,13 +177,15 @@
                     android:layout_alignLeft="@+id/textViewwhen"
                     android:layout_alignStart="@+id/textViewwhen"
                     android:layout_marginTop="5dp">
-                    <TextView
+                    <EditText
                         android:id="@+id/textView1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
-                        android:text="Now or Later ?"
+                        android:hint="Now or Later ?"
+                        android:background="@null"
+                        android:focusableInTouchMode="false"
                         android:layout_weight="18"
                         android:textSize="14dp" />
 
@@ -240,13 +247,15 @@
                     android:layout_alignLeft="@+id/textView15"
                     android:layout_alignStart="@+id/textView15"
                     android:layout_marginTop="5dp">
-                    <TextView
+                    <EditText
                         android:id="@+id/textView16"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
-                        android:text="What else we should know?"
+                        android:hint="What else we should know?"
+                        android:background="@null"
+                        android:focusableInTouchMode="false"
                         android:layout_weight="18"
                         android:textSize="14dp" />
 
@@ -308,13 +317,15 @@
                     android:layout_alignLeft="@+id/textView15vr"
                     android:layout_alignStart="@+id/textView15vr"
                     android:layout_marginTop="5dp">
-                    <TextView
+                    <EditText
                         android:id="@+id/textView1zx6"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
-                        android:text="is Car or Truck required ?"
+                        android:background="@null"
+                        android:focusableInTouchMode="false"
+                        android:hint="is Car or Truck required ?"
                         android:layout_weight="18"
                         android:textSize="14dp" />
 

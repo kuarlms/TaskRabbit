@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:stepper="http://schemas.android.com/apk/res-auto"
+    xmlns:picker="http://schemas.android.com/apk/res-auto"
+    android:gravity="bottom">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+    <include
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    layout="@layout/toolbar_dialouge"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+    <android.support.v4.view.ViewPager
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/vp_task_when">
+
+
+    </android.support.v4.view.ViewPager>
+
+        <com.sgiosviews.SGPickerView
+            android:id="@+id/pickerView"
+            android:layout_width="match_parent"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="40dp"
+            android:layout_height="wrap_content"
+            picker:defaultTextColor="#ccc"
+            picker:selectedTextColor="#666"/>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/button_task_dialouge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        style="@style/done"
+        android:padding="10dp"
+        android:textAllCaps="false"
+        android:layout_margin="10dp"
+        android:text="Done" />
+</LinearLayout>
+
+</RelativeLayout>

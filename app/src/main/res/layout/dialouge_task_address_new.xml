@@ -23,16 +23,23 @@
         android:background="@color/white"
         android:orientation="vertical">
     <EditText
-        android:id="@+id/et_dia_task_details"
+        android:id="@+id/et_dia_task_address"
         android:background="@color/white"
         android:gravity="top"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:textSize="14dp"
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
-        android:layout_weight="14"
-        android:hint="@string/task_details" />
+        android:layout_weight="8"
+        android:hint="Enter task address here." />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6"
+            android:gravity="left|top"
+            android:text="@string/task_address"
+            android:textColor="@color/colorPrimaryDark"/>
 
     <Button
         android:id="@+id/button_task_dialouge"
