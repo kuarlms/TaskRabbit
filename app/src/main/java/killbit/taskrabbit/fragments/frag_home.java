@@ -67,12 +67,13 @@ public class frag_home extends Fragment implements home_screen_adapter.OnRecycle
         View view = inflater.inflate(R.layout.home_screen, container, false);
         recyclerView = view.findViewById(R.id.recyclerView_frag_home);
         TextView tvLabel = (TextView) view.findViewById(R.id.tv_home_frag);
+        tvLabel.setVisibility(View.GONE);
 
         recy_screen_adapter = new home_screen_adapter(list_data,getActivity().getApplicationContext(),frag_home.this);
         recyclerView.setAdapter(recy_screen_adapter);
 
 
-        tvLabel.setText(page + " -- " + list_data.size());
+       // tvLabel.setText(page + " -- " + list_data.size());
         mAPIService = ApiUtils.getAPIService();
 
         try {

@@ -1,11 +1,11 @@
 package killbit.taskrabbit.actvity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,7 +15,6 @@ import com.mobsandgeeks.saripaar.Validator;
 
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import killbit.taskrabbit.R;
@@ -34,7 +33,7 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
 
   View BottomView;
 
-    View view = LayoutInflater.from(context).inflate(R.layout.thing, null);
+    //View view = LayoutInflater.from(context).inflate(R.layout.thing, null);
 
  /*   @NotEmpty
     @BindView(R.id.editText_password)
@@ -43,7 +42,7 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
     @NotEmpty
     @BindView(R.id.textView21)
     TextView et_phone;
-*/
+*/  Dialog mBottomSheetDialog;
     Validator validator;
     ApiInterface mAPIService;
     SharedPreferences sp;
@@ -53,10 +52,11 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_task_deatils);
-        ButterKnife.bind(this);
-        BottomView.inflate(getApplicationContext(),R.layout.activity_task_details,vie
-                w);
 
+       BottomView = getLayoutInflater().inflate(R.layout.dialouge_task_details,null);
+        mBottomSheetDialog = new Dialog(Get_Task_Details.this, R.style.MaterialDialogSheet);
+        mBottomSheetDialog.setContentView(BottomView);
+        ButterKnife.bind(this);
         validator = new Validator(this);
         validator.setValidationListener(this);
         mAPIService = ApiUtils.getAPIService();
@@ -66,11 +66,15 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
 
 
     }
-    @OnClick(R.id.button16)
+    @OnClick(R.id.button_done)
     public void btn_submit(){
 
         validator.validate();
 
+    }
+    @OnClick(R.id.card_task)
+    public void on_click_task_details(){
+        mBottomSheetDialog.show();
     }
 
 

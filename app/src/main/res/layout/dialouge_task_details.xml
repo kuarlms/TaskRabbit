@@ -4,11 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingRight="10dp"
-    android:paddingLeft="10dp"
-    tools:context="info.androidhive.materialtabs.TaskDetails">
-
-
+    android:gravity="bottom"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+<include
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    layout="@layout/toolbar_dialouge"/>
     <TextView
         android:id="@+id/textView21"
         android:layout_width="wrap_content"
@@ -19,17 +24,22 @@
         android:layout_marginTop="14dp"
         android:textSize="16dp"
         android:textColor="#787878"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
         android:text="@string/task_details" />
 
     <Button
-        android:id="@+id/button10"
+        android:id="@+id/button_task_dialouge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView21"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="37dp"
         style="@style/done"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
         android:textAllCaps="false"
         android:text="Done" />
+</LinearLayout>
 
 </RelativeLayout>
