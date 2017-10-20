@@ -74,7 +74,7 @@ public class home_screen_adapter extends RecyclerView.Adapter<home_screen_adapte
         holder.item_parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                recyclerListener.onItemClicked(position, (String) holder.tv_title.getText().toString());
+                recyclerListener.onItemClicked(position, listData.getSubcat_name());
             }
         });
 

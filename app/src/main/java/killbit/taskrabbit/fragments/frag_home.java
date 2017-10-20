@@ -125,6 +125,18 @@ public class frag_home extends Fragment implements home_screen_adapter.OnRecycle
     public void onItemClicked(int position, String data) {
 
         Intent in_gettask = new Intent(this.getActivity(), Get_Task_Details.class);
+        in_gettask.putExtra("main_cat","Don't know");
+        in_gettask.putExtra("sub_cat",data);
+        ArrayList<String> pass = new ArrayList<>();
+        pass.add(data);
+        for (int i = 0; i <list_data.size() ; i++) {
+            if(list_data.get(i).getSubcat_name().equalsIgnoreCase(data)){
+
+            }else {
+            pass.add(list_data.get(i).getSubcat_name());}
+        }
+
+        in_gettask.putStringArrayListExtra("list_cat",pass);
         startActivity(in_gettask);
         //Toast.makeText(getActivity(), ""+position, Toast.LENGTH_SHORT).show();
     }

@@ -9,7 +9,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +47,7 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
 
   View BottomView;
     TextView tv_when;
+    ArrayList<String>sub_cat_list = new ArrayList<>();
 
     //View view = LayoutInflater.from(context).inflate(R.layout.thing, null);
 
@@ -64,6 +67,11 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
     @BindView(R.id.textView1zx6)
     TextView textView_task_vehicle;
 
+    @BindView(R.id.tb_normal_title)
+    TextView tv_title;
+
+    @BindView(R.id.spinner_task)
+    Spinner spin_sub_cat_list;
 
 
   Dialog dialouge_task,dialouge_when,dialouge_vehicle,dialog_address;
@@ -210,6 +218,17 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
     //card_task_address
 
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        tv_title.setText(getIntent().getStringExtra("sub_cat"));
+        sub_cat_list.addAll(getIntent().getStringArrayListExtra("list_cat"));
+        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,sub_cat_list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin_sub_cat_list.setAdapter(adapter);
+
+
+    }
 
     @Override
     public void onValidationSucceeded() {
@@ -269,6 +288,9 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
     public void onItemClicked(int position, String data) {
 
         tv_when.setText(data);
+
+
+
 
     }
 }
