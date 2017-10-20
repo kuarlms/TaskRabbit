@@ -20,7 +20,7 @@ import killbit.taskrabbit.objects.date_obj;
 
 public class date_selector_adapter extends RecyclerView.Adapter<date_selector_adapter.MyViewHolder>{
 
-    private List<date_obj> ListData;
+    private List<date_obj> ListDatas;
     Context context;
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
@@ -46,24 +46,26 @@ public class date_selector_adapter extends RecyclerView.Adapter<date_selector_ad
     }
 
 
-    public date_selector_adapter(List<date_obj> ListData, Context context, OnRecyclerListener recyclerListener) {
-        this.ListData = ListData;
+    public date_selector_adapter(List<date_obj> ListData, Context context,OnRecyclerListener recyclerListener) {
+
+        this.ListDatas = ListData;
         this.context = context;
-        this.recyclerListener = recyclerListener;
+        this.recyclerListener= recyclerListener;
+
 
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.adapter_home, parent, false);
+                .inflate(R.layout.adapter_date, parent, false);
 
         return new MyViewHolder(itemView, context);
     }
 
     @Override
     public void onBindViewHolder( MyViewHolder holder,  int position) {
-        date_obj listData = ListData.get(position);
+        date_obj listData = ListDatas.get(position);
         holder.tv_month.setText(listData.getMonth());
         holder.tv_day.setText(listData.getDay());
         holder.tv_date.setText(listData.getDate());
@@ -72,7 +74,8 @@ public class date_selector_adapter extends RecyclerView.Adapter<date_selector_ad
         holder.item_parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  recyclerListener.onItemClicked(position, (String) holder.tv_title.getText().toString());
+                String Cda = listData.getMonth()+" , "+listData.getDay()+" , "+listData.getDate()+" ";
+                recyclerListener.onItemClicked(position, Cda);
             }
         });
 
@@ -86,7 +89,7 @@ public class date_selector_adapter extends RecyclerView.Adapter<date_selector_ad
 
     @Override
     public int getItemCount() {
-        return ListData.size();
+        return ListDatas.size();
     }
 
 
