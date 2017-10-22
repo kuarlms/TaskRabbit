@@ -5,6 +5,7 @@ import android.database.Observable;
 import android.preference.PreferenceManager;
 
 import killbit.taskrabbit.actvity.Launcher;
+import killbit.taskrabbit.retrofit.forgotPass.ForgoPassResp;
 import killbit.taskrabbit.retrofit.home.Home_Resp;
 import killbit.taskrabbit.retrofit.signIn.LoginResp;
 import killbit.taskrabbit.retrofit.signup.signupStatus;
@@ -78,6 +79,9 @@ service.updateProfile(id, fullName, body, other)*/
                                  @Part("new_password") String new_password,
                                  @Part("confirm_password") String confirm_password);
 
+    @Multipart
+    @POST("forgot_password")
+    Call<ForgoPassResp> rf_forgotPass(@Header(header)String header_value, @Part("email") String email);
 
     @Multipart
     @POST("deactivate_myaccount")

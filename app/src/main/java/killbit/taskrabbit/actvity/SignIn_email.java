@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -25,6 +26,7 @@ import butterknife.OnClick;
 import killbit.taskrabbit.R;
 import killbit.taskrabbit.retrofit.ApiInterface;
 import killbit.taskrabbit.retrofit.ApiUtils;
+import killbit.taskrabbit.retrofit.forgotPass.ForgoPassResp;
 import killbit.taskrabbit.retrofit.signIn.LoginResp;
 import killbit.taskrabbit.utils.sp_task;
 import retrofit2.Call;
@@ -43,7 +45,8 @@ public class SignIn_email extends Activity implements Validator.ValidationListen
     SharedPreferences sp;
     SharedPreferences.Editor  editor ;
     Intent i ;
-
+    ApiInterface mAPIService;
+    Boolean forgotPass = false;
     @NotEmpty
     @Email
     @BindView(R.id.editText) EditText et_email;
@@ -51,7 +54,7 @@ public class SignIn_email extends Activity implements Validator.ValidationListen
     @NotEmpty
     @Password
     @BindView(R.id.editText2)EditText et_pas;
-
+    @BindView(R.id.textView14)TextView tv_pass_head;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +64,7 @@ public class SignIn_email extends Activity implements Validator.ValidationListen
         sp =  getSharedPreferences(sp_task.MyPref, Context.MODE_PRIVATE);
         editor =sp.edit();
 
+        mAPIService = ApiUtils.getAPIService();
         i = new Intent(SignIn_email.this,MainActivity.class);
 
         btn_login = findViewById(R.id.button_login);
@@ -70,7 +74,11 @@ public class SignIn_email extends Activity implements Validator.ValidationListen
             @Override
             public void onClick(View view) {
                // Toast.makeText(SignIn_email.this, "cc", Toast.LENGTH_LONG).show();
-                validator.validate();
+                if(forgotPass){
+                    tv_pass_head.performClick();
+                }else {
+
+                validator.validate();}
             }
         });
 
@@ -94,46 +102,72 @@ public class SignIn_email extends Activity implements Validator.ValidationListen
         finish();
     }
 
+    @OnClick(R.id.textView19)
+    public void forgotPass(){
+
+        forgotPass = true;
+        et_pas.setVisibility(View.INVISIBLE);
+        tv_pass_head.setVisibility(View.INVISIBLE);
+        et_pas.setText("Pass@123");
+        validator.validate();
+
+
+
+
+
+        mAPIService.rf_forgotPass(ApiInterface.header_value, String.valueOf(et_email.getText())).enqueue(new Callback<ForgoPassResp>() {
+
+
+            @Override
+            public void onResponse(Call<ForgoPassResp> call, Response<ForgoPassResp> response) {
+                Toast.makeText(SignIn_email.this, ""+response.body().getMessage(), Toast.LENGTH_LONG).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<ForgoPassResp> call, Throwable t) {
+
+            }});
+        }
+
 
     @Override
     public void onValidationSucceeded() {
-        ApiInterface mAPIService;
-        mAPIService = ApiUtils.getAPIService();
 
-          mAPIService.rf_signIn(ApiInterface.header_value, String.valueOf(et_email.getText()),et_pas.getText().toString()).enqueue(new Callback<LoginResp>() {
+        if(!forgotPass) {
+            mAPIService.rf_signIn(ApiInterface.header_value, String.valueOf(et_email.getText()), et_pas.getText().toString()).enqueue(new Callback<LoginResp>() {
 
-              @Override
-              public void onResponse(Call<LoginResp> call, Response<LoginResp> response) {
+                @Override
+                public void onResponse(Call<LoginResp> call, Response<LoginResp> response) {
 
-                  if(response.body().getStatus()== 1){
+                    if (response.body().getStatus() == 1) {
 
-                      editor.putString(sp_task.Sp_profile_pic,response.body().getResult().getProPic());
-                      editor.putString(sp_task.Sp_name,response.body().getResult().getFirstName());
-                      editor.putString(sp_task.Sp_email,et_email.getText().toString().trim());
-                      editor.putBoolean(sp_task.Sp_IsLoggedIn,true);
-                      editor.commit();
+                        editor.putString(sp_task.Sp_profile_pic, response.body().getResult().getProPic());
+                        editor.putString(sp_task.Sp_name, response.body().getResult().getFirstName());
+                        editor.putString(sp_task.Sp_email, et_email.getText().toString().trim());
+                        editor.putBoolean(sp_task.Sp_IsLoggedIn, true);
+                        editor.commit();
 
-                      startActivity(i);
-                      finish();
-
-
-                  }else if(response.body().getStatus().equals("0")) {
-
-                      Toast.makeText(SignIn_email.this, "Login Failed ,Invalid login detail.", Toast.LENGTH_SHORT).show();
-
-                  }
+                        startActivity(i);
+                        finish();
 
 
+                    } else if (response.body().getStatus().equals("0")) {
 
-              }
+                        Toast.makeText(SignIn_email.this, "Login Failed ,Invalid login detail.", Toast.LENGTH_SHORT).show();
 
-              @Override
-              public void onFailure(Call<LoginResp> call, Throwable t) {
-                  Toast.makeText(SignIn_email.this, "Login Failed....Check your connectivity.", Toast.LENGTH_SHORT).show();
+                    }
 
-              }
-          });
 
+                }
+
+                @Override
+                public void onFailure(Call<LoginResp> call, Throwable t) {
+                    Toast.makeText(SignIn_email.this, "Login Failed....Check your connectivity.", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
 
     }
 
@@ -153,5 +187,19 @@ public class SignIn_email extends Activity implements Validator.ValidationListen
 
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(forgotPass) {
+            forgotPass = false;
+            et_pas.setVisibility(View.VISIBLE);
+            tv_pass_head.setVisibility(View.VISIBLE);
+            et_pas.setText("");
+        }else {
+            finish();
+            super.onBackPressed();
+        }
     }
 }

@@ -18,17 +18,25 @@
         android:padding="30dp"
         android:gravity="center"
         android:layout_below="@+id/tb_normal">
-
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/rabbit"
+            android:tintMode="multiply"
+            android:tint="@color/colorPrimary"
+            android:id="@+id/iv_logo"/>
         <TextView
             android:id="@+id/textView13"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Email"
+            android:layout_below="@+id/iv_logo"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="16dp"
-            android:text="Email" />
+            android:layout_alignParentStart="true" />
 
         <EditText
             android:id="@+id/editText"
@@ -81,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_below="@+id/button9"
+            android:layout_below="@+id/button_login"
             android:textColor="@color/red"
             android:layout_marginTop="35dp"
             android:text="FORGOT PASSWORD" />
