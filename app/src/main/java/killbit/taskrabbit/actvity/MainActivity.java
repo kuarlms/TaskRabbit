@@ -22,8 +22,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -56,6 +60,10 @@ public class MainActivity extends AppCompatActivity
     List<data_main_home> list_main_cat = new ArrayList<>();
     ProgressBar pb;
     DrawerLayout drawer;
+    TextView tvNbActviteTask,tvNbAccount,tvNbSignout;
+    ImageView ivNbProfilePic;
+    NotificationBadge notificationBadgeNb;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +83,11 @@ public class MainActivity extends AppCompatActivity
         sp =  getSharedPreferences(sp_task.MyPref, Context.MODE_PRIVATE);
         editor =sp.edit();
         api_home();
-
+        tvNbActviteTask = drawer.findViewById(R.id.textView_nb_active_task);
+        tvNbAccount =  drawer.findViewById(R.id.textView_nb_my_acc);
+        tvNbSignout  = drawer.findViewById(R.id.textView_nb_sign_out);
+        ivNbProfilePic  = drawer.findViewById(R.id.imageView_nb_pro_pic);
+        notificationBadgeNb = drawer.findViewById(R.id.notification_nb_inbox);
 
 
 
@@ -96,6 +108,38 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+        tvNbActviteTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Click", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        tvNbAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Click", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        tvNbSignout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Click", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ivNbProfilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Click", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void setupTabIcons() {
@@ -121,21 +165,6 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-/*        TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabOne.setText("ONE");
-        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_tab_favourite, 0, 0);
-        tabLayout.getTabAt(0).setCustomView(tabOne);
-
-        TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabTwo.setText("TWO");
-        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_tab_call, 0, 0);
-        tabLayout.getTabAt(1).setCustomView(tabTwo);
-
-        TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabThree.setText("THREE");
-        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_tab_contacts, 0, 0);
-        tabLayout.getTabAt(2).setCustomView(tabThree);
-        */
 
 
     }

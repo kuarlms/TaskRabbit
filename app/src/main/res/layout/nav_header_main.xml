@@ -20,20 +20,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="bottom"
-        android:layout_weight="6"
+        android:layout_weight="4"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
 
-        <com.nex3z.notificationbadge.NotificationBadge
-            android:id="@+id/notification_nb_inbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|center_vertical">
 
-        </com.nex3z.notificationbadge.NotificationBadge>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -59,8 +53,38 @@
                 android:textColor="@color/Black_nb" />
 
         </LinearLayout>
-    </FrameLayout>
 
+    </FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:text="Inbox"
+            android:padding="15dp"
+            android:textSize="@dimen/com_facebook_likeview_text_size"
+            android:textColor="@color/Black_nb"/>
+
+        <com.nex3z.notificationbadge.NotificationBadge
+            android:id="@+id/notification_nb_inbox"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:padding="15dp"
+            android:textSize="@dimen/com_facebook_likeview_text_size"
+            android:layout_height="wrap_content"
+            android:background="@color/Blue"
+
+            android:layout_gravity="end|center_vertical">
+
+        </com.nex3z.notificationbadge.NotificationBadge>
+
+    </LinearLayout>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -81,6 +105,7 @@
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:text="Active Task"
+            android:textSize="@dimen/com_facebook_likeview_text_size"
             android:textColor="@color/Black_nb" />
 
         <FrameLayout
@@ -93,6 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
+            android:textSize="@dimen/com_facebook_likeview_text_size"
             android:text="My Account"
             android:textColor="@color/Black_nb" />
 
@@ -106,6 +132,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
+            android:textSize="@dimen/com_facebook_likeview_text_size"
             android:text="Sign Out"
             android:textColor="@color/Black_nb" />
 
