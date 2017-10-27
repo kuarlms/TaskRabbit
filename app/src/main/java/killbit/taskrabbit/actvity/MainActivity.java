@@ -7,12 +7,15 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -22,6 +25,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nex3z.notificationbadge.NotificationBadge;
 
@@ -79,12 +83,6 @@ public class MainActivity extends AppCompatActivity
         sp =  getSharedPreferences(sp_task.MyPref, Context.MODE_PRIVATE);
         editor =sp.edit();
         api_home();
-        /*tvNbActviteTask = drawer.findViewById(R.id.textView_nb_active_task);
-        tvNbAccount =  drawer.findViewById(R.id.textView_nb_my_acc);
-        tvNbSignout  = drawer.findViewById(R.id.textView_nb_sign_out);
-        ivNbProfilePic  = drawer.findViewById(R.id.imageView_nb_pro_pic);
-        notificationBadgeNb = drawer.findViewById(R.id.notification_nb_inbox);
-
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -104,7 +102,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        tvNbActviteTask = drawer.findViewById(R.id.textView_nb_active_task);
+        tvNbAccount =  drawer.findViewById(R.id.textView_nb_my_acc);
+        tvNbSignout  = drawer.findViewById(R.id.textView_nb_sign_out);
+        ivNbProfilePic  = drawer.findViewById(R.id.imageView_nb_pro_pic);
+        notificationBadgeNb = drawer.findViewById(R.id.notification_nb_inbox);
 
 
         tvNbActviteTask.setOnClickListener(new View.OnClickListener() {
@@ -134,7 +136,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "Click", Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
 
     }
 

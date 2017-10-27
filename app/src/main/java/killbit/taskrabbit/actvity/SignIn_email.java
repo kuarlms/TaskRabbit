@@ -55,6 +55,7 @@ public class SignIn_email extends Activity implements Validator.ValidationListen
     @Password
     @BindView(R.id.editText2)EditText et_pas;
     @BindView(R.id.textView14)TextView tv_pass_head;
+    @BindView(R.id.textView19) TextView tv_forgot;
 
     @BindView(R.id.button_login)Button btn_login;
 
@@ -110,10 +111,11 @@ public class SignIn_email extends Activity implements Validator.ValidationListen
         forgotPass = true;
         et_pas.setVisibility(View.INVISIBLE);
         tv_pass_head.setVisibility(View.INVISIBLE);
-        btn_login.setVisibility(View.INVISIBLE);
+     //   btn_login.setVisibility(View.INVISIBLE);
         et_pas.setText("Pass@123");
         validator.validate();
 
+        btn_login.setText("Reset");
 
 
 
@@ -178,6 +180,10 @@ public class SignIn_email extends Activity implements Validator.ValidationListen
           mtd();
 
         }
+        else {
+            tv_forgot.performClick();
+        }
+
 
     }
 void mtd(){
@@ -243,7 +249,8 @@ void mtd(){
             et_pas.setVisibility(View.VISIBLE);
             tv_pass_head.setVisibility(View.VISIBLE);
             et_pas.setText("");
-            btn_login.setVisibility(View.VISIBLE);
+         //   btn_login.setVisibility(View.VISIBLE);
+            btn_login.setText("Login");
         }else {
             finish();
             super.onBackPressed();

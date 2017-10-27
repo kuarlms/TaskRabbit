@@ -37,7 +37,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import killbit.taskrabbit.R;
+import killbit.taskrabbit.retrofit.ApiInterface;
+import killbit.taskrabbit.retrofit.ApiUtils;
+import killbit.taskrabbit.retrofit.signIn.LoginResp;
 import killbit.taskrabbit.utils.sp_task;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by kural on 10/10/17.
@@ -57,6 +63,7 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
     SharedPreferences.Editor  editor ;
     int RC_SIGN_IN = 9001;
     Intent i ;
+    ApiInterface  mAPIService = ApiUtils.getAPIService();
 
 
 
@@ -162,10 +169,10 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
         try {
             Bundle bundle = new Bundle();
             String id = object.getString("id");
-
+            URL profile_pic;
             try {
 
-                URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");
+                 profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");
                 Log.i("profile_pic", profile_pic + "");
                 bundle.putString("profile_pic", profile_pic.toString());
                 editor.putString(sp_task.Sp_profile_pic, profile_pic.toString());
@@ -191,9 +198,10 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
                 bundle.putString("birthday", object.getString("birthday"));
             if (object.has("location"))
                 bundle.putString("location", object.getJSONObject("location").getString("name"));
-            editor.commit();
-            startActivity(i);
-            finish();
+        //    editor.commit();
+
+            mtd_social_login(object.getString("email"),object.getString("first_name"), profile_pic.toString());
+
             return bundle;
         } catch (JSONException e) {
             Log.d(TAG, "Error parsing JSON");
@@ -201,6 +209,43 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
         return null;
     }
 
+    void mtd_social_login(String email,String name, String profile_pic){
+
+        mAPIService.rf_signIn_social(ApiInterface.header_value, "").enqueue(new Callback<LoginResp>() {
+
+            @Override
+            public void onResponse(Call<LoginResp> call, Response<LoginResp> response) {
+
+                if (response.body().getStatus() == 1) {
+
+                    editor.putString(sp_task.Sp_profile_pic, profile_pic);
+                    editor.putString(sp_task.Sp_name, name);
+                    editor.putString(sp_task.Sp_email, email);
+                    editor.putBoolean(sp_task.Sp_IsLoggedIn, true);
+                    editor.commit();
+
+                    startActivity(i);
+                    finish();
+
+
+                } else if (response.body().getStatus().equals("0")) {
+
+                    Toast.makeText(Login.this,response.body().getMessage() , Toast.LENGTH_LONG).show();
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<LoginResp> call, Throwable t) {
+
+                Toast.makeText(Login.this, "Login Failed....Check your connectivity.", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
 
     @Override
     public void onStart() {
@@ -248,13 +293,16 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            editor.putString(sp_task.Sp_email,acct.getEmail());
+        /*    editor.putString(sp_task.Sp_email,acct.getEmail());
             editor.putString(sp_task.Sp_name,acct.getDisplayName());
             editor.putString(sp_task.Sp_profile_pic, String.valueOf(acct.getPhotoUrl()));
             editor.putBoolean(sp_task.Sp_IsLoggedIn,true);
-            editor.commit();
-            startActivity(i);
-            finish();
+            editor.commit();*/
+            /*startActivity(i);
+            finish();*/
+
+            mtd_social_login(acct.getEmail(),acct.getDisplayName(),String.valueOf(acct.getPhotoUrl()));
+
            // Toast.makeText(Login.this, ""+acct.getDisplayName(), Toast.LENGTH_SHORT).show();
         } else {
             // Signed out, show unauthenticated UI.
