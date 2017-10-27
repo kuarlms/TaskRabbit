@@ -46,6 +46,12 @@ public interface ApiInterface {
     Call<LoginResp> rf_signIn(@Header(header)String header_value, @Part("login_email") String login_email,
                               @Part("login_password") String login_password);
 
+
+ /* @POST("user_login_process")
+  @FormUrlEncoded
+  Call<LoginResp> rf_signIn_map(@Header(header)String header_value,@FieldMap Map<String,String> login_email,
+                                @FieldMap Map<String,String> login_password);
+*/
     //https://stackoverflow.com/questions/39953457/how-to-upload-image-file-in-retrofit-2
 
     @Multipart

@@ -138,7 +138,12 @@ public class SignIn_email extends Activity implements Validator.ValidationListen
     public void onValidationSucceeded() {
 
         if(!forgotPass) {
-            mAPIService.rf_signIn(ApiInterface.header_value, String.valueOf(et_email.getText()), et_pas.getText().toString()).enqueue(new Callback<LoginResp>() {
+          /*  Map<String,String>  user_id = new HashMap<>();
+            user_id.put("login_email","sivauser@gmail.com");
+            Map<String,String> pass =   new HashMap<>();
+            pass.put("login_password","siva123");
+
+            mAPIService.rf_signIn_map(ApiInterface.header_value, user_id, pass).enqueue(new Callback<LoginResp>() {
 
                 @Override
                 public void onResponse(Call<LoginResp> call, Response<LoginResp> response) {
@@ -169,10 +174,48 @@ public class SignIn_email extends Activity implements Validator.ValidationListen
                     Toast.makeText(SignIn_email.this, "Login Failed....Check your connectivity.", Toast.LENGTH_SHORT).show();
 
                 }
-            });
+            });*/
+          mtd();
+
         }
 
     }
+void mtd(){
+
+  mAPIService.rf_signIn(ApiInterface.header_value, String.valueOf(et_email.getText()), et_pas.getText().toString()).enqueue(new Callback<LoginResp>() {
+
+        @Override
+        public void onResponse(Call<LoginResp> call, Response<LoginResp> response) {
+
+            if (response.body().getStatus() == 1) {
+
+                editor.putString(sp_task.Sp_profile_pic, response.body().getResult().getProPic());
+                editor.putString(sp_task.Sp_name, response.body().getResult().getFirstName());
+                editor.putString(sp_task.Sp_email, et_email.getText().toString().trim());
+                editor.putBoolean(sp_task.Sp_IsLoggedIn, true);
+                editor.commit();
+
+                startActivity(i);
+                finish();
+
+
+            } else if (response.body().getStatus().equals("0")) {
+
+                Toast.makeText(SignIn_email.this, "Login Failed ,Invalid login detail.", Toast.LENGTH_SHORT).show();
+
+            }
+
+
+        }
+
+        @Override
+        public void onFailure(Call<LoginResp> call, Throwable t) {
+            Toast.makeText(SignIn_email.this, "Login Failed....Check your connectivity.", Toast.LENGTH_SHORT).show();
+
+        }
+    });
+
+}
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
