@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import killbit.taskrabbit.R;
 import killbit.taskrabbit.objects.active_tasks_data;
 
@@ -21,7 +23,6 @@ private List<active_tasks_data> taskList;
 
 public class MyViewHolder extends RecyclerView.ViewHolder {
 
-/*
 
     @BindView(R.id.textView43)
     TextView tv_name;
@@ -36,15 +37,14 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.textView5)
     TextView tv_vehicle;
 
-*/
-TextView tv;
+//TextView tv;
 
 
     public MyViewHolder(View view) {
         super(view);
-         tv = view.findViewById(R.id.textView43);
+        // tv_name = view.findViewById(R.id.textView43);
 
-     //   ButterKnife.bind(this, view);
+        ButterKnife.bind(this, view);
 
 
     }
@@ -66,7 +66,7 @@ TextView tv;
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         active_tasks_data actvie_task = taskList.get(position);
-        holder.tv.setText(actvie_task.getActive_time());
+        holder.tv_name.setText(actvie_task.getActive_time());
        /* holder.title.setText(movie.getTitle());
         holder.genre.setText(movie.getGenre());
         holder.year.setText(movie.getYear());*/
