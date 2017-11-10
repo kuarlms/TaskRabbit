@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import killbit.taskrabbit.R;
 import killbit.taskrabbit.adapters.active_tasks_adp;
 import killbit.taskrabbit.objects.active_tasks_data;
@@ -23,16 +25,16 @@ public class active_tasks extends FragmentActivity{
     active_tasks_data tasks_data;
     List<active_tasks_data> tasks_datas = new ArrayList<>();
     active_tasks_adp adapter_act_tsk;
-        RecyclerView rv_at_list;
-   /* @BindView(R.id.recycleView)
-    RecyclerView rv_at_list;*/
+      //  RecyclerView rv_at_list;
+    @BindView(R.id.recycleView)
+    RecyclerView rv_at_list;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actvity_active_tasks);
-      //  ButterKnife.bind(this);
-        rv_at_list = findViewById(R.id.recycleView);
+       ButterKnife.bind(this);
+        //rv_at_list = findViewById(R.id.recycleView);
 
 
         for (int i = 0; i < 12; i++) {
