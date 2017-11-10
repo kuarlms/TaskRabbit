@@ -1,6 +1,7 @@
 package killbit.taskrabbit.actvity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -112,6 +113,10 @@ public class MainActivity extends AppCompatActivity
         tvNbActviteTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent in_at = new Intent(MainActivity.this,active_tasks.class);
+                startActivity(in_at);
+
+
                 Toast.makeText(MainActivity.this, "Click", Toast.LENGTH_SHORT).show();
             }
         });
