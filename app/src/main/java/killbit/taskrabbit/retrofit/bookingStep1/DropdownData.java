@@ -4,39 +4,44 @@ package killbit.taskrabbit.retrofit.bookingStep1;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class DropdownData {
+import java.io.Serializable;
+import java.util.List;
+
+public class DropdownData implements Serializable
+{
 
     @SerializedName("subcat_list")
     @Expose
-    private SubcatList subcatList;
+    private List<SubcatList> subcatList = null;
     @SerializedName("vehicle_list")
     @Expose
-    private VehicleList vehicleList;
+    private List<VehicleList> vehicleList = null;
     @SerializedName("timing_list")
     @Expose
-    private TimingList timingList;
+    private List<TimingList> timingList = null;
+    private final static long serialVersionUID = 5094350711170649483L;
 
-    public SubcatList getSubcatList() {
+    public List<SubcatList> getSubcatList() {
         return subcatList;
     }
 
-    public void setSubcatList(SubcatList subcatList) {
+    public void setSubcatList(List<SubcatList> subcatList) {
         this.subcatList = subcatList;
     }
 
-    public VehicleList getVehicleList() {
+    public List<VehicleList> getVehicleList() {
         return vehicleList;
     }
 
-    public void setVehicleList(VehicleList vehicleList) {
+    public void setVehicleList(List<VehicleList> vehicleList) {
         this.vehicleList = vehicleList;
     }
 
-    public TimingList getTimingList() {
+    public List<TimingList> getTimingList() {
         return timingList;
     }
 
-    public void setTimingList(TimingList timingList) {
+    public void setTimingList(List<TimingList> timingList) {
         this.timingList = timingList;
     }
 
