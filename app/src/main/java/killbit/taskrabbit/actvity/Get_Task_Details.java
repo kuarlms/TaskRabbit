@@ -6,9 +6,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -31,10 +33,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import killbit.taskrabbit.R;
 import killbit.taskrabbit.adapters.date_selector_adapter;
+import killbit.taskrabbit.adapters.vehicle_list_adp;
 import killbit.taskrabbit.objects.date_obj;
+import killbit.taskrabbit.objects.vehicle_list_data;
 import killbit.taskrabbit.retrofit.ApiInterface;
 import killbit.taskrabbit.retrofit.ApiUtils;
-import killbit.taskrabbit.retrofit.bookingStep1.BookingStep1Resp;
+import killbit.taskrabbit.retrofit.bookingStep1.bookingStep1Resp;
 import killbit.taskrabbit.utils.sp_task;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,9 +55,20 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
 
     View BottomView;
     TextView tv_when;
+
     ArrayList<String>sub_cat_list = new ArrayList<>();
-    ArrayList<String> time_lis, vehicle_list = new ArrayList<>();
-    String main_cat;
+    ArrayList<String>sub_cat_list_id = new ArrayList<>();
+
+    List<vehicle_list_data> vehicle_list = new ArrayList<>();
+    vehicle_list_data vehicle_data;
+
+    ArrayList<String> time_lis = new ArrayList<>();
+    ArrayList<String> time_lis_id = new ArrayList<>();
+
+    vehicle_list_adp vehicle_adp;
+
+    String main_cat,sub_cat_id;
+    SGPickerView  pickerView;
     //View view = LayoutInflater.from(context).inflate(R.layout.thing, null);
 
     @NotEmpty
@@ -79,6 +94,9 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
     Spinner spin_sub_cat_list;
 
 
+
+
+
   Dialog dialouge_task,dialouge_when,dialouge_vehicle,dialog_address;
     Validator validator;
     ApiInterface mAPIService;
@@ -99,7 +117,7 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         sp =  getSharedPreferences(sp_task.MyPref, Context.MODE_PRIVATE);
         editor =sp.edit();
         textView_task_address.clearFocus();
-        mtd_booking_step1();
+
 
     }
 
@@ -153,7 +171,17 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         dialouge_vehicle.setContentView(BottomView);
         TextView tv_heading = dialouge_vehicle.findViewById(R.id.tb_dialouge_heading);
         tv_heading.setText("Vehicle Requirement");
+
+        RecyclerView rv_vehice_req = dialouge_when.findViewById(R.id.rv_vehice_req);
+        vehicle_adp = new vehicle_list_adp(vehicle_list);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        rv_vehice_req.setLayoutManager(mLayoutManager);
+        rv_vehice_req.setItemAnimator(new DefaultItemAnimator());
+        rv_vehice_req.setAdapter(vehicle_adp);
+
         dialouge_vehicle.show();
+
+
     }
 
 
@@ -170,20 +198,14 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         tv_when = dialouge_when.findViewById(R.id.tv_dialouge_when_day);
         RecyclerView rv_date = dialouge_when.findViewById(R.id.rv_task_when_grid);
         List<date_obj> List_dates = new ArrayList<>();
-      //  date_obj dates_s;
-        SGPickerView  pickerView = dialouge_when.findViewById(R.id.pickerView);
+        pickerView = dialouge_when.findViewById(R.id.pickerView);
+        pickerView.setItems(time_lis);
 
-        ArrayList<String> items = new ArrayList<String>();
-        items.add("I'am Flexible");
-        items.add("Morning 8 to 12");
-        items.add("Noon 12 to 5 pm");
-        items.add("Evening 5 pm to 10pm");
-        items.add("Night 10 pm to ...");
-        pickerView.setItems(items);
+
         pickerView.setPickerListener(new SGPickerView.SGPickerViewListener() {
             @Override
             public void itemSelected(String item, int index) {
-                Toast.makeText(Get_Task_Details.this, " Index = " + String.valueOf(index) + " Item name " + item, Toast.LENGTH_SHORT).show();
+
             /*    pickerView.getCurrentSelectedItemIndex();
                 pickerView.getCurrentSelectedItem();*/
             }
@@ -211,8 +233,6 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         List_dates.add(dates_s);*/
         rv_date.setHasFixedSize(true);
         rv_date.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
-      //  rv_date.addItemDecoration(new SimpleDividerItemDecoration(context, R.drawable.divider));
-
 
         rv_adapter = new date_selector_adapter(List_dates,getApplicationContext(),Get_Task_Details.this);
         rv_date.setAdapter(rv_adapter);
@@ -227,38 +247,76 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         super.onStart();
         tv_title.setText(getIntent().getStringExtra("sub_cat"));
         sub_cat_list.addAll(getIntent().getStringArrayListExtra("list_cat"));
+        sub_cat_list_id.addAll(getIntent().getStringArrayListExtra("list_cat_ids"));
+      //  Toast.makeText(this, ""+sub_cat_list_id, Toast.LENGTH_SHORT).show();
+
         main_cat = getIntent().getStringExtra("main_cat");
+      //  Toast.makeText(this, "xx--"+main_cat, Toast.LENGTH_SHORT).show();
+
 
         ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,sub_cat_list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin_sub_cat_list.setAdapter(adapter);
 
-       /* spin_sub_cat_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+        spin_sub_cat_list.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                sub_cat_id = sub_cat_list_id.get(i);
                 mtd_booking_step1();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
-        });*/
+        });
 
+       /* sub_cat_id = sub_cat_list_id.get(spin_sub_cat_list.getSelectedItemPosition());
+
+        mtd_booking_step1();*/
 
     }
 
     private void mtd_booking_step1() {
 
-        mAPIService.rf_booking_step1(ApiInterface.header_value,sp.getString(sp_task.Sp_email,""),main_cat,"1")
-                .enqueue(new Callback<BookingStep1Resp>() {
+        mAPIService.rf_booking_step1(ApiInterface.header_value,sp.getString(sp_task.Sp_email,""),main_cat,sub_cat_id)
+                .enqueue(new Callback<bookingStep1Resp>() {
+
+
                     @Override
-                    public void onResponse(Call<BookingStep1Resp> call, Response<BookingStep1Resp> response) {
+                    public void onResponse(Call<bookingStep1Resp> call, Response<bookingStep1Resp> response) {
+
+                        for (int i = 0; i <response.body().getDropdownData().getTimingList().size() ; i++) {
+
+                         time_lis.add(response.body().getDropdownData().getTimingList().get(i).getName());
+                         time_lis_id.add(response.body().getDropdownData().getTimingList().get(i).getTimeId());
+
+                        }
+                 /*       Toast.makeText(Get_Task_Details.this, ""+time_lis, Toast.LENGTH_SHORT).show();
+                     card_when();*/
+
+                        for (int i = 0; i <response.body().getDropdownData().getVehicleList().size() ; i++) {
+
+                            vehicle_data = new vehicle_list_data(response.body().getDropdownData().getVehicleList().get(i).getVehicleName(),
+                                    response.body().getDropdownData().getVehicleList().get(i).getVehicleId());
+
+                            vehicle_list.add(vehicle_data);
+
+
+
+                        }
+
 
                     }
 
                     @Override
-                    public void onFailure(Call<BookingStep1Resp> call, Throwable t) {
-
+                    public void onFailure(Call<bookingStep1Resp> call, Throwable t) {
+                        Toast.makeText(Get_Task_Details.this, ""+t, Toast.LENGTH_LONG).show();
                     }
                 });
+
     }
 
     @Override
