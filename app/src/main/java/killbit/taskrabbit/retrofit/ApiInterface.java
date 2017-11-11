@@ -5,7 +5,7 @@ import android.database.Observable;
 import android.preference.PreferenceManager;
 
 import killbit.taskrabbit.actvity.Launcher;
-import killbit.taskrabbit.retrofit.bookingStep1.BookingStep1Resp;
+import killbit.taskrabbit.retrofit.bookingStep1.bookingStep1Resp;
 import killbit.taskrabbit.retrofit.forgotPass.ForgoPassResp;
 import killbit.taskrabbit.retrofit.home.Home_Resp;
 import killbit.taskrabbit.retrofit.signIn.LoginResp;
@@ -104,8 +104,8 @@ service.updateProfile(id, fullName, body, other)*/
     Call<Home_Resp> rf_home_page(@Header(header)String header_value, @Part("email") String email);
 
     @Multipart
-    @POST("booking_step1")
-    Call<BookingStep1Resp> rf_booking_step1(@Header(header)String header_value, @Part("email") String email,
+    @POST("booking_step1_new")
+    Call<bookingStep1Resp> rf_booking_step1(@Header(header)String header_value, @Part("email") String email,
                                             @Part("cat_id") String cat_id, @Part("subcat_id") String subcat_id);
 
     @Multipart
@@ -130,7 +130,7 @@ service.updateProfile(id, fullName, body, other)*/
                                        @Part("tasker_id") String tasker_id);
 
     @Multipart
-    @POST("Booking")
+    @POST("save_booking_confirm")
     Call<signupStatus> rf_booking(@Header(header)String header_value,@Part("email") String email,
                                        @Part("cat_id") String cat_id,@Part("subcat_id") String subcat_id,
                                        @Part("task_date") String task_date,@Part("task_time") String task_time,
