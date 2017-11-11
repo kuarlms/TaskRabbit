@@ -5,6 +5,7 @@ import android.database.Observable;
 import android.preference.PreferenceManager;
 
 import killbit.taskrabbit.actvity.Launcher;
+import killbit.taskrabbit.retrofit.bookingStep1.BookingStep1Resp;
 import killbit.taskrabbit.retrofit.forgotPass.ForgoPassResp;
 import killbit.taskrabbit.retrofit.home.Home_Resp;
 import killbit.taskrabbit.retrofit.signIn.LoginResp;
@@ -104,8 +105,8 @@ service.updateProfile(id, fullName, body, other)*/
 
     @Multipart
     @POST("booking_step1")
-    Call<signupStatus> rf_booking_step1(@Header(header)String header_value,@Part("email") String email,
-                                       @Part("cat_id") String cat_id,@Part("subcat_id") String subcat_id);
+    Call<BookingStep1Resp> rf_booking_step1(@Header(header)String header_value, @Part("email") String email,
+                                            @Part("cat_id") String cat_id, @Part("subcat_id") String subcat_id);
 
     @Multipart
     @POST("find_tasker")
