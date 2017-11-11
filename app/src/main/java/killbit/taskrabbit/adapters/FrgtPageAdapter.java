@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.text.SpannableStringBuilder;
-import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -57,7 +56,7 @@ public class FrgtPageAdapter extends FragmentPagerAdapter {
 
         int i =position;
 
-        Log.d("ixx--s",i+"-"+ list_main_cat.get(i).getSub_data().size());
+    //   Log.d("ixx--s",i+"-"+ list_main_cat.get(i).getCat_id());
 
         for (int j = 0; j <list_main_cat.get(i).getSub_data().size() ; j++) {
 
@@ -70,7 +69,7 @@ public class FrgtPageAdapter extends FragmentPagerAdapter {
              list_sub_cat.add(sub_data);
          }
 
-        return frag_home.newInstance(i, list_sub_cat);
+        return frag_home.newInstance(i, list_sub_cat,list_main_cat.get(i).getCat_id());
     }
 
     // Returns the page title for the top indicator
