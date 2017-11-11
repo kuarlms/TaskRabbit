@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -34,7 +35,11 @@ import killbit.taskrabbit.adapters.date_selector_adapter;
 import killbit.taskrabbit.objects.date_obj;
 import killbit.taskrabbit.retrofit.ApiInterface;
 import killbit.taskrabbit.retrofit.ApiUtils;
+import killbit.taskrabbit.retrofit.bookingStep1.BookingStep1Resp;
 import killbit.taskrabbit.utils.sp_task;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by kural on 10/10/17.
@@ -48,7 +53,8 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
   View BottomView;
     TextView tv_when;
     ArrayList<String>sub_cat_list = new ArrayList<>();
-
+    ArrayList<String> time_lis, vehicle_list = new ArrayList<>();
+    String main_cat;
     //View view = LayoutInflater.from(context).inflate(R.layout.thing, null);
 
     @NotEmpty
@@ -85,17 +91,16 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_task_deatils);
-
-
-
         ButterKnife.bind(this);
+
+
         validator = new Validator(this);
         validator.setValidationListener(this);
         mAPIService = ApiUtils.getAPIService();
         sp =  getSharedPreferences(sp_task.MyPref, Context.MODE_PRIVATE);
         editor =sp.edit();
         textView_task_address.clearFocus();
-
+        mtd_booking_step1();
 
     }
 
@@ -223,50 +228,42 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         super.onStart();
         tv_title.setText(getIntent().getStringExtra("sub_cat"));
         sub_cat_list.addAll(getIntent().getStringArrayListExtra("list_cat"));
+        main_cat = getIntent().getStringExtra("main_cat");
+
         ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,sub_cat_list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin_sub_cat_list.setAdapter(adapter);
 
+        spin_sub_cat_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                mtd_booking_step1();
+
+            }
+        });
+
+
+    }
+
+    private void mtd_booking_step1() {
+
+        mAPIService.rf_booking_step1(ApiInterface.header_value,sp.getString(sp_task.Sp_email,""),main_cat,spin_sub_cat_list.getSelectedItemPosition()+"")
+                .enqueue(new Callback<BookingStep1Resp>() {
+                    @Override
+                    public void onResponse(Call<BookingStep1Resp> call, Response<BookingStep1Resp> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<BookingStep1Resp> call, Throwable t) {
+
+                    }
+                });
     }
 
     @Override
     public void onValidationSucceeded() {
-       /* mAPIService.rf_signUp(ApiInterface.header_value,et_fname.getText().toString()
-                ,et_lname.getText().toString(),et_email.getText().toString()
-                ,et_pass.getText().toString(),et_phone.getText().toString(),
-                et_zip.getText().toString()).enqueue(new Callback<signupStatus>() {
-            @Override
-            public void onResponse(Call<signupStatus> call, Response<signupStatus> response) {
-
-                try {
-                    if(response.body().getStatus() == 1){
-                        Toast.makeText(getApplicationContext(), "Sign-up successful, signIn to proceed.", Toast.LENGTH_SHORT).show();
-
-                        Intent i ;
-                        i = new Intent(Get_Task_Details.this,SignIn_email.class);
-                        startActivity(i);
-                        finish();
-
-
-
-                    }else {
-                        Toast.makeText(getApplicationContext(), "Already exists, Try forgot Password or using another email address.", Toast.LENGTH_SHORT).show();
-                    }
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-
-            @Override
-            public void onFailure(Call<signupStatus> call, Throwable t) {
-                Toast.makeText(Get_Task_Details.this, "Unable to reach server, Check connectivity. ", Toast.LENGTH_SHORT).show();
-            }
-        });*/
 
     }
 
