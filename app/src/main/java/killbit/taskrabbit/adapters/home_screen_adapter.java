@@ -74,7 +74,7 @@ public class home_screen_adapter extends RecyclerView.Adapter<home_screen_adapte
         holder.item_parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                recyclerListener.onItemClicked(position, listData.getSubcat_name());
+                recyclerListener.onItemClicked(position, listData.getSubcat_name(),listData.getSubcat_id());
             }
         });
 
@@ -82,7 +82,7 @@ public class home_screen_adapter extends RecyclerView.Adapter<home_screen_adapte
     }
 
     public interface OnRecyclerListener {
-        void onItemClicked(int position,String data);
+        void onItemClicked(int position,String data,String sub_cat_id);
 
     }
 
