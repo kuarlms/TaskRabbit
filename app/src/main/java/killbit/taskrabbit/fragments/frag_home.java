@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,28 +87,21 @@ public class frag_home extends Fragment implements home_screen_adapter.OnRecycle
 
 
     @Override
-    public void onItemClicked(int position, String data, String sub_cat_id) {
-      //  Toast.makeText(getActivity(), "-- "+cat_idx, Toast.LENGTH_SHORT).show();
+    public void onItemClicked(int position, String data) {
+        Toast.makeText(getActivity(), "-- "+cat_idx, Toast.LENGTH_SHORT).show();
         Intent in_gettask = new Intent(this.getActivity(), Get_Task_Details.class);
         in_gettask.putExtra("main_cat",cat_idx);
         in_gettask.putExtra("sub_cat",data);
         ArrayList<String> pass = new ArrayList<>();
-        ArrayList<String> pass_ids = new ArrayList<>();
-
         pass.add(data);
-        pass_ids.add(sub_cat_id);
-
         for (int i = 0; i <list_data.size() ; i++) {
             if(list_data.get(i).getSubcat_name().equalsIgnoreCase(data)){
 
             }else {
-            pass.add(list_data.get(i).getSubcat_name());
-            pass_ids.add(list_data.get(i).getSubcat_id());
-            }
+            pass.add(list_data.get(i).getSubcat_name());}
         }
 
         in_gettask.putStringArrayListExtra("list_cat",pass);
-        in_gettask.putStringArrayListExtra("list_cat_ids",pass_ids);
         startActivity(in_gettask);
         //Toast.makeText(getActivity(), ""+position, Toast.LENGTH_SHORT).show();
     }
