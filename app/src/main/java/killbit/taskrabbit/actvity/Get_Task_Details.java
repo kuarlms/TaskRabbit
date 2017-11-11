@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -50,7 +49,7 @@ import retrofit2.Response;
 
 public class Get_Task_Details extends Activity implements Validator.ValidationListener,date_selector_adapter.OnRecyclerListener {
 
-  View BottomView;
+    View BottomView;
     TextView tv_when;
     ArrayList<String>sub_cat_list = new ArrayList<>();
     ArrayList<String> time_lis, vehicle_list = new ArrayList<>();
@@ -234,21 +233,21 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin_sub_cat_list.setAdapter(adapter);
 
-        spin_sub_cat_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       /* spin_sub_cat_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 mtd_booking_step1();
 
             }
-        });
+        });*/
 
 
     }
 
     private void mtd_booking_step1() {
 
-        mAPIService.rf_booking_step1(ApiInterface.header_value,sp.getString(sp_task.Sp_email,""),main_cat,spin_sub_cat_list.getSelectedItemPosition()+"")
+        mAPIService.rf_booking_step1(ApiInterface.header_value,sp.getString(sp_task.Sp_email,""),main_cat,"1")
                 .enqueue(new Callback<BookingStep1Resp>() {
                     @Override
                     public void onResponse(Call<BookingStep1Resp> call, Response<BookingStep1Resp> response) {
