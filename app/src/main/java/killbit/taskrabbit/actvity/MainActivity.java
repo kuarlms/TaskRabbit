@@ -208,10 +208,10 @@ public class MainActivity extends AppCompatActivity
 
 
 
-                 main_cat = new data_main_home(response.body().getMainCatList().get(i).getCatId(),
+                 main_cat = new data_main_home(response.body().getMainCatList().get(i).getCatTitle(),
                             response.body().getMainCatList().get(i).getCatName(),
                             response.body().getMainCatList().get(i).getCatIcon(),
-                            response.body().getMainCatList().get(i).getCatTitle(),
+                            response.body().getMainCatList().get(i).getCatId(),
                             sub_list);
 
                 list_main_cat.add(main_cat);
