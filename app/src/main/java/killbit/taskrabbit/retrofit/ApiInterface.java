@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 
 import killbit.taskrabbit.actvity.Launcher;
 import killbit.taskrabbit.retrofit.bookingStep1.bookingStep1Resp;
+import killbit.taskrabbit.retrofit.findTasker.FindTaskerResp;
 import killbit.taskrabbit.retrofit.forgotPass.ForgoPassResp;
 import killbit.taskrabbit.retrofit.home.Home_Resp;
 import killbit.taskrabbit.retrofit.signIn.LoginResp;
@@ -110,10 +111,10 @@ service.updateProfile(id, fullName, body, other)*/
 
     @Multipart
     @POST("find_tasker")
-    Call<signupStatus> rf_find_tasker(@Header(header)String header_value,@Part("email") String email,
-                                        @Part("cat_id") String cat_id,@Part("subcat_id") String subcat_id,
-                                      @Part("task_date") String task_date,@Part("task_time") String task_time,
-                                      @Part("city") String city,@Part("page") String page,@Part("vehicle_id") String vehicle_id);
+    Call<FindTaskerResp> rf_find_tasker(@Header(header)String header_value, @Part("email") String email,
+                                        @Part("cat_id") String cat_id, @Part("subcat_id") String subcat_id,
+                                        @Part("task_date") String task_date, @Part("task_time") String task_time,
+                                        @Part("city") String city, @Part("page") String page, @Part("vehicle_id") String vehicle_id);
 
 /*    task_date   ex:2017-10-25
     task_time   ex: 0

@@ -1,10 +1,12 @@
 package killbit.taskrabbit.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -19,7 +21,10 @@ import killbit.taskrabbit.objects.vehicle_list_data;
 
 public class vehicle_list_adp extends RecyclerView.Adapter<vehicle_list_adp.MyViewHolder> {
 
-private List<vehicle_list_data> Vehil_List;
+    List<vehicle_list_data> Vehil_List;
+    OnRecyclerListener recyclerListener;
+    Context context;
+
 
 public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -41,8 +46,10 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
 }
 
 
-    public vehicle_list_adp(List<vehicle_list_data> Vehil_List) {
+    public vehicle_list_adp(List<vehicle_list_data> Vehil_List, OnRecyclerListener onRecyclerListener, Context applicationContext) {
         this.Vehil_List = Vehil_List;
+        this.recyclerListener=onRecyclerListener;
+        this.context=applicationContext;
     }
 
     @Override
@@ -57,11 +64,20 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     public void onBindViewHolder(MyViewHolder holder, int position) {
         vehicle_list_data vehicle_data = Vehil_List.get(position);
         holder.tv_vehicle.setText(vehicle_data.getVehicle_name());
-       /* holder.title.setText(movie.getTitle());
-        holder.genre.setText(movie.getGenre());
-        holder.year.setText(movie.getYear());*/
-    }
 
+        holder.tv_vehicle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, ""+vehicle_data.getVehicle_name(), Toast.LENGTH_SHORT).show();
+                recyclerListener.onItemClickedVehicle(position,vehicle_data.getVehicle_name());
+
+            }
+        });
+    }
+    public interface OnRecyclerListener {
+        void onItemClickedVehicle(int position, String data);
+
+    }
     @Override
     public int getItemCount() {
         return Vehil_List.size();
