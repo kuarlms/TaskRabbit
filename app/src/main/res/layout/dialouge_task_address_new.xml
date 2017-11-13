@@ -17,7 +17,7 @@
     <LinearLayout
         android:layout_below="@id/tb"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="240dp"
         android:weightSum="20"
         android:padding="10dp"
         android:background="@color/white"
@@ -31,8 +31,8 @@
         android:textSize="14dp"
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
-        android:layout_weight="8"
-        android:hint="Enter task address here." />
+        android:layout_weight="12"
+        android:hint="@string/task_address" />
 
         <EditText
             android:id="@+id/et_dia_task_address_city"
@@ -45,13 +45,7 @@
             android:paddingLeft="10dp"
             android:layout_weight="3"
             android:hint="Enter city here." />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="6"
-            android:gravity="left|top"
-            android:text="@string/task_address"
-            android:textColor="@color/colorPrimaryDark"/>
+
 
     <Button
         android:id="@+id/button_task_dialouge"
