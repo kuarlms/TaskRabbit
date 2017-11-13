@@ -239,7 +239,8 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
                 if(et_address_city.getText().length()== 0 ){
                     et_address_city.setError("Required");
                 }else {
-                    city = et_address_city.getText().toString();
+                    city = et_address_city.getText().toString().trim();
+                    dialog_address.dismiss();
                 }
 
 
