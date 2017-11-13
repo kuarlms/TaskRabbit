@@ -55,6 +55,8 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
 
     View BottomView;
     TextView tv_when;
+    RecyclerView.LayoutManager mLayoutManager;
+    RecyclerView rv_vehice_req;
 
     ArrayList<String>sub_cat_list = new ArrayList<>();
     ArrayList<String>sub_cat_list_id = new ArrayList<>();
@@ -172,14 +174,25 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         TextView tv_heading = dialouge_vehicle.findViewById(R.id.tb_dialouge_heading);
         tv_heading.setText("Vehicle Requirement");
 
-        RecyclerView rv_vehice_req = dialouge_when.findViewById(R.id.rv_vehice_req);
-        vehicle_adp = new vehicle_list_adp(vehicle_list);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        rv_vehice_req = dialouge_vehicle.findViewById(R.id.rv_vehice_req);
+
+        mLayoutManager = new LinearLayoutManager(getApplicationContext());
         rv_vehice_req.setLayoutManager(mLayoutManager);
         rv_vehice_req.setItemAnimator(new DefaultItemAnimator());
+        vehicle_adp = new vehicle_list_adp(vehicle_list);
         rv_vehice_req.setAdapter(vehicle_adp);
 
-        dialouge_vehicle.show();
+        if(vehicle_list.size()== 0 || vehicle_list!=null){
+
+            dialouge_vehicle.show();
+
+        }else {
+
+            Toast.makeText(this, "Vehicle not needed...", Toast.LENGTH_SHORT).show();
+
+        }
+
+
 
 
     }
