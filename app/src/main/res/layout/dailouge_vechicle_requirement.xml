@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="bottom"
     android:orientation="vertical"
+
     >
 
 
@@ -14,13 +15,13 @@
         android:layout_height="0dp"
         android:layout_weight="10"
         android:weightSum="20"
-
+        android:background="@color/white"
         android:orientation="vertical">
         <include
             android:layout_height="0dp"
             android:layout_width="match_parent"
             android:id="@+id/toolbar_dai"
-            android:layout_weight="2.5"
+            android:layout_weight="3"
             layout="@layout/toolbar_dialouge"/>
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
@@ -36,6 +37,7 @@
             android:layout_height="0dp"
             android:layout_gravity="center|bottom"
             android:id="@+id/btn_vehicle_done"
+            style="@style/done"
             android:text="Done"/>
 
 

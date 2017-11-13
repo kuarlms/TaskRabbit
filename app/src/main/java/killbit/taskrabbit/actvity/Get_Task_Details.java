@@ -6,12 +6,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -34,11 +36,13 @@ import butterknife.OnClick;
 import killbit.taskrabbit.R;
 import killbit.taskrabbit.adapters.date_selector_adapter;
 import killbit.taskrabbit.adapters.vehicle_list_adp;
+import killbit.taskrabbit.objects.ProgressDialog;
 import killbit.taskrabbit.objects.date_obj;
 import killbit.taskrabbit.objects.vehicle_list_data;
 import killbit.taskrabbit.retrofit.ApiInterface;
 import killbit.taskrabbit.retrofit.ApiUtils;
 import killbit.taskrabbit.retrofit.bookingStep1.bookingStep1Resp;
+import killbit.taskrabbit.retrofit.findTasker.FindTaskerResp;
 import killbit.taskrabbit.utils.sp_task;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,12 +55,18 @@ import retrofit2.Response;
 
 
 
-public class Get_Task_Details extends Activity implements Validator.ValidationListener,date_selector_adapter.OnRecyclerListener {
+public class Get_Task_Details extends Activity implements Validator.ValidationListener,
+        date_selector_adapter.OnRecyclerListener,vehicle_list_adp.OnRecyclerListener {
 
     View BottomView;
     TextView tv_when;
     RecyclerView.LayoutManager mLayoutManager;
     RecyclerView rv_vehice_req;
+    ProgressDialog pd;
+    EditText et_address,et_address_city;
+    Button btn_address_done;
+
+    String vehicle_id ,email,task_date,task_time,city,page;
 
     ArrayList<String>sub_cat_list = new ArrayList<>();
     ArrayList<String>sub_cat_list_id = new ArrayList<>();
@@ -72,7 +82,7 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
     String main_cat,sub_cat_id;
     SGPickerView  pickerView;
     //View view = LayoutInflater.from(context).inflate(R.layout.thing, null);
-
+    Dialog dialouge_task,dialouge_when,dialouge_vehicle,dialog_address;
     @NotEmpty
     @BindView(R.id.textView1x6)
     EditText textView_task_address;
@@ -95,11 +105,13 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
     @BindView(R.id.spinner_task)
     Spinner spin_sub_cat_list;
 
+    @BindView(R.id.card_vehice)
+    CardView cardView_vehicle;
 
 
 
 
-  Dialog dialouge_task,dialouge_when,dialouge_vehicle,dialog_address;
+
     Validator validator;
     ApiInterface mAPIService;
     SharedPreferences sp;
@@ -111,6 +123,10 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_task_deatils);
         ButterKnife.bind(this);
+
+
+
+
 
 
         validator = new Validator(this);
@@ -130,10 +146,61 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
     @OnClick(R.id.button_done)
     public void btn_submit(){
 
-        validator.validate();
+
+        email = sp.getString(sp_task.Sp_email,"");
+
+
+        mtd_find_tasker();
+
+
 
     }
 
+    private void mtd_find_tasker() {
+        if(task_date != null  && task_time != null) {
+
+            city = "chennai";
+            page = "1";
+            if(vehicle_list.isEmpty()){
+
+            }else {
+                if(vehicle_id == null){
+                    Toast.makeText(this, "Select Vehicle type...", Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+
+
+            pd = new ProgressDialog(this);
+            pd.ShowTheDialog("Loading...", "please wait...", false);
+
+
+            mAPIService.rf_find_tasker(ApiInterface.header_value, sp.getString(sp_task.Sp_email, ""),
+                    main_cat, sub_cat_id,task_date,task_time,city,page,vehicle_id)
+                    .enqueue(new Callback<FindTaskerResp>() {
+
+
+                        @Override
+                        public void onResponse(Call<FindTaskerResp> call, Response<FindTaskerResp> response) {
+
+
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<FindTaskerResp> call, Throwable t) {
+
+                        }
+                    });
+
+            pd.DismissTheDialog();
+        }else {
+            Toast.makeText(this, "Fill time details...", Toast.LENGTH_SHORT).show();
+        }
+
+
+
+    }
 
 
     @OnClick({R.id.textView16,R.id.card_task})
@@ -158,9 +225,26 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         BottomView = getLayoutInflater().inflate(R.layout.dialouge_task_address_new,null);
         dialog_address = new Dialog(Get_Task_Details.this, R.style.MaterialDialogSheet);
         dialog_address.setContentView(BottomView);
+        dialog_address.setCancelable(false);
         TextView tv_heading = dialog_address.findViewById(R.id.tb_dialouge_heading);
         tv_heading.setText("Task Address");
-        //et_dia_task_address
+
+        et_address = dialog_address.findViewById(R.id.et_dia_task_address);
+        et_address_city = dialog_address.findViewById(R.id.et_dia_task_address_city);
+        btn_address_done = dialog_address.findViewById(R.id.button_task_dialouge);
+
+        btn_address_done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(et_address_city.getText().length()== 0 ){
+                    et_address_city.setError("Required");
+                }else {
+                    city = et_address_city.getText().toString();
+                }
+
+
+            }
+        });
 
 
         dialog_address.show();
@@ -179,16 +263,16 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         mLayoutManager = new LinearLayoutManager(getApplicationContext());
         rv_vehice_req.setLayoutManager(mLayoutManager);
         rv_vehice_req.setItemAnimator(new DefaultItemAnimator());
-        vehicle_adp = new vehicle_list_adp(vehicle_list);
+        vehicle_adp = new vehicle_list_adp(vehicle_list,this,getApplicationContext());
         rv_vehice_req.setAdapter(vehicle_adp);
 
-        if(vehicle_list.size()== 0 || vehicle_list!=null){
+        if( vehicle_list.isEmpty()){
 
-            dialouge_vehicle.show();
+            Toast.makeText(this, "Vehicle not required...", Toast.LENGTH_SHORT).show();
 
         }else {
+            dialouge_vehicle.show();
 
-            Toast.makeText(this, "Vehicle not needed...", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -221,6 +305,8 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
 
             /*    pickerView.getCurrentSelectedItemIndex();
                 pickerView.getCurrentSelectedItem();*/
+            task_time = time_lis_id.get(pickerView.getCurrentSelectedItemIndex());
+
             }
         });
 
@@ -238,14 +324,9 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
 
         }
 
-       /* dates_s = new date_obj("jan","23","wed");
-        for (int i = 0; i < 12; i++) {
-            List_dates.add(dates_s);
-        }
-        dates_s = new date_obj("janx","23s","wexd");
-        List_dates.add(dates_s);*/
+
         rv_date.setHasFixedSize(true);
-        rv_date.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        rv_date.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         rv_adapter = new date_selector_adapter(List_dates,getApplicationContext(),Get_Task_Details.this);
         rv_date.setAdapter(rv_adapter);
@@ -294,6 +375,10 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
 
     private void mtd_booking_step1() {
 
+        pd = new ProgressDialog(this);
+        pd.ShowTheDialog("Loading...","please wait...",false);
+
+
         mAPIService.rf_booking_step1(ApiInterface.header_value,sp.getString(sp_task.Sp_email,""),main_cat,sub_cat_id)
                 .enqueue(new Callback<bookingStep1Resp>() {
 
@@ -310,17 +395,20 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
                  /*       Toast.makeText(Get_Task_Details.this, ""+time_lis, Toast.LENGTH_SHORT).show();
                      card_when();*/
 
+                        if(response.body().getDropdownData().getVehicleList().size()!= 0){
+
+
                         for (int i = 0; i <response.body().getDropdownData().getVehicleList().size() ; i++) {
 
                             vehicle_data = new vehicle_list_data(response.body().getDropdownData().getVehicleList().get(i).getVehicleName(),
                                     response.body().getDropdownData().getVehicleList().get(i).getVehicleId());
 
                             vehicle_list.add(vehicle_data);
-
-
-
                         }
-
+                        }else {
+                            cardView_vehicle.setVisibility(View.GONE);
+                        }
+                    pd.DismissTheDialog();
 
                     }
 
@@ -355,9 +443,18 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
     public void onItemClicked(int position, String data) {
 
         tv_when.setText(data);
+        task_date = data;
+
+        textView_task_when.setText(data);
 
 
 
+    }
+
+    @Override
+    public void onItemClickedVehicle(int position, String data) {
+        //Toast.makeText(this, ""+data, Toast.LENGTH_SHORT).show();
+        textView_task_vehicle.setText(data);
 
     }
 }
