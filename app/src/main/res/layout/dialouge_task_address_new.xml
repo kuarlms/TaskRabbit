@@ -17,7 +17,8 @@
     <LinearLayout
         android:layout_below="@id/tb"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_height="200dp"
+        android:weightSum="20"
         android:padding="10dp"
         android:background="@color/white"
         android:orientation="vertical">
@@ -28,42 +29,36 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:textSize="14dp"
-        android:padding="15dp"
-        android:layout_weight="3"
-        android:imeOptions="actionGo"
-        android:hint="@string/task_address" />
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="2sp"
-    android:background="@color/colorPrimary"></LinearLayout>
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_weight="8"
+        android:hint="Enter task address here." />
+
         <EditText
             android:id="@+id/et_dia_task_address_city"
             android:background="@color/white"
             android:gravity="top"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:padding="10dp"
-            android:imeOptions="actionGo"
-            fontPath="fonts/Montserrat-Regular.ttf"
+            android:textSize="14dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
             android:layout_weight="3"
             android:hint="Enter city here." />
-
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="2sp"
-            android:background="@color/colorPrimary"></LinearLayout>
-
+            android:layout_height="0dp"
+            android:layout_weight="6"
+            android:gravity="left|top"
+            android:text="@string/task_address"
+            android:textColor="@color/colorPrimaryDark"/>
 
     <Button
         android:id="@+id/button_task_dialouge"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
-        android:layout_marginTop="20dp"
+        android:layout_weight="5"
         style="@style/done"
-        fontPath="fonts/Montserrat-SemiBold.ttf"
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
         android:textAllCaps="false"

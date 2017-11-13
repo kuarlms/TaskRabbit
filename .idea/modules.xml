@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TaskRabbit2.iml" filepath="$PROJECT_DIR$/TaskRabbit2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TaskRabbitGit.iml" filepath="$PROJECT_DIR$/TaskRabbitGit.iml" />
       <module fileurl="file://F:\Android_dev\TaskRabbit2\TaskRabbitGit.iml" filepath="F:\Android_dev\TaskRabbit2\TaskRabbitGit.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
