@@ -184,6 +184,8 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
                         public void onResponse(Call<FindTaskerResp> call, Response<FindTaskerResp> response) {
 
 
+                            mtd_taskers();
+
 
                         }
 
@@ -197,6 +199,12 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         }else {
             Toast.makeText(this, "Fill time details...", Toast.LENGTH_SHORT).show();
         }
+
+
+
+    }
+
+    private void mtd_taskers() {
 
 
 
