@@ -65,7 +65,7 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
     ProgressDialog pd;
     EditText et_address,et_address_city;
     Button btn_address_done;
-
+    Dialog  tasker_details;
     String vehicle_id ,email,task_date,task_time,city,page;
 
     ArrayList<String>sub_cat_list = new ArrayList<>();
@@ -205,7 +205,11 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
     }
 
     private void mtd_taskers() {
+        tasker_details = new Dialog(this, R.style.AppTheme_NoActionBar);
 
+        tasker_details.setContentView(R.layout.viwepager_tasker_details);
+        tasker_details.setCancelable(false);
+        tasker_details.show();
 
 
     }
