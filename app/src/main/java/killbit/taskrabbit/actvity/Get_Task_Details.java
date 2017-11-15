@@ -35,9 +35,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import killbit.taskrabbit.R;
 import killbit.taskrabbit.adapters.date_selector_adapter;
+import killbit.taskrabbit.adapters.tasker_details_adapter;
 import killbit.taskrabbit.adapters.vehicle_list_adp;
 import killbit.taskrabbit.objects.ProgressDialog;
 import killbit.taskrabbit.objects.date_obj;
+import killbit.taskrabbit.objects.tasker_list_data;
 import killbit.taskrabbit.objects.vehicle_list_data;
 import killbit.taskrabbit.retrofit.ApiInterface;
 import killbit.taskrabbit.retrofit.ApiUtils;
@@ -61,18 +63,22 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
     View BottomView;
     TextView tv_when;
     RecyclerView.LayoutManager mLayoutManager;
-    RecyclerView rv_vehice_req;
+    RecyclerView rv_vehice_req,rv_tasker_details;
     ProgressDialog pd;
     EditText et_address,et_address_city;
     Button btn_address_done;
     Dialog  tasker_details;
     String vehicle_id ,email,task_date,task_time,city,page;
-
+    tasker_details_adapter tasker_adapter;
     ArrayList<String>sub_cat_list = new ArrayList<>();
     ArrayList<String>sub_cat_list_id = new ArrayList<>();
 
     List<vehicle_list_data> vehicle_list = new ArrayList<>();
     vehicle_list_data vehicle_data;
+
+    List<tasker_list_data> tasker_list = new ArrayList<>();
+    tasker_list_data tasker_data;
+
 
     ArrayList<String> time_lis = new ArrayList<>();
     ArrayList<String> time_lis_id = new ArrayList<>();
@@ -207,8 +213,17 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
     private void mtd_taskers() {
         tasker_details = new Dialog(this, R.style.AppTheme_NoActionBar);
 
-        tasker_details.setContentView(R.layout.viwepager_tasker_details);
+        tasker_details.setContentView(R.layout.tasker_recycler);
         tasker_details.setCancelable(false);
+        rv_tasker_details = tasker_details.findViewById(R.id.recycleView_tasker_details);
+        rv_tasker_details.setHasFixedSize(true);
+        rv_tasker_details.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+       // tasker_adapter = new tasker_details_adapter(tasker_list,getApplicationContext(),Get_Task_Details.this);
+        rv_tasker_details.setAdapter(tasker_adapter);
+
+
+
         tasker_details.show();
 
 
