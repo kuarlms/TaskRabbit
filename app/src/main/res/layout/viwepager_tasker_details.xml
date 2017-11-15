@@ -1,12 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <android.support.v4.view.ViewPager
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/hint"
+        android:weightSum="50"
+        android:gravity="center_horizontal">
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:src="@drawable/a"
+        android:layout_weight="3"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:textColor="@color/red"
+            android:text="name"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/tv_adp_tasker_name"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:textColor="@color/red"
+            android:text="name"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/tv_adp_tasker_review"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:textColor="@color/red"
+            android:text="name"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/tv_adp_tasker_iv_verifed"/>
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:id="@+id/btn_tasker_adp_rate"
+            android:text="$$$"
+            android:layout_weight="1"
+            style="@style/done"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:textColor="@color/red"
+            android:text="@string/com_facebook_device_auth_instructions"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/tv_adp_tasker_tearms_txt_description"/>
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="2px"
+    android:background="@android:color/black"></LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:background="@color/Blue"
+            android:orientation="vertical"
+            android:weightSum="3">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:textColor="@color/red"
+                android:text="Tasker since ..."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/tv_adp_tasker_since"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:textColor="@color/red"
+                android:text="Done 000 tasks"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/tv_adp_tasker_number_of_tasks"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:textColor="@color/red"
+                android:text="Quick word"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/tv_adp_tasker_quick_notes"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="@android:color/black"></LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:textColor="@color/red"
+            android:text="@string/task_details"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/tv_adp_tasker_details1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:textColor="@color/red"
+            android:text="@string/task_details"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/tv_adp_tasker_details2"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:textColor="@color/red"
+            android:text="@string/task_details"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/tv_adp_tasker_details3"/>
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:padding="4dp"
+    android:layout_weight="4"
+    android:weightSum="10"
+    android:orientation="vertical">
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:textColor="@android:color/black"
+        android:text="What people said about me..."
+        android:layout_weight="1"
+        android:gravity="center|left"
+        android:textSize="18sp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/tv_adp_tasker_pleople_said"/>
 
-    </android.support.v4.view.ViewPager>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9">
 
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
+
+
+    </LinearLayout>
+
+       </ScrollView>
+
+
+
+
+
+</RelativeLayout>
