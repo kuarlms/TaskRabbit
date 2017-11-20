@@ -36,11 +36,11 @@ public class tasker_details_adapter extends RecyclerView.Adapter<tasker_details_
         public MyViewHolder(View view, Context context) {
             super(view);
 
-            tv_month =view.findViewById(R.id.txt_adp_month);
+            /*tv_month =view.findViewById(R.id.txt_adp_month);
             tv_day =view.findViewById(R.id.txt_adp_day);
             tv_date = view.findViewById(R.id.txt_adp_date);
             item_parent = view.findViewById(R.id.parent_item_adp_home);
-
+*/
 
         }
     }
@@ -58,7 +58,7 @@ public class tasker_details_adapter extends RecyclerView.Adapter<tasker_details_
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.adapter_date, parent, false);
+                .inflate(R.layout.viwepager_tasker_details, parent, false);
 
         return new MyViewHolder(itemView, context);
     }

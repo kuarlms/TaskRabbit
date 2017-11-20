@@ -68,7 +68,8 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
     EditText et_address,et_address_city;
     Button btn_address_done;
     Dialog  tasker_details;
-    String vehicle_id ,email,task_date,task_time,city,page;
+    String vehicle_id ,email,task_date,task_time,city,adress,page;
+    String vehicle_details;
     tasker_details_adapter tasker_adapter;
     ArrayList<String>sub_cat_list = new ArrayList<>();
     ArrayList<String>sub_cat_list_id = new ArrayList<>();
@@ -220,7 +221,7 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         rv_tasker_details.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
        // tasker_adapter = new tasker_details_adapter(tasker_list,getApplicationContext(),Get_Task_Details.this);
-        rv_tasker_details.setAdapter(tasker_adapter);
+      //  rv_tasker_details.setAdapter(tasker_adapter);
 
 
 
@@ -260,6 +261,16 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         et_address_city = dialog_address.findViewById(R.id.et_dia_task_address_city);
         btn_address_done = dialog_address.findViewById(R.id.button_task_dialouge);
 
+        if(adress!= null ){
+            et_address.setText(adress);
+        }
+
+        if(city!=null ){
+            et_address_city.setText(city);
+
+        }
+
+
         btn_address_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -269,8 +280,15 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
                     city = et_address_city.getText().toString().trim();
                     dialog_address.dismiss();
                 }
+                if(et_address.getText().length() < 14){
 
+                    et_address.setError("Minimum length 15 characters.");
+                    return;
+                }
 
+                textView_task_address.setText(et_address.getText()+" - "+et_address_city.getText());
+
+                dialog_address.dismiss();
             }
         });
 
@@ -283,8 +301,11 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         BottomView = getLayoutInflater().inflate(R.layout.dailouge_vechicle_requirement,null);
         dialouge_vehicle = new Dialog(Get_Task_Details.this, R.style.MaterialDialogSheet);
         dialouge_vehicle.setContentView(BottomView);
+        dialouge_when.setCancelable(false);
         TextView tv_heading = dialouge_vehicle.findViewById(R.id.tb_dialouge_heading);
         tv_heading.setText("Vehicle Requirement");
+        Button btn_vehicle_done = dialouge_vehicle.findViewById(R.id.btn_vehicle_done);
+
 
         rv_vehice_req = dialouge_vehicle.findViewById(R.id.rv_vehice_req);
 
@@ -304,6 +325,23 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
 
         }
 
+        btn_vehicle_done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                vehicle_details = textView_task_vehicle.getText().toString();
+
+                if(vehicle_details!= null){
+                    dialouge_vehicle.dismiss();
+                }else {
+                    textView_task_vehicle.setError("Please select a vehicle type.");
+                    dialouge_vehicle.dismiss();
+                }
+
+
+            }
+        });
+
 
 
 
@@ -317,6 +355,7 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
 
         dialouge_when = new Dialog(Get_Task_Details.this, R.style.MaterialDialogSheet);
         dialouge_when.setContentView(BottomView);
+        dialouge_when.setCancelable(false);
         TextView tv_heading = dialouge_when.findViewById(R.id.tb_dialouge_heading);
         tv_heading.setText("When");
         date_selector_adapter rv_adapter;
@@ -325,7 +364,7 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         List<date_obj> List_dates = new ArrayList<>();
         pickerView = dialouge_when.findViewById(R.id.pickerView);
         pickerView.setItems(time_lis);
-
+        Button btn_when_done = dialouge_when.findViewById(R.id.button_task_dialouge);
 
         pickerView.setPickerListener(new SGPickerView.SGPickerViewListener() {
             @Override
@@ -334,6 +373,8 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
             /*    pickerView.getCurrentSelectedItemIndex();
                 pickerView.getCurrentSelectedItem();*/
             task_time = time_lis_id.get(pickerView.getCurrentSelectedItemIndex());
+
+
 
             }
         });
@@ -360,6 +401,19 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         rv_date.setAdapter(rv_adapter);
         dialouge_when.show();
         rv_adapter.notifyDataSetChanged();
+
+        btn_when_done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(task_time != null || task_date!=null){
+
+                    dialouge_when.dismiss();
+                }else {
+                    Toast.makeText(Get_Task_Details.this, "Fill all details...", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
     //card_task_address
 
