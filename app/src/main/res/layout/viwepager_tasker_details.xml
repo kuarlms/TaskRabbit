@@ -11,13 +11,14 @@
     android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/hint"
-        android:weightSum="50"
+        android:weightSum="30"
         android:gravity="center_horizontal">
     <ImageView
         android:layout_width="100dp"
         android:layout_height="0dp"
         android:src="@drawable/a"
-        android:layout_weight="3"/>
+        android:layout_weight="3"
+        android:id="@+id/iv_tasker_details_adp"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -168,7 +169,8 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9">
+        android:layout_weight="9"
+        android:id="@+id/rv_adp_tasker_reviews">
 
 
     </android.support.v7.widget.RecyclerView>

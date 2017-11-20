@@ -58,7 +58,7 @@ import retrofit2.Response;
 
 
 public class Get_Task_Details extends Activity implements Validator.ValidationListener,
-        date_selector_adapter.OnRecyclerListener,vehicle_list_adp.OnRecyclerListener {
+        date_selector_adapter.OnRecyclerListener,vehicle_list_adp.OnRecyclerListener, tasker_details_adapter.OnRecyclerListener {
 
     View BottomView;
     TextView tv_when;
@@ -190,8 +190,53 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
                         @Override
                         public void onResponse(Call<FindTaskerResp> call, Response<FindTaskerResp> response) {
 
+                          /*  String taskerId,
+                            String proPic,
+                            String firstName,
+                            String lastName, Integer reviewResponseRate,
+                                    String idVerified,
+                                    String currencySymbol,
+                                    String price,
+                                    String servicePercentage,
+                                    String about,
+                                    String serviceStartYear,
+                                    Integer taskDone,
+                                    String detail1, String detail2,
+                                    String detail3,
+                                    List<ReviewArray> reviewArray,
+                                    List<Object> supplyArray*/
 
-                            mtd_taskers();
+                        /*    if(response.body().getStatus().equals("1")){*/
+
+
+                                for (int i = 0; i < response.body().getTaskerList().size(); i++) {
+                                    tasker_data = new tasker_list_data(response.body().getTaskerList().get(i).getTaskerId(),
+                                            response.body().getTaskerList().get(i).getProPic(),
+                                            response.body().getTaskerList().get(i).getFirstName(),
+                                            response.body().getTaskerList().get(i).getLastName(),
+                                            response.body().getTaskerList().get(i).getReviewResponseRate(),
+                                            response.body().getTaskerList().get(i).getIdVerified(),
+                                            response.body().getTaskerList().get(i).getCurrencySymbol(),
+                                            response.body().getTaskerList().get(i).getPrice(),
+                                            response.body().getTaskerList().get(i).getServicePercentage(),
+                                            response.body().getTaskerList().get(i).getAbout(),
+                                            response.body().getTaskerList().get(i).getServiceStartYear(),
+                                            response.body().getTaskerList().get(i).getTaskDone(),
+                                            response.body().getTaskerList().get(i).getDetail1(),
+                                            response.body().getTaskerList().get(i).getDetail2(),
+                                            response.body().getTaskerList().get(i).getDetail3(),
+                                            response.body().getTaskerList().get(i).getReviewArray(),
+                                            response.body().getTaskerList().get(i).getSupplyArray());
+
+                                    tasker_list.add(tasker_data);
+                                }
+                                mtd_taskers();
+                                tasker_adapter.notifyDataSetChanged();
+
+
+
+
+
 
 
                         }
@@ -220,11 +265,8 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         rv_tasker_details.setHasFixedSize(true);
         rv_tasker_details.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-       // tasker_adapter = new tasker_details_adapter(tasker_list,getApplicationContext(),Get_Task_Details.this);
-      //  rv_tasker_details.setAdapter(tasker_adapter);
-
-
-
+        tasker_adapter = new tasker_details_adapter(tasker_list,getApplicationContext(),Get_Task_Details.this);
+        rv_tasker_details.setAdapter(tasker_adapter);
         tasker_details.show();
 
 
@@ -537,6 +579,12 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
     public void onItemClickedVehicle(int position, String data) {
         //Toast.makeText(this, ""+data, Toast.LENGTH_SHORT).show();
         textView_task_vehicle.setText(data);
+        vehicle_id = vehicle_list.get(position).getVehicle_id();
+
+    }
+
+    @Override
+    public void onTaskerSelected(int position, String data) {
 
     }
 }
