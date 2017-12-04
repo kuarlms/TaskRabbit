@@ -72,44 +72,67 @@
 
                 <TextView
                     android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:minHeight="30sp"
                     android:layout_alignBottom="@+id/imageView10"
                     android:layout_alignLeft="@+id/textView44"
                     android:layout_alignStart="@+id/textView44"
                     android:text="(23 Jun - Flexible time)"
                     android:textColor="#898989"
                     android:textSize="12dp" />
-
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true">
                 <Button
 
                     android:id="@+id/button13"
-                    android:layout_width="150dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_margin="10dp"
-                    android:background="@color/white"
-                    android:text="Chat "
+                    android:background="@color/red"
+                    android:text="Chat"
+                    android:lines="2"
+                    android:maxLines="2"
                     android:textAllCaps="true"
-                    android:textColor="@color/red" />
+                    android:textColor="@color/white" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="16sp"
+                        android:background="@color/listBg"
+                        android:text="Flexiable"
+                        android:id="@+id/tv_thp_time"
+                        android:gravity="center"
+                        android:textColor="@color/Black_nb"/>
 
+
+                    </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="false"
                     android:layout_below="@id/imageView10"
                     android:padding="2dp"
+                    android:visibility="visible"
+                    android:gravity="center"
+                    android:orientation="horizontal"
                     android:layout_marginTop="5dp"
                     android:layout_margin="2dp">
-
+<FrameLayout
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"></FrameLayout>
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left"
-                        android:layout_weight="1"
+                        android:layout_weight="0"
                         android:padding="0dp"
+
                         android:orientation="vertical">
 
                         <TextView
@@ -128,18 +151,23 @@
 
                     <Button
                         android:id="@+id/button10_taskDone"
-                        style="@style/done"
+
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_below="@+id/linearLayout13"
-                        android:layout_gravity="right"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="150dp"
+                        android:layout_marginLeft="150dp"
+                        android:layout_marginRight="150dp"
+                        android:background="@color/white"
+
                         android:layout_toEndOf="@+id/button11"
                         android:layout_toRightOf="@+id/button11"
                         android:layout_weight="1"
                         android:padding="15dp"
-                        android:text="Task Done"
+                        android:text="CANCEL"
                         android:textAllCaps="true"
-                        android:textColor="#f9f9f5" />
+                        android:textColor="@color/red" />
 
                 </LinearLayout>
 

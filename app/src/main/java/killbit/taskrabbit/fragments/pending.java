@@ -1,14 +1,16 @@
-package killbit.taskrabbit.actvity;
+package killbit.taskrabbit.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,9 +20,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import killbit.taskrabbit.R;
-import killbit.taskrabbit.adapters.active_tasks_adp;
+import killbit.taskrabbit.adapters.taskHistory_Pending_adapter;
 import killbit.taskrabbit.objects.active_tasks_data;
 import killbit.taskrabbit.retrofit.ApiInterface;
 import killbit.taskrabbit.retrofit.ApiUtils;
@@ -31,68 +32,62 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by kural on 11/10/17.
+ * Created by kural mughil selvam on 03-12-2017.
  */
 
-
-public class active_tasks extends FragmentActivity implements active_tasks_adp.OnTaskDoneListner{
-
+public class pending extends Fragment implements taskHistory_Pending_adapter.OnTaskDoneListner {
+    View view;
     active_tasks_data tasks_data;
     List<active_tasks_data> tasks_datas = new ArrayList<>();
-    active_tasks_adp adapter_act_tsk;
-      //  RecyclerView rv_at_list;
+    taskHistory_Pending_adapter adapter;
+
+
+
     @BindView(R.id.recycleView)
-    RecyclerView rv_at_list;
+    RecyclerView rv_list;
 
-    @BindView(R.id.pb_active_tasks_loading)
-    ProgressBar pb_loading;
+    @BindView(R.id.pb_taskhistory)
+    ProgressBar pb_task;
 
-    @BindView(R.id.tb_normal_title)
-    TextView tv_title;
-
+    @BindView(R.id.tv_empty)
+    TextView tv_empty;
 
     SharedPreferences sp;
     SharedPreferences.Editor  editor ;
     ApiInterface mAPIService;
 
-
+    @Nullable
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.actvity_active_tasks);
-       ButterKnife.bind(this);
-       sp =  getSharedPreferences(sp_task.MyPref, Context.MODE_PRIVATE);
-       editor =sp.edit();
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.taskshistory_fragments, container, false);
+        ButterKnife.bind(this, view);
+        pb_task.setVisibility(View.VISIBLE);
+        sp =  getActivity().getSharedPreferences(sp_task.MyPref, Context.MODE_PRIVATE);
+        editor =sp.edit();
         mAPIService = ApiUtils.getAPIService();
-        tv_title.setText("Active Task");
 
-
-        adapter_act_tsk = new active_tasks_adp(tasks_datas,getApplicationContext(),this);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        rv_at_list.setLayoutManager(mLayoutManager);
-        rv_at_list.setItemAnimator(new DefaultItemAnimator());
-        rv_at_list.setAdapter(adapter_act_tsk);
+        adapter = new taskHistory_Pending_adapter(tasks_datas,getActivity(),this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        rv_list.setLayoutManager(mLayoutManager);
+        rv_list.setItemAnimator(new DefaultItemAnimator());
+        rv_list.setAdapter(adapter);
 
 
 
-    }
-
-    @OnClick({R.id.tb_normal_back})
-    public void tb_back(){
-
-        finish();
-
+        return (view);
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
-
-        mAPIService.rf_user_active_task(ApiInterface.header_value, sp.getString(sp_task.Sp_email,"")).enqueue(new Callback<ActiveTaskResp>() {
+        mAPIService.rf_dashboard_user_task_history_pending(ApiInterface.header_value, sp.getString(sp_task.Sp_email,"")).enqueue(new Callback<ActiveTaskResp>() {
             @Override
             public void onResponse(Call<ActiveTaskResp> call, Response<ActiveTaskResp> response) {
 
                 if(response.body().getStatus().equals(1)){
+
+                    tasks_datas.clear();
+
                     for (int i = 0; i < response.body().getTaskPendingArray().size(); i++) {
 
 
@@ -114,10 +109,12 @@ public class active_tasks extends FragmentActivity implements active_tasks_adp.O
 
 
                     }
-                  adapter_act_tsk.notifyDataSetChanged();
-                  pb_loading.setVisibility(View.GONE);
+                    adapter.notifyDataSetChanged();
+                    pb_task.setVisibility(View.GONE);
                 }else {
-                    Toast.makeText(active_tasks.this, "Failed  "+response.body().getStatus(), Toast.LENGTH_LONG).show();
+                  //  Toast.makeText(getActivity(), "Failed  "+response.body().getStatus(), Toast.LENGTH_LONG).show();
+                    pb_task.setVisibility(View.GONE);
+                    tv_empty.setVisibility(View.VISIBLE);
                 }
 
 
@@ -126,24 +123,22 @@ public class active_tasks extends FragmentActivity implements active_tasks_adp.O
             @Override
             public void onFailure(Call<ActiveTaskResp> call, Throwable t) {
 
-                Toast.makeText(active_tasks.this, ""+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), ""+t, Toast.LENGTH_LONG).show();
 
             }
         } );
+
+
 
     }
 
     @Override
     public void onBtnTaskDone(String booking_id, String task_hour) {
 
-     //   mAPIService.rf_task_completed(ApiInterface.header_value, sp.getString(sp_task.Sp_email,"")).enqueue(new Callback<ActiveTaskResp>() {
-
-        Toast.makeText(this, ""+booking_id, Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
     public void onBtnChat(String booking_id, int position) {
-        Toast.makeText(this, ""+position, Toast.LENGTH_SHORT).show();
+
     }
 }
