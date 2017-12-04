@@ -211,7 +211,7 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
 
     void mtd_social_login(String email,String name, String profile_pic){
 
-        mAPIService.rf_signIn_social(ApiInterface.header_value, "").enqueue(new Callback<LoginResp>() {
+        mAPIService.rf_signIn_social(ApiInterface.header_value, email.toLowerCase()).enqueue(new Callback<LoginResp>() {
 
             @Override
             public void onResponse(Call<LoginResp> call, Response<LoginResp> response) {

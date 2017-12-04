@@ -3,6 +3,7 @@ package killbit.taskrabbit.actvity;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,7 +71,7 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
     Button btn_address_done;
     Dialog  tasker_details;
     String vehicle_id ,email,task_date,task_time,city,adress,page;
-    String vehicle_details;
+    String vehicle_details,task_description;
     tasker_details_adapter tasker_adapter;
     ArrayList<String>sub_cat_list = new ArrayList<>();
     ArrayList<String>sub_cat_list_id = new ArrayList<>();
@@ -166,7 +168,7 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
     private void mtd_find_tasker() {
         if(task_date != null  && task_time != null) {
 
-            city = "chennai";
+
             page = "1";
             if(vehicle_list.isEmpty()){
 
@@ -176,8 +178,20 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
                     return;
                 }
             }
+            if(task_description!=null){
+
+            }else {
+                Toast.makeText(this, "Fill in task description to proceed...", Toast.LENGTH_SHORT).show();
+                return;
 
 
+            }
+            if(city!=null)
+            {}else {
+                Toast.makeText(this, "Fill in city and address to proceed...", Toast.LENGTH_SHORT).show();
+                return;
+
+            }
             pd = new ProgressDialog(this);
             pd.ShowTheDialog("Loading...", "please wait...", false);
 
@@ -206,7 +220,7 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
                                     List<ReviewArray> reviewArray,
                                     List<Object> supplyArray*/
 
-                        /*    if(response.body().getStatus().equals("1")){*/
+                            if(response.body().getStatus().equals(1)){
 
 
                                 for (int i = 0; i < response.body().getTaskerList().size(); i++) {
@@ -230,8 +244,11 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
 
                                     tasker_list.add(tasker_data);
                                 }
-                                mtd_taskers();
-                                tasker_adapter.notifyDataSetChanged();
+                                mtd_taskers();}
+                                else {
+                                Toast.makeText(Get_Task_Details.this, "Taskers not available..."+response.body().getStatus(), Toast.LENGTH_SHORT).show();
+                            }
+                               // tasker_adapter.notifyDataSetChanged();
 
 
 
@@ -256,12 +273,33 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
 
     }
 
+    @OnClick({R.id.tb_normal_back})
+    public void tb_back(){
+
+        finish();
+
+    }
+
+
+
     private void mtd_taskers() {
         tasker_details = new Dialog(this, R.style.AppTheme_NoActionBar);
 
         tasker_details.setContentView(R.layout.tasker_recycler);
         tasker_details.setCancelable(false);
         rv_tasker_details = tasker_details.findViewById(R.id.recycleView_tasker_details);
+        ImageButton iv_back = tasker_details.findViewById(R.id.tb_normal_back);
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tasker_details.dismiss();
+            }
+        });
+        TextView tv_title = tasker_details.findViewById(R.id.tb_normal_title);
+        tv_title.setText(getIntent().getStringExtra("sub_cat"));
+
+
+
         rv_tasker_details.setHasFixedSize(true);
         rv_tasker_details.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
@@ -283,6 +321,24 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         tv_heading.setText("Task Details");
         EditText et_task_details =  dialouge_task.findViewById(R.id.et_dia_task_details);
 
+        Button btn_done = dialouge_task.findViewById(R.id.button_task_dialouge);
+        btn_done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(et_task_details.getText().toString().trim().length() > 14) {
+
+                    task_description = et_task_details.getText().toString().trim();
+                    textView_task_details.setText(task_description);
+                    dialouge_task.dismiss();
+
+                }else {
+                    et_task_details.setError("Minimum length 15 characters.");
+                }
+
+
+            }
+        });
+        dialouge_task.setCancelable(false);
 
         dialouge_task.show();
     }
@@ -343,7 +399,7 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         BottomView = getLayoutInflater().inflate(R.layout.dailouge_vechicle_requirement,null);
         dialouge_vehicle = new Dialog(Get_Task_Details.this, R.style.MaterialDialogSheet);
         dialouge_vehicle.setContentView(BottomView);
-        dialouge_when.setCancelable(false);
+        dialouge_vehicle.setCancelable(false);
         TextView tv_heading = dialouge_vehicle.findViewById(R.id.tb_dialouge_heading);
         tv_heading.setText("Vehicle Requirement");
         Button btn_vehicle_done = dialouge_vehicle.findViewById(R.id.btn_vehicle_done);
@@ -580,11 +636,48 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         //Toast.makeText(this, ""+data, Toast.LENGTH_SHORT).show();
         textView_task_vehicle.setText(data);
         vehicle_id = vehicle_list.get(position).getVehicle_id();
+        dialouge_vehicle.dismiss();
 
     }
 
     @Override
-    public void onTaskerSelected(int position, String data) {
+    public void onTaskerSelected(int position, String data, String ProfilePic, String RatePer, String TaskerName) {
+        Intent selectTasker = new Intent(Get_Task_Details.this, confirm_booking.class);
+        Bundle datas;
+        datas = new Bundle();
+        datas.putString("email",sp.getString(sp_task.Sp_email,""));
+        datas.putString("cat_id",main_cat);
+        datas.putString("subcat_id",sub_cat_id);
+        datas.putString("task_date",task_date);
+        datas.putString("task_time",task_time);
+        datas.putString("city",city);
+        if(vehicle_id!=null){
+        datas.putString("vehicle_id",vehicle_id);}
+        else {
+            datas.putString("vehicle_id"," ");
+        }
+
+        datas.putString("task_description",task_description);
+        datas.putString("tasker_id",data);
+        datas.putString("ProfilePic",ProfilePic);
+        datas.putString("RatePer",RatePer);
+        datas.putString("TaskerName",TaskerName);
+
+
+        selectTasker.putExtras(datas);
+
+        tasker_details.dismiss();
+
+        startActivity(selectTasker);
+        finish();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+       finish();
 
     }
 }

@@ -6,8 +6,14 @@ package killbit.taskrabbit.objects;
 
 public class active_tasks_data {
     String tasker_name,task_name,requested_time,active_time,location,vehicle,profile_pic,cost;
+    String tasker_id;
+    String booking_id;
 
-    public active_tasks_data(String tasker_name, String task_name, String requested_time, String active_time, String location, String vehicle, String profile_pic, String cost) {
+
+
+    public active_tasks_data(String tasker_name, String task_name, String requested_time, String active_time,
+                             String location, String vehicle, String profile_pic, String cost,
+                             String tasker_id, String booking_id ) {
         this.tasker_name = tasker_name;
         this.task_name = task_name;
         this.requested_time = requested_time;
@@ -16,6 +22,8 @@ public class active_tasks_data {
         this.vehicle = vehicle;
         this.profile_pic = profile_pic;
         this.cost = cost;
+        this.tasker_id = tasker_id;
+        this.booking_id = booking_id;
     }
 
     public String getTasker_name() {
@@ -72,6 +80,22 @@ public class active_tasks_data {
 
     public void setProfile_pic(String profile_pic) {
         this.profile_pic = profile_pic;
+    }
+
+    public String getTasker_id() {
+        return tasker_id;
+    }
+
+    public void setTasker_id(String tasker_id) {
+        this.tasker_id = tasker_id;
+    }
+
+    public String getBooking_id() {
+        return booking_id;
+    }
+
+    public void setBooking_id(String booking_id) {
+        this.booking_id = booking_id;
     }
 
     public String getCost() {
