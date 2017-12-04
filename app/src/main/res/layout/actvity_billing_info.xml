@@ -68,9 +68,8 @@
             android:inputType="number"
             android:digits="01234 56789"
             android:maxLength="19"
-            fontPath="fonts/Montserrat-Regular.ttf"
             android:textColor="@color/com_facebook_button_background_color_disabled"
-            android:drawableRight="@drawable/ic_card"/>
+            android:drawableRight="@drawable/camera"/>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -81,7 +80,6 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:hint="MM"
-            fontPath="fonts/Montserrat-Regular.ttf"
             android:inputType="number"
             android:digits="0123456789"
             android:textColor="@color/com_facebook_button_background_color_disabled" />
@@ -91,7 +89,6 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:hint="YY"
-        fontPath="fonts/Montserrat-Regular.ttf"
         android:inputType="number"
         android:digits="0123456789"
         android:textColor="@color/com_facebook_button_background_color_disabled" />
@@ -103,7 +100,6 @@
             android:inputType="number"
             android:digits="0123456789"
             android:hint="CVV"
-            fontPath="fonts/Montserrat-Regular.ttf"
             android:textColor="@color/com_facebook_button_background_color_disabled"
             />
 
@@ -127,7 +123,7 @@
             android:padding="4dp"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
-            style="@style/signup_with_email"/>
+            style="@style/button_style"/>
 
     </LinearLayout>
 <LinearLayout

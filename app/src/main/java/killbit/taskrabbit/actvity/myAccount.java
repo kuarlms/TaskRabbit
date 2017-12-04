@@ -25,7 +25,6 @@ import killbit.taskrabbit.objects.vehicle_list_data;
 import killbit.taskrabbit.retrofit.ApiInterface;
 import killbit.taskrabbit.retrofit.ApiUtils;
 import killbit.taskrabbit.utils.sp_task;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by kural on 11/10/17.
@@ -46,16 +45,6 @@ public class myAccount extends FragmentActivity implements vehicle_list_adp.OnRe
     ProgressBar pb;
     @BindView(R.id.tb_normal_title)
     TextView tv_title;
-
-    @BindView(R.id.tv_empty)
-    TextView tv_empty;
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -121,13 +110,8 @@ public class myAccount extends FragmentActivity implements vehicle_list_adp.OnRe
 
                 break;
             case 2:
-                Intent inP = new Intent(myAccount.this,changePassword.class);
-                startActivity(inP);
                 break;
             case 3:
-
-                Intent inNo = new Intent(myAccount.this,notificationOptions.class);
-                startActivity(inNo);
                 break;
             case 4:
 
@@ -138,13 +122,11 @@ public class myAccount extends FragmentActivity implements vehicle_list_adp.OnRe
                 break;
             case 5:
 
-                Intent inbillingax = new Intent(myAccount.this,transactionList.class);
-                startActivity(inbillingax);
+
 
                 break;
             case 6:
-                Intent inbillingx = new Intent(myAccount.this,deactvation.class);
-                startActivity(inbillingx);
+
 
                 break;
 

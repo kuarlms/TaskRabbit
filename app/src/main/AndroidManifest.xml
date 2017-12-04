@@ -144,46 +144,6 @@
             android:screenOrientation="sensorPortrait">
 
         </activity>
-        <activity
-            android:name=".actvity.changePassword"
-            android:label="@string/app_name"
-            android:theme="@style/MyMaterialTheme"
-            android:screenOrientation="sensorPortrait">
-
-        </activity>
-
-
-        <activity
-            android:name=".actvity.notificationOptions"
-            android:label="@string/app_name"
-            android:theme="@style/MyMaterialTheme"
-            android:screenOrientation="sensorPortrait">
-
-        </activity>
-
-        <activity
-            android:name=".actvity.deactvation"
-            android:label="@string/app_name"
-            android:theme="@style/MyMaterialTheme"
-            android:screenOrientation="sensorPortrait">
-
-        </activity>
-        <activity
-            android:name=".actvity.transactionList"
-            android:label="@string/app_name"
-            android:theme="@style/MyMaterialTheme"
-            android:screenOrientation="sensorPortrait">
-
-        </activity>
-
-        <activity
-            android:name=".actvity.chat"
-            android:label="@string/app_name"
-            android:theme="@style/MyMaterialTheme"
-            android:screenOrientation="sensorPortrait">
-
-        </activity>
-
 
     </application>
 

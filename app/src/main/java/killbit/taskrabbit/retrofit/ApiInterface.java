@@ -5,13 +5,15 @@ import android.database.Observable;
 import android.preference.PreferenceManager;
 
 import killbit.taskrabbit.actvity.Launcher;
+import killbit.taskrabbit.retrofit.activeTasks.ActiveTaskResp;
+import killbit.taskrabbit.retrofit.bookingConfirmation.bookingConfirmation;
 import killbit.taskrabbit.retrofit.bookingStep1.bookingStep1Resp;
 import killbit.taskrabbit.retrofit.findTasker.FindTaskerResp;
 import killbit.taskrabbit.retrofit.forgotPass.ForgoPassResp;
 import killbit.taskrabbit.retrofit.home.Home_Resp;
 import killbit.taskrabbit.retrofit.signIn.LoginResp;
 import killbit.taskrabbit.retrofit.signup.signupStatus;
-import killbit.taskrabbit.retrofit.uploadPpic.uplPpicStatus;
+import killbit.taskrabbit.retrofit.uploadPpic.UpdateAccountResp;
 import killbit.taskrabbit.utils.sp_task;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -56,8 +58,8 @@ public interface ApiInterface {
     //https://stackoverflow.com/questions/39953457/how-to-upload-image-file-in-retrofit-2
 
     @Multipart
-    @POST("user/updateprofile")
-    Observable<uplPpicStatus> rf_updateProfile(@Part("email") RequestBody id, @Part MultipartBody.Part upload_profile_picture);
+    @POST("upload_profile_picture")
+    Observable<UpdateAccountResp> rf_updateProfile(@Part("email") RequestBody id, @Part MultipartBody.Part upload_profile_picture);
 
    /* //pass it like this
     File file = new File("/storage/emulated/0/Download/Corrections 6.jpg");
@@ -132,37 +134,37 @@ service.updateProfile(id, fullName, body, other)*/
 
     @Multipart
     @POST("save_booking_confirm")
-    Call<signupStatus> rf_booking(@Header(header)String header_value,@Part("email") String email,
-                                       @Part("cat_id") String cat_id,@Part("subcat_id") String subcat_id,
-                                       @Part("task_date") String task_date,@Part("task_time") String task_time,
-                                       @Part("city") String city,@Part("vehicle_id") String vehicle_id,
-                                       @Part("tasker_id") String tasker_id,@Part("task_description") String task_description,
-                                  @Part("credit_card_type") String credit_card_type,@Part("number") String number,
-                                  @Part("cvc") String cvc,@Part("exp_month") String exp_month,@Part("exp_year") String exp_year);
+    Call<bookingConfirmation> rf_booking(@Header(header)String header_value, @Part("email") String email,
+                                         @Part("cat_id") String cat_id, @Part("subcat_id") String subcat_id,
+                                         @Part("task_date") String task_date, @Part("task_time") String task_time,
+                                         @Part("city") String city, @Part("vehicle_id") String vehicle_id,
+                                         @Part("tasker_id") String tasker_id, @Part("task_description") String task_description,
+                                         @Part("credit_card_type") String credit_card_type, @Part("number") String number,
+                                         @Part("cvc") String cvc, @Part("exp_month") String exp_month, @Part("exp_year") String exp_year);
 
     @Multipart
     @POST("dashboard_user_task_history_pending")
-    Call<signupStatus> rf_dashboard_user_task_history_pending(@Header(header)String header_value,@Part("email") String email);
+    Call<ActiveTaskResp> rf_dashboard_user_task_history_pending(@Header(header)String header_value,@Part("email") String email);
 
     @Multipart
     @POST("dashboard_user_task_history_approved")
-    Call<signupStatus> rf_dashboard_user_task_history_approved(@Header(header)String header_value,@Part("email") String email);
+    Call<ActiveTaskResp> rf_dashboard_user_task_history_approved(@Header(header)String header_value,@Part("email") String email);
 
     @Multipart
     @POST("user_cancel_task")
-    Call<signupStatus> rf_user_cancel_task(@Header(header)String header_value,@Part("email") String email,@Part("booking_id") String booking_id);
+    Call<StatusResp> rf_user_cancel_task(@Header(header)String header_value,@Part("email") String email,@Part("booking_id") String booking_id);
 
     @Multipart
     @POST("dashboard_user_task_history_completed")
-    Call<signupStatus> rf_dashboard_user_task_history_completed(@Header(header)String header_value,@Part("email") String email);
+    Call<ActiveTaskResp> rf_dashboard_user_task_history_completed(@Header(header)String header_value,@Part("email") String email);
 
     @Multipart
     @POST("dashboard_user_task_history_pending")
-    Call<signupStatus> rf_dashboard_user_task_history_Cancelled(@Header(header)String header_value,@Part("email") String email);
+    Call<ActiveTaskResp> rf_dashboard_user_task_history_Cancelled(@Header(header)String header_value,@Part("email") String email);
 
     @Multipart
     @POST("user_active_task")
-    Call<signupStatus> rf_user_active_task(@Header(header)String header_value,@Part("email") String email);
+    Call<ActiveTaskResp> rf_user_active_task(@Header(header)String header_value, @Part("email") String email);
 
     @Multipart
     @POST("task_completed")

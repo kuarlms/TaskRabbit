@@ -20,12 +20,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -45,12 +47,10 @@ import killbit.taskrabbit.objects.data_sub_home;
 import killbit.taskrabbit.retrofit.ApiInterface;
 import killbit.taskrabbit.retrofit.ApiUtils;
 import killbit.taskrabbit.retrofit.home.Home_Resp;
-import killbit.taskrabbit.retrofit.inbox.InboxResp;
 import killbit.taskrabbit.utils.sp_task;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
@@ -66,15 +66,11 @@ public class MainActivity extends AppCompatActivity
     List<data_main_home> list_main_cat = new ArrayList<>();
     ProgressBar pb;
     DrawerLayout drawer;
-    TextView tvNbActviteTask,tvNbAccount,tvNbSignout,tvProfileName,tvToolBarTitle,tvInbox;
+    TextView tvNbActviteTask,tvNbAccount,tvNbSignout,tvProfileName,tvToolBarTitle;
     ImageView ivNbProfilePic;
     ImageButton iv_tool_nav_icon;
     NotificationBadge notificationBadgeNb;
-    ApiInterface mAPIService;
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,8 +89,6 @@ public class MainActivity extends AppCompatActivity
 
         sp =  getSharedPreferences(sp_task.MyPref, Context.MODE_PRIVATE);
         editor =sp.edit();
-
-        mAPIService = ApiUtils.getAPIService();
         api_home();
 
 
@@ -123,11 +117,6 @@ public class MainActivity extends AppCompatActivity
         iv_tool_nav_icon = drawer.findViewById(R.id.tb_normal_back);
         ivNbProfilePic  = drawer.findViewById(R.id.imageView_nb_pro_pic);
         notificationBadgeNb = drawer.findViewById(R.id.notification_nb_inbox);
-        tvInbox = drawer.findViewById(R.id.tv_nb_inbox);
-        ImageButton ivToolBar = drawer.findViewById(R.id.tb_normal_back);
-
-        Glide.with(this).load(R.drawable.button_background).into(ivToolBar);
-        //    ivToolBar.setBackground(getResources().getDrawable(R.drawable.button_signup));
 
         tvToolBarTitle.setText("How can we help ?");
         //iv_tool_nav_icon.setImageDrawable(R.drawable.ic_menu_camera);
@@ -173,72 +162,11 @@ public class MainActivity extends AppCompatActivity
         ivNbProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent inACc = new Intent(MainActivity.this,Account.class);
-                startActivity(inACc);
+                Toast.makeText(MainActivity.this, "Click", Toast.LENGTH_SHORT).show();
             }
         });
 
-
-        tvInbox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mtd_inbox();
-            }
-        });
-      drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
-
-          @Override
-          public void onDrawerSlide(View drawerView, float slideOffset) {
-              //Called when a drawer's position changes.
-          }
-
-          @Override
-          public void onDrawerOpened(View drawerView) {
-              mtd_inboxCount();
-          }
-
-          @Override
-          public void onDrawerClosed(View drawerView) {
-              // Called when a drawer has settled in a completely closed state.
-          }
-
-          @Override
-          public void onDrawerStateChanged(int newState) {
-              // Called when the drawer motion state changes. The new state will be one of STATE_IDLE, STATE_DRAGGING or STATE_SETTLING.
-          }
-      });
-
     }
-
-    private void mtd_inboxCount() {
-
-        mAPIService.rf_unreadmessage_count(ApiInterface.header_value, sp.getString(sp_task.Sp_email,"")).enqueue(new Callback<InboxResp>() {
-
-
-            @Override
-            public void onResponse(Call<InboxResp> call, Response<InboxResp> response) {
-                if(response.body().getStatus().equals(1)){
-                    notificationBadgeNb.setText(response.body().getUnreadmessageCount());
-                }else {
-                    notificationBadgeNb.setText("0");
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<InboxResp> call, Throwable t) {
-
-            }  });
-        }
-
-    private void mtd_inbox() {
-
-        Intent inInbox = new Intent(MainActivity.this,inBox.class);
-        startActivity(inInbox);
-
-
-    }
-
 
     private void setupTabIcons() {
 
@@ -278,7 +206,8 @@ public class MainActivity extends AppCompatActivity
     }
     private void api_home() {
 
-
+        ApiInterface mAPIService;
+        mAPIService = ApiUtils.getAPIService();
 
         mAPIService.rf_home_page(ApiInterface.header_value, sp.getString(sp_task.Sp_email,"")).enqueue(new Callback<Home_Resp>() {
             @Override
@@ -309,10 +238,12 @@ public class MainActivity extends AppCompatActivity
                             sub_list);
 
                 list_main_cat.add(main_cat);
-
+                 //Log.d("Sub lis siz",i+"--"+sub_list.size());
 
                 }
-
+               /* for (int i = 0; i < list_main_cat.size(); i++) {
+                    Log.d("list main",list_main_cat.get(i).getCat_title());
+                }*/
 
                 adapter_view = new FrgtPageAdapter(getSupportFragmentManager(),getApplicationContext(),list_main_cat);
                 vpPager.setOffscreenPageLimit(list_main_cat.size());
@@ -341,14 +272,14 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-/*    @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }*/
+    }
 
-/*    @Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -361,12 +292,29 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }*/
+    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+    /*    int id = item.getItemId();
 
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }
+*/
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -18,7 +18,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import java.util.List;
 
 import killbit.taskrabbit.R;
-import killbit.taskrabbit.retrofit.inbox.MessageList;
+import killbit.taskrabbit.objects.tasker_list_data;
 
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
@@ -28,18 +28,18 @@ import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 public class inbox_adapter extends RecyclerView.Adapter<inbox_adapter.MyViewHolder>{
 
-    private List<MessageList> ListDatas;
+    private List<tasker_list_data> ListDatas;
     Context context;
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
     OnRecyclerListener recyclerListener;
-    MessageList listData;
+    tasker_list_data listData;
 
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tv_adp_rew_name,tv_adp_rew_description
-                ,tv_adp_rew_date,tv_adp_lookingfor;
+                ,tv_adp_rew_date;
 
         ImageView iv_review_pic1;
         Button btn_tasker_adp_rate;
@@ -64,13 +64,11 @@ public class inbox_adapter extends RecyclerView.Adapter<inbox_adapter.MyViewHold
 
             tv_adp_rew_date=view.findViewById(R.id.tv_adp_rew_date);
 
-            tv_adp_lookingfor=view.findViewById(R.id.tv_adp_inbox_looking);
-
         }
     }
 
 
-    public inbox_adapter(List<MessageList> ListData, Context context, OnRecyclerListener recyclerListener) {
+    public inbox_adapter(List<tasker_list_data> ListData, Context context, OnRecyclerListener recyclerListener) {
 
         this.ListDatas = ListData;
         this.context = context;
@@ -82,7 +80,7 @@ public class inbox_adapter extends RecyclerView.Adapter<inbox_adapter.MyViewHold
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.adp_inbox, parent, false);
+                .inflate(R.layout.adp_reviews, parent, false);
 
         return new MyViewHolder(itemView, context);
     }
@@ -91,27 +89,76 @@ public class inbox_adapter extends RecyclerView.Adapter<inbox_adapter.MyViewHold
     public void onBindViewHolder( MyViewHolder holder,  int position) {
          listData = ListDatas.get(position);
 
-         holder.tv_adp_rew_name.setText(listData.getName());
-         holder.tv_adp_lookingfor.setText(listData.getTaskName());
-         holder.tv_adp_rew_date.setText(listData.getCreatedTime());
-         holder.tv_adp_rew_description.setText(listData.getMessage());
-        Glide.with(context).load(listData.getProfileImage()).
-        apply(bitmapTransform(new CircleCrop())).into(holder.iv_review_pic1);
-        holder.ll_rev1.setOnClickListener(new View.OnClickListener() {
+        holder.btn_tasker_adp_rate.setText(listData.getPrice()+" "+listData.getCurrencySymbol());
+
+        holder.btn_tasker_adp_rate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recyclerListener.onInboxItemSelected(position,listData.getBookingId(),listData.getTaskName());
+                recyclerListener.onTaskerSelected(position,listData.getTaskerId(),listData.getProPic(),
+                        listData.getCurrencySymbol()+" "+listData.getPrice(),listData.getFirstName());
             }
         });
+
+
+        if(listData.getReviewArray().size()== 2){
+
+        mtd_reviews(holder);}
+        else {
+            holder.ll_rev1.setVisibility(View.GONE);
+
+        }
+
+
+
 
 
 
     }
 
+    private void mtd_reviews(MyViewHolder holder) {
 
+        String pic1 = null,pic2 = null;
+
+        if(listData.getReviewArray().get(0).getProPic()!=null){
+            pic1 =listData.getReviewArray().get(0).getProPic();
+        }else {
+            holder.ll_rev1.setVisibility(View.GONE);
+        }
+
+
+        if(listData.getReviewArray().get(1).getProPic()!=null){
+            pic2 =listData.getReviewArray().get(1).getProPic();
+        }else {
+
+        }
+
+        Glide.with(context).load(pic1).apply(bitmapTransform(new CircleCrop())).into(holder.iv_review_pic1);
+
+
+        int rat1 = 0,rat2 =0 ;
+        try {
+            rat1  = Integer.parseInt(listData.getReviewArray().get(0).getReviewStar());
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        holder.rbr1.setNumStars(rat1);
+
+
+        holder.tv_adp_rew_name.setText(listData.getReviewArray().get(0).getFirstName());
+
+
+        holder.tv_adp_rew_description.setText(listData.getReviewArray().get(0).getReviewMessage());
+
+
+        holder.tv_adp_rew_date.setText(listData.getReviewArray().get(0).getDate());
+
+
+    }
 
     public interface OnRecyclerListener {
-        void onInboxItemSelected(int position, String tasker_id, String TaskerName);
+        void onTaskerSelected(int position, String tasker_id, String Profile_pic, String RatePerHr, String TaskerName);
 
     }
 
