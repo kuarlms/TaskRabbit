@@ -16,6 +16,13 @@
 
     </FrameLayout>
 
+    <include
+        android:id="@+id/tb_task"
+        layout="@layout/toolbar_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -37,8 +44,8 @@
 
             <ImageView
                 android:id="@+id/imageView_nb_pro_pic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_gravity="center_vertical"
                 android:padding="7dp"
                 android:paddingTop="@dimen/nav_header_vertical_spacing"
@@ -49,6 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:textSize="17sp"
                 android:text="Profile name"
                 android:textColor="@color/Black_nb" />
 
@@ -68,7 +76,7 @@
             android:layout_height="wrap_content"
             android:text="Inbox"
             android:padding="15dp"
-            android:textSize="@dimen/com_facebook_likeview_text_size"
+            android:textSize="16sp"
             android:textColor="@color/Black_nb"/>
 
         <com.nex3z.notificationbadge.NotificationBadge
@@ -87,7 +95,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:background="@color/red">
+        android:background="@color/listBg">
 
     </FrameLayout>
 
@@ -103,7 +111,7 @@
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:text="Active Task"
-            android:textSize="@dimen/com_facebook_likeview_text_size"
+            android:textSize="18sp"
             android:textColor="@color/Black_nb" />
 
         <FrameLayout
@@ -116,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:textSize="@dimen/com_facebook_likeview_text_size"
+            android:textSize="18sp"
             android:text="My Account"
             android:textColor="@color/Black_nb" />
 
@@ -130,7 +138,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:textSize="@dimen/com_facebook_likeview_text_size"
+            android:textSize="18sp"
             android:text="Sign Out"
             android:textColor="@color/Black_nb" />
 

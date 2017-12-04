@@ -23,11 +23,14 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.io.IOException;
@@ -49,6 +52,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -61,8 +66,9 @@ public class MainActivity extends AppCompatActivity
     List<data_main_home> list_main_cat = new ArrayList<>();
     ProgressBar pb;
     DrawerLayout drawer;
-    TextView tvNbActviteTask,tvNbAccount,tvNbSignout;
+    TextView tvNbActviteTask,tvNbAccount,tvNbSignout,tvProfileName,tvToolBarTitle;
     ImageView ivNbProfilePic;
+    ImageButton iv_tool_nav_icon;
     NotificationBadge notificationBadgeNb;
 
 
@@ -106,8 +112,16 @@ public class MainActivity extends AppCompatActivity
         tvNbActviteTask = drawer.findViewById(R.id.textView_nb_active_task);
         tvNbAccount =  drawer.findViewById(R.id.textView_nb_my_acc);
         tvNbSignout  = drawer.findViewById(R.id.textView_nb_sign_out);
+        tvProfileName = drawer.findViewById(R.id.textView_nb_profile_name);
+        tvToolBarTitle = drawer.findViewById(R.id.tb_normal_title);
+        iv_tool_nav_icon = drawer.findViewById(R.id.tb_normal_back);
         ivNbProfilePic  = drawer.findViewById(R.id.imageView_nb_pro_pic);
         notificationBadgeNb = drawer.findViewById(R.id.notification_nb_inbox);
+
+        tvToolBarTitle.setText("How can we help ?");
+        //iv_tool_nav_icon.setImageDrawable(R.drawable.ic_menu_camera);
+        tvProfileName.setText(sp.getString(sp_task.Sp_name,"Guest"));
+        Glide.with(this).load(sp.getString(sp_task.Sp_profile_pic, "")).apply(bitmapTransform(new CircleCrop())).into(ivNbProfilePic);
 
 
         tvNbActviteTask.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +131,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(in_at);
 
 
-                Toast.makeText(MainActivity.this, "Click", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(MainActivity.this, "Click", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -125,14 +139,23 @@ public class MainActivity extends AppCompatActivity
         tvNbAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Click", Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(MainActivity.this, "Click", Toast.LENGTH_SHORT).show();
+                Intent in_myacc = new Intent(MainActivity.this,myAccount.class);
+                startActivity(in_myacc);
+
             }
         });
 
         tvNbSignout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Click", Toast.LENGTH_SHORT).show();
+
+               sp.edit().clear().commit();
+               Intent inLogin = new Intent(MainActivity.this,Login.class);
+               startActivity(inLogin);
+               finish();
+
+
             }
         });
 
@@ -226,7 +249,7 @@ public class MainActivity extends AppCompatActivity
                 vpPager.setOffscreenPageLimit(list_main_cat.size());
                 vpPager.setAdapter(adapter_view);
                 pb.setVisibility(View.GONE);
-                setupTabIcons();
+              //  setupTabIcons();
 
             }
 

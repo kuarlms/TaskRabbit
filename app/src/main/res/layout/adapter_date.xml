@@ -11,7 +11,7 @@
     <FrameLayout
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:background="@color/Blue"
+        android:background="@color/hint"
         android:layout_gravity="center"
         android:layout_marginRight="1sp"
         android:padding="4dp"
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center"
-            android:background="@color/Blue">
+            android:background="@color/hint">
             <TextView
                 android:id="@+id/txt_adp_month"
                 android:layout_width="wrap_content"
