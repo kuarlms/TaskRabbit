@@ -1,10 +1,9 @@
 
 package killbit.taskrabbit.retrofit.transactionList;
 
+import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
 
 public class ExportResult implements Serializable
 {
@@ -34,19 +33,6 @@ public class ExportResult implements Serializable
     @Expose
     private String paidAmount;
     private final static long serialVersionUID = 3410349639409297894L;
-
-
-    public ExportResult(String takserName, String taskName, String proPic, String bookingDate, String bookingDay, String bookingMonth, String currencySymbol,       String paidAmount) {
-        this.takserName = takserName;
-        this.taskName = taskName;
-        this.proPic = proPic;
-        this.bookingDate = bookingDate;
-        this.bookingDay = bookingDay;
-        this.bookingMonth = bookingMonth;
-        this.currencySymbol = currencySymbol;
-        this.paidAmount = paidAmount;
-    }
-
 
     public String getTakserName() {
         return takserName;

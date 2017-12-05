@@ -5,46 +5,30 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import killbit.taskrabbit.R;
-import killbit.taskrabbit.adapters.transactions_adapter;
 import killbit.taskrabbit.retrofit.ApiInterface;
 import killbit.taskrabbit.retrofit.ApiUtils;
-import killbit.taskrabbit.retrofit.transactionList.ExportResult;
 import killbit.taskrabbit.retrofit.transactionList.transactionsResp;
 import killbit.taskrabbit.utils.sp_task;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by kural on 10/10/17.
  */
 
-public class transactionList extends Activity implements transactions_adapter.OnRecyclerListener {
-
-
+public class transactionList extends Activity {
      String email;
      int page = 1;
-
-     ExportResult transactionData;
-
-     List<ExportResult> transactionList = new ArrayList<>();
-
-     transactions_adapter adapter;
 
     SharedPreferences sp;
     SharedPreferences.Editor  editor ;
@@ -61,13 +45,6 @@ public class transactionList extends Activity implements transactions_adapter.On
 
     ApiInterface mAPIService;
 
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,14 +58,6 @@ public class transactionList extends Activity implements transactions_adapter.On
         tv_title.setText("Transactions");
 
         email = sp.getString(sp_task.Sp_email,"");
-
-
-
-        adapter = new transactions_adapter(transactionList,getApplicationContext(),this);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        rv_at_list.setLayoutManager(mLayoutManager);
-        rv_at_list.setItemAnimator(new DefaultItemAnimator());
-        rv_at_list.setAdapter(adapter);
 
 
     }
@@ -111,29 +80,11 @@ public class transactionList extends Activity implements transactions_adapter.On
                     @Override
                     public void onResponse(Call<transactionsResp> call, Response<transactionsResp> response) {
                         if(response.body().getStatus().equals(1)){
+                           // Toast.makeText(transactionList.this, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
-
-                            for (int i = 0; i <response.body().getExportResult().size() ; i++) {
-
-                                transactionData = new ExportResult(response.body().getExportResult().get(i).getTakserName(),
-                                        response.body().getExportResult().get(i).getTaskName(),
-                                        response.body().getExportResult().get(i).getProPic(),
-                                        response.body().getExportResult().get(i).getBookingDate(),
-                                        response.body().getExportResult().get(i).getBookingDay(),
-                                        response.body().getExportResult().get(i).getBookingMonth(),
-                                        response.body().getExportResult().get(i).getCurrencySymbol(),
-                                        response.body().getExportResult().get(i).getPaidAmount());
-
-
-                                transactionList.add(transactionData);
-
-                            }
-                            adapter.notifyDataSetChanged();
-
-
+                          //  finish();
                         }else {
-
-
+                            //Toast.makeText(transactionList.this, ""+response.body().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -143,14 +94,24 @@ public class transactionList extends Activity implements transactions_adapter.On
                         Toast.makeText(transactionList.this, ""+t, Toast.LENGTH_SHORT).show();
                     }
                 });
+        /*(new Callback<StatusResp>() {
+                    @Override
+                    public void onResponse(Call<StatusResp> call, Response<StatusResp> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<StatusResp> call, Throwable t) {
+
+
+                    }
+                });
+
+
+    */
 
 
 
-
-    }
-
-    @Override
-    public void onTransactionItenClicked(int position, String tasker_id, String Profile_pic, String RatePerHr, String TaskerName) {
 
     }
 }

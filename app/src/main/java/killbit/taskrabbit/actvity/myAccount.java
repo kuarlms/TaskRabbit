@@ -110,8 +110,13 @@ public class myAccount extends FragmentActivity implements vehicle_list_adp.OnRe
 
                 break;
             case 2:
+                Intent inP = new Intent(myAccount.this,changePassword.class);
+                startActivity(inP);
                 break;
             case 3:
+
+                Intent inNo = new Intent(myAccount.this,notificationOptions.class);
+                startActivity(inNo);
                 break;
             case 4:
 
@@ -122,11 +127,13 @@ public class myAccount extends FragmentActivity implements vehicle_list_adp.OnRe
                 break;
             case 5:
 
-
+                Intent inbillingax = new Intent(myAccount.this,transactionList.class);
+                startActivity(inbillingax);
 
                 break;
             case 6:
-
+                Intent inbillingx = new Intent(myAccount.this,deactvation.class);
+                startActivity(inbillingx);
 
                 break;
 
