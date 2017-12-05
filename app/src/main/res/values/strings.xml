@@ -35,6 +35,7 @@
     <string name="task_address">Please provide an exact address ao we can connect you to servicers nearby</string>
     <string name="signup_or_login">You will not be changed until Michael has completed your task</string>
     <string name="chat">You have matched with a Taskbar David will message you shortly or you can cantact him here below</string>
+    <string name="deact">You have matched with a Taskbar David will message you shortly or you can cantact him here below</string>
     <string-array name="options">
         <item>Not needed for task </item>
         <item>Task requires a car</item>
