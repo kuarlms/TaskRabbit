@@ -13,6 +13,7 @@ import killbit.taskrabbit.retrofit.forgotPass.ForgoPassResp;
 import killbit.taskrabbit.retrofit.home.Home_Resp;
 import killbit.taskrabbit.retrofit.signIn.LoginResp;
 import killbit.taskrabbit.retrofit.signup.signupStatus;
+import killbit.taskrabbit.retrofit.transactionList.transactionsResp;
 import killbit.taskrabbit.retrofit.uploadPpic.UpdateAccountResp;
 import killbit.taskrabbit.utils.sp_task;
 import okhttp3.MultipartBody;
@@ -83,7 +84,7 @@ service.updateProfile(id, fullName, body, other)*/
 
     @Multipart
     @POST("change_user_password")
-    Call<signupStatus> rf_password_change(@Header(header)String header_value,@Part("email") String email,
+    Call<StatusResp> rf_password_change(@Header(header)String header_value,@Part("email") String email,
                                  @Part("old_password") String old_password,
                                  @Part("new_password") String new_password,
                                  @Part("confirm_password") String confirm_password);
@@ -94,12 +95,23 @@ service.updateProfile(id, fullName, body, other)*/
 
     @Multipart
     @POST("deactivate_myaccount")
-    Call<signupStatus> rf_Deact_account(@Header(header)String header_value,@Part("email") String email);
+    Call<StatusResp> rf_Deact_account(@Header(header)String header_value,@Part("email") String email);
 
     @Multipart
     @POST("save_notification")
-    Call<signupStatus> rf_Notification(@Header(header)String header_value,@Part("email") String email,
-                                       @Part("notify_type") String notify_type);
+    Call<StatusResp> rf_Notification(@Header(header)String header_value,@Part("email") String email,
+                                       @Part("notify_type") String notify_type,@Part("task_email") String task_email
+                                      ,@Part("task_sms") String task_sms);
+
+  /*email
+  notify_type => getinfo (for getting saved info getinfo as value) save (for save data use save as value)
+	*//*Newly Added*//*
+  url: json/save_notification  (save)
+  params:
+  email
+  notify_type => save
+          task_email,
+          task_sms*/
 
 
     @Multipart
@@ -173,11 +185,11 @@ service.updateProfile(id, fullName, body, other)*/
 
     @Multipart
     @POST("transaction_list")
-    Call<signupStatus> rf_transaction_list(@Header(header)String header_value,@Part("email") String email,@Part("page") String page);
+    Call<transactionsResp> rf_transaction_list(@Header(header)String header_value, @Part("email") String email, @Part("page") String page);
 
     @Multipart
     @POST("billing_info")
-    Call<signupStatus> rf_billing_info(@Header(header)String header_value,@Part("email") String email,@Part("number") String number,
+    Call<StatusResp> rf_billing_info(@Header(header)String header_value,@Part("email") String email,@Part("number") String number,
                                          @Part("cvc") String cvc,@Part("exp_month") String exp_month,@Part("exp_year") String exp_year);
 
 
