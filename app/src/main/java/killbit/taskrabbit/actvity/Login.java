@@ -216,7 +216,7 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
             @Override
             public void onResponse(Call<LoginResp> call, Response<LoginResp> response) {
 
-                if (response.body().getStatus() == 1) {
+                if (response.body().getStatus().equals(1)) {
 
                     editor.putString(sp_task.Sp_profile_pic, profile_pic);
                     editor.putString(sp_task.Sp_name, name);
@@ -228,7 +228,7 @@ public class Login extends FragmentActivity implements GoogleApiClient.OnConnect
                     finish();
 
 
-                } else if (response.body().getStatus().equals("0")) {
+                } else if (response.body().getStatus().equals(0)) {
 
                     Toast.makeText(Login.this,response.body().getMessage() , Toast.LENGTH_LONG).show();
 
