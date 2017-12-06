@@ -17,7 +17,6 @@ import killbit.taskrabbit.retrofit.transactionList.transactionsResp;
 import killbit.taskrabbit.retrofit.uploadPpic.UpdateAccountResp;
 import killbit.taskrabbit.utils.sp_task;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -60,7 +59,13 @@ public interface ApiInterface {
 
     @Multipart
     @POST("upload_profile_picture")
-    Observable<UpdateAccountResp> rf_updateProfile(@Part("email") RequestBody id, @Part MultipartBody.Part upload_profile_picture);
+    Observable<UpdateAccountResp> rf_updateProfile(@Header(header)String header_value,@Part("email") String email, @Part MultipartBody.Part upload_profile_picture);
+
+
+  @Multipart
+  @POST("upload_profile_picture")
+  Call<UpdateAccountResp> rf_uploadPic(@Header(header)String header_value,@Part("email") String email,
+                                       @Part MultipartBody.Part upload_profile_picture);
 
    /* //pass it like this
     File file = new File("/storage/emulated/0/Download/Corrections 6.jpg");

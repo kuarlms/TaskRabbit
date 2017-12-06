@@ -117,7 +117,8 @@ public class active_tasks extends FragmentActivity implements active_tasks_adp.O
                   adapter_act_tsk.notifyDataSetChanged();
                   pb_loading.setVisibility(View.GONE);
                 }else {
-                    Toast.makeText(active_tasks.this, "Failed  "+response.body().getStatus(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(active_tasks.this, "Nothing to show."+response.body().getStatus(), Toast.LENGTH_LONG).show();
+                    pb_loading.setVisibility(View.INVISIBLE);
                 }
 
 
