@@ -20,6 +20,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import taskrabit.x33.com.tasker.R;
+import taskrabit.x33.com.tasker.adapters.taskHistory_Pending_adapter;
 import taskrabit.x33.com.tasker.adapters.taskHistory_canceled_adapter;
 import taskrabit.x33.com.tasker.objects.active_tasks_data;
 import taskrabit.x33.com.tasker.retrofit.ApiInterface;
@@ -30,7 +31,7 @@ import taskrabit.x33.com.tasker.utils.sp_task;
  * Created by kural mughil selvam on 03-12-2017.
  */
 
-public class cancelled extends Fragment implements taskHistory_canceled_adapter.OnTaskDoneListner {
+public class cancelled extends Fragment implements taskHistory_Pending_adapter.OnTaskDoneListner, taskHistory_canceled_adapter.OnTaskDoneListner {
     View view;
     active_tasks_data tasks_data;
     List<active_tasks_data> tasks_datas = new ArrayList<>();
