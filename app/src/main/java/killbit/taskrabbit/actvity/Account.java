@@ -7,14 +7,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
@@ -31,7 +34,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.io.File;
+import java.io.ByteArrayOutputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -291,30 +294,32 @@ public class Account extends FragmentActivity implements CropImageView.OnSetImag
     public void onCropImageComplete(CropImageView view, CropImageView.CropResult result) {
         if(result != null){
 
-            Bitmap b = mCropImageView.getCroppedImage();
-            iv_pic.setImageBitmap(b);
-            File file = new File(String.valueOf(mCropImageView.getImageUri()));
-            RequestBody fileBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", b.toString(), fileBody);
 
-/*
-            File file = new File(String.valueOf(result));
-            RequestBody requestFile =
-                    RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            Bitmap bitmap = mCropImageView.getCroppedImage();
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, bytes);
+            String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, "ProfilePic", null);
 
-// MultipartBody.Part is used to send also the actual file name
-            MultipartBody.Part body =
-                    MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+            String filePath = getRealPathFromURI(Uri.parse(path));
 
-// add another part within the multipart request
-            RequestBody fullName =
-                    RequestBody.create(
-                            MediaType.parse("multipart/form-data"), "Your Name");*/
 
+            RequestBody fileBody = RequestBody.create(MediaType.parse("multipart/form-data"), filePath);
+            MultipartBody.Part filePart =
+            MultipartBody.Part.createFormData("upload_profile_picture", "ProfilePic", fileBody);
 
             mtd_updateProfile(filePart);
             cropping_dialog.dismiss();
         }
+    }
+     public String getRealPathFromURI(Uri contentUri) {
+        String[] proj = { MediaStore.Images.Media.DATA };
+               CursorLoader cursorLoader = new CursorLoader(
+                this,
+                contentUri, proj, null, null, null);
+        Cursor cursor = cursorLoader.loadInBackground();
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
     }
 
     private void mtd_updateProfile(MultipartBody.Part requestFile) {
@@ -326,9 +331,14 @@ public class Account extends FragmentActivity implements CropImageView.OnSetImag
             public void onResponse(Call<UpdateAccountResp> call, Response<UpdateAccountResp> response) {
 
                 if (response.body().getStatus().equals(1)){
-                    Toast.makeText(_activity, "Success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(_activity, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    editor.putString(sp_task.Sp_profile_pic,response.body().getProPic());
+                    editor.commit();
+                    Glide.with(getApplicationContext()).load(response.body().getProPic()).apply(bitmapTransform(new CircleCrop())).into(iv_pic);
+
+
                 }else {
-                    Toast.makeText(_activity, "failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(_activity, "Failed retry later..", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -341,66 +351,6 @@ public class Account extends FragmentActivity implements CropImageView.OnSetImag
 
 
 
-       /* try {
 
-
-
-            final Bitmap b = MediaStore.Images.Media.getBitmap(getContentResolver(),
-                    mCropImageView.getImageUri());
-
-            //Log.d("", String.valueOf(bitmap));
-            //StatiConstants.user_profilepic_url = mCropImageView.getImageUri());
-            Glide.with(getApplicationContext()).load((R.drawable.a)).asBitmap().centerCrop().into(new BitmapImageViewTarget(Iv_user_pic) {
-                @Override
-                protected void setResource(Bitmap resource) {
-                    RoundedBitmapDrawable circularBitmapDrawable =
-                            RoundedBitmapDrawableFactory.create(_activity.getResources(), resource);
-                    circularBitmapDrawable.setCircular(true);
-                    //imv_bg.setImageBitmap(bitmap);
-                }
-            });
-            Bitmap bitmap = mCropImageView.getCroppedImage();
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-            String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, "Title", null);
-
-            String filePath = getRealPathFromURI(Uri.parse(path));
-
-            typed_profile_pic = new TypedFile("image/jpg", new File(filePath));
-
-            RestClient.get(context).UploadProfilePic(sharedpreferences.getString(SharedPrefUtils.SpToken, ""),typed_profile_pic, sharedpreferences.getString(SharedPrefUtils.SpEmail, ""), new Callback<profilepicResp>() {
-                @Override
-                public void success(profilepicResp profilepicRes, Response response) {
-                    if(profilepicRes.getCode().equals("200")){
-                        // Toast.makeText(context, "Success "+profilepicRes.getData().getFilepath(), Toast.LENGTH_SHORT).show();
-                        String imgUrl= profilepicRes.getData().getFilepath();
-                        if (imgUrl.contains(StaticConfig.ROOT_URL_Media)) {
-                            imgUrl = StaticConfig.ROOT_URL + imgUrl.replace(StaticConfig.ROOT_URL_Media, "");
-                        }else if  (imgUrl.contains("https")){
-
-                        }
-                        else {
-                            imgUrl = StaticConfig.ROOT_URL + "/" +imgUrl;
-                        }
-                        File file = new File(filePath);
-                        file.delete();
-
-                        Glide.with(context).load(imgUrl).placeholder(R.drawable.ic_user_icon)
-                                .bitmapTransform(new BlurTransformation(context)).fitCenter().into(imv_bg);
-                        Glide.with(context).load(imgUrl).into(circleImageView_profile);
-                        StatiConstants.user_profilepic_url = imgUrl;
-
-                    }
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-                    Log.d("typed file Error", error.toString());
-                }
-            });
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
     }
 }
