@@ -193,7 +193,7 @@ void mtd(){
         @Override
         public void onResponse(Call<LoginResp> call, Response<LoginResp> response) {
 
-            if (response.body().getStatus() == 1) {
+            if (response.body().getStatus().equals(1)) {
 
                 editor.putString(sp_task.Sp_profile_pic, response.body().getResult().getProPic());
                 editor.putString(sp_task.Sp_name, response.body().getResult().getFirstName());
@@ -205,7 +205,7 @@ void mtd(){
                 finish();
 
 
-            } else if (response.body().getStatus().equals("0")) {
+            } else if (response.body().getStatus().equals(0)) {
 
                 Toast.makeText(SignIn_email.this, "Login Failed ,Invalid login detail.", Toast.LENGTH_SHORT).show();
 
