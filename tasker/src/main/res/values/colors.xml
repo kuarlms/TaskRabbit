@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#734df2</color>
+    <!--<color name="colorPrimary">#c8e8ff</color>-->
+
+    <color name="colorPrimaryDark">#734df2</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+    <color name="colorAccent">#734df2</color>
+    <color name="white">#fdfdf9</color>
+    <color name="red">#734df2</color>
+    <color name="Blue">#3c5a99</color>
+    <color name="Black_nb">#000</color>
+    <color name="hint">#787878</color>
+    <color name="listBg">#F9F9F9</color>
+    <color name="duskYellow">#0064A8</color>
+    <color name="lightGrey">#0064A8</color>
+
+
+</resources>
