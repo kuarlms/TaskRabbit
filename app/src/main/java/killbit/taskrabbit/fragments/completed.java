@@ -21,7 +21,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import killbit.taskrabbit.R;
-import killbit.taskrabbit.adapters.taskHistory_Pending_adapter;
 import killbit.taskrabbit.adapters.taskHistory_completed_adapter;
 import killbit.taskrabbit.objects.active_tasks_data;
 import killbit.taskrabbit.retrofit.ApiInterface;
@@ -36,7 +35,7 @@ import retrofit2.Response;
  * Created by kural mughil selvam on 03-12-2017.
  */
 
-public class completed extends Fragment implements taskHistory_Pending_adapter.OnTaskDoneListner, taskHistory_completed_adapter.OnTaskDoneListner {
+public class completed extends Fragment implements taskHistory_completed_adapter.OnTaskDoneListner {
     View view;
     active_tasks_data tasks_data;
     List<active_tasks_data> tasks_datas = new ArrayList<>();

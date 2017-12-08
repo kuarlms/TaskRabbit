@@ -238,12 +238,10 @@ public class MainActivity extends AppCompatActivity
                             sub_list);
 
                 list_main_cat.add(main_cat);
-                 //Log.d("Sub lis siz",i+"--"+sub_list.size());
+
 
                 }
-               /* for (int i = 0; i < list_main_cat.size(); i++) {
-                    Log.d("list main",list_main_cat.get(i).getCat_title());
-                }*/
+
 
                 adapter_view = new FrgtPageAdapter(getSupportFragmentManager(),getApplicationContext(),list_main_cat);
                 vpPager.setOffscreenPageLimit(list_main_cat.size());
@@ -297,24 +295,7 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-    /*    int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-*/
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
