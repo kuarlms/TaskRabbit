@@ -21,10 +21,10 @@
         android:fitsSystemWindows="true">
 
 
-        <include android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            layout="@layout/nav_header_main"
+        <include
             android:id="@+id/nav_layout"
-         />
+            layout="@layout/nav_header_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>

@@ -55,6 +55,8 @@ public class active_tasks extends FragmentActivity implements active_tasks_adp.O
     SharedPreferences.Editor  editor ;
     ApiInterface mAPIService;
 
+    @BindView(R.id.tv_empty)
+    TextView tv_empty;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -116,9 +118,15 @@ public class active_tasks extends FragmentActivity implements active_tasks_adp.O
                     }
                   adapter_act_tsk.notifyDataSetChanged();
                   pb_loading.setVisibility(View.GONE);
+
+
+
                 }else {
                     Toast.makeText(active_tasks.this, "Nothing to show."+response.body().getStatus(), Toast.LENGTH_LONG).show();
                     pb_loading.setVisibility(View.INVISIBLE);
+                    tv_empty.setVisibility(View.VISIBLE);
+
+
                 }
 
 

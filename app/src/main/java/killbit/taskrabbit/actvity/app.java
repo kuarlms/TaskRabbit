@@ -16,7 +16,7 @@ public class app extends Application {
         super.onCreate();
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("src/main/assets/fonts/Roboto-Thin.ttf")
+                .setDefaultFontPath("src/main/assets/fonts/Montserrat-Regular.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );

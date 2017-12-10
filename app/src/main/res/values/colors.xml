@@ -14,6 +14,7 @@
     <color name="Black_nb">#000</color>
     <color name="hint">#787878</color>
     <color name="listBg">#F9F9F9</color>
+    <color name="listTextColor">#898989</color>
     <color name="duskYellow">#0064A8</color>
     <color name="lightGrey">#0064A8</color>
 
