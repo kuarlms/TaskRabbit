@@ -33,22 +33,25 @@
 
                 <TextView
                     android:id="@+id/textView_adp_act_cost"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/imageView10"
-                    android:layout_marginTop="5dp"
-                    android:text="$ 00"
-                    android:textAppearance="@android:style/TextAppearance.Large"
-                    android:textColor="@color/red"
-                    android:visibility="invisible" />
+                    android:layout_alignLeft="@+id/textView2"
+                    android:layout_alignStart="@+id/textView2"
+                    android:layout_below="@+id/textView2"
+                    android:drawableLeft="@drawable/button_signup_login"
+                    android:text="location"
+                    fontPath="fonts/Montserrat-Regular.ttf"
+                    android:layout_centerVertical="true"
+
+                    android:textColor="@color/listTextColor"
+                    android:visibility="visible" />
 
 
                 <TextView
                     android:id="@+id/textView43"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/button13"
-                    android:layout_alignBottom="@+id/button13"
+                    fontPath="fonts/Montserrat-Bold.ttf"
                     android:layout_marginLeft="27dp"
                     android:layout_marginStart="27dp"
                     android:layout_toEndOf="@+id/imageView10"
@@ -67,6 +70,7 @@
                     android:layout_below="@+id/textView43"
                     android:text="for cleaning"
                     android:textColor="#898989"
+                    fontPath="fonts/Montserrat-Regular.ttf"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
@@ -79,6 +83,9 @@
                     android:layout_alignLeft="@+id/textView44"
                     android:layout_alignStart="@+id/textView44"
                     android:text="(23 Jun - Flexible time)"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    fontPath="fonts/Montserrat-Regular.ttf"
                     android:textColor="#898989"
                     android:textSize="12dp" />
                 <LinearLayout
@@ -93,20 +100,24 @@
                     android:id="@+id/button13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/red"
-                    android:text="Chat"
-                    android:lines="2"
-                    android:maxLines="2"
+                    android:background="@android:color/transparent"
+                    android:text="$"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:visibility="visible"
                     android:textAllCaps="true"
-                    android:textColor="@color/white" />
+                    fontPath="fonts/Montserrat-Bold.ttf"
+                    android:textColor="@color/Black_nb" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:textSize="16sp"
                         android:background="@color/listBg"
                         android:text="Flexiable"
+                        fontPath="fonts/Montserrat-Bold.ttf"
                         android:id="@+id/tv_thp_time"
                         android:gravity="center"
+                        android:layout_margin="5dp"
                         android:textColor="@color/Black_nb"/>
 
 
@@ -166,6 +177,17 @@
                     android:layout_alignTop="@+id/textView_adp_act_cost"
                     android:layout_centerHorizontal="true"
                     android:layout_weight="1"></FrameLayout>
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="wrap_content"
+                    fontPath="fonts/Montserrat-Regular.ttf"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/listTextColor"
+                    android:layout_alignLeft="@+id/textView_adp_act_cost"
+                    android:layout_alignStart="@+id/textView_adp_act_cost"
+                    android:layout_below="@+id/textView_adp_act_cost"
+                    android:text="vehicle" />
             </RelativeLayout>
 
         </android.support.v7.widget.CardView>

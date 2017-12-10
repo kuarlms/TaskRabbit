@@ -1,6 +1,7 @@
 package killbit.taskrabbit.actvity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,9 +21,11 @@ import killbit.taskrabbit.R;
 import killbit.taskrabbit.retrofit.ApiInterface;
 import killbit.taskrabbit.retrofit.ApiUtils;
 import killbit.taskrabbit.retrofit.bookingConfirmation.bookingConfirmation;
+import killbit.taskrabbit.utils.FourDigitsView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
@@ -73,6 +76,11 @@ public class confirm_booking extends Activity {
     ApiInterface mAPIService;
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -80,7 +88,7 @@ public class confirm_booking extends Activity {
         ButterKnife.bind(this);
 
          mAPIService = ApiUtils.getAPIService();
-
+         et_card_number.addTextChangedListener(new FourDigitsView());
 
 
 
