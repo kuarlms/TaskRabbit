@@ -28,7 +28,7 @@
                     android:layout_below="@+id/imageView10"
                     android:layout_marginTop="5dp"
                     android:text="Cycle"
-
+                    fontPath="fonts/Montserrat-Regular.ttf"
                     android:layout_margin="15dp"
                     android:textAppearance="@android:style/TextAppearance.Large"
                     android:textColor="@color/Black_nb" />

@@ -21,7 +21,7 @@
         layout="@layout/toolbar_normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="24dp" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -37,15 +37,16 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/imageView_nb_pro_pic"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_gravity="center_vertical"
                 android:padding="7dp"
                 android:paddingTop="@dimen/nav_header_vertical_spacing"
@@ -53,11 +54,13 @@
 
             <TextView
                 android:id="@+id/textView_nb_profile_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:textSize="17sp"
+                android:layout_margin="10dp"
+                android:textSize="20sp"
                 android:text="Profile name"
+                fontPath="fonts/Montserrat-Regular.ttf"
                 android:textColor="@color/Black_nb" />
 
         </LinearLayout>
@@ -67,6 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
+        android:layout_marginLeft="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -75,8 +79,11 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:text="Inbox"
+            android:layout_marginLeft="10dp"
             android:padding="15dp"
-            android:textSize="16sp"
+            android:id="@+id/tv_nb_inbox"
+            fontPath="fonts/Montserrat-Regular.ttf"
+            android:textSize="18sp"
             android:textColor="@color/Black_nb"/>
 
         <com.nex3z.notificationbadge.NotificationBadge
@@ -103,6 +110,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="11"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:orientation="vertical">
 
         <TextView
@@ -112,6 +121,7 @@
             android:padding="15dp"
             android:text="Active Task"
             android:textSize="18sp"
+            fontPath="fonts/Montserrat-Regular.ttf"
             android:textColor="@color/Black_nb" />
 
         <FrameLayout
@@ -125,6 +135,7 @@
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:textSize="18sp"
+            fontPath="fonts/Montserrat-Regular.ttf"
             android:text="My Account"
             android:textColor="@color/Black_nb" />
 
@@ -139,6 +150,7 @@
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:textSize="18sp"
+            fontPath="fonts/Montserrat-Regular.ttf"
             android:text="Sign Out"
             android:textColor="@color/Black_nb" />
 

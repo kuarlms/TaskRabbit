@@ -25,6 +25,7 @@ import killbit.taskrabbit.objects.vehicle_list_data;
 import killbit.taskrabbit.retrofit.ApiInterface;
 import killbit.taskrabbit.retrofit.ApiUtils;
 import killbit.taskrabbit.utils.sp_task;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by kural on 11/10/17.
@@ -45,6 +46,16 @@ public class myAccount extends FragmentActivity implements vehicle_list_adp.OnRe
     ProgressBar pb;
     @BindView(R.id.tb_normal_title)
     TextView tv_title;
+
+    @BindView(R.id.tv_empty)
+    TextView tv_empty;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

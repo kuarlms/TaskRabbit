@@ -199,6 +199,7 @@ void mtd(){
                 editor.putString(sp_task.Sp_name, response.body().getResult().getFirstName());
                 editor.putString(sp_task.Sp_email, et_email.getText().toString().trim());
                 editor.putBoolean(sp_task.Sp_IsLoggedIn, true);
+
                 editor.commit();
 
                 startActivity(i);

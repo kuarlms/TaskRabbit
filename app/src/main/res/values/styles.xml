@@ -67,6 +67,9 @@
     </style>
     <style name="signup_with_email">
         <item name="android:background">@drawable/signup_with_email</item>
+        <!-- Custom Attr-->
+        <item name="android:textColor">@color/white</item>
+        <item name="fontPath">fonts/Montserrat-Bold.ttf</item>
     </style>
     <style name="done">
         <item name="android:textColor">@color/white</item>

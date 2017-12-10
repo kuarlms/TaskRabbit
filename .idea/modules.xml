@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TaskRabbitx.iml" filepath="$PROJECT_DIR$/TaskRabbitx.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TaskRabbitGit.iml" filepath="$PROJECT_DIR$/TaskRabbitGit.iml" />
+      <module fileurl="file://F:\Android_dev\TaskRabbitGit-no20\TaskRabbitGit\TaskRabbitx.iml" filepath="F:\Android_dev\TaskRabbitGit-no20\TaskRabbitGit\TaskRabbitx.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/tasker/tasker.iml" filepath="$PROJECT_DIR$/tasker/tasker.iml" />
     </modules>

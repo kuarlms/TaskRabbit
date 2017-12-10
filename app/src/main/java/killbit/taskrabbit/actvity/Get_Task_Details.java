@@ -11,7 +11,9 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -51,6 +53,7 @@ import killbit.taskrabbit.utils.sp_task;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by kural on 10/10/17.
@@ -125,7 +128,7 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
     ApiInterface mAPIService;
     SharedPreferences sp;
     SharedPreferences.Editor  editor ;
-    EditText et_task_details,et_task_address;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -204,21 +207,7 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
                         @Override
                         public void onResponse(Call<FindTaskerResp> call, Response<FindTaskerResp> response) {
 
-                          /*  String taskerId,
-                            String proPic,
-                            String firstName,
-                            String lastName, Integer reviewResponseRate,
-                                    String idVerified,
-                                    String currencySymbol,
-                                    String price,
-                                    String servicePercentage,
-                                    String about,
-                                    String serviceStartYear,
-                                    Integer taskDone,
-                                    String detail1, String detail2,
-                                    String detail3,
-                                    List<ReviewArray> reviewArray,
-                                    List<Object> supplyArray*/
+
 
                             if(response.body().getStatus().equals(1)){
 
@@ -279,7 +268,10 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
         finish();
 
     }
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
 
     private void mtd_taskers() {
@@ -367,21 +359,44 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
             et_address_city.setText(city);
 
         }
+        et_address.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
 
+                if(keyCode == EditorInfo.IME_ACTION_GO || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                    et_address_city.requestFocus();
+                }
+                return false;
+            }
+        });
+
+
+        et_address_city.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if(keyCode == EditorInfo.IME_ACTION_GO || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                    btn_address_done.performClick();
+                }
+                return false;
+            }
+        });
 
         btn_address_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(et_address_city.getText().length()== 0 ){
-                    et_address_city.setError("Required");
-                }else {
-                    city = et_address_city.getText().toString().trim();
-                    dialog_address.dismiss();
-                }
-                if(et_address.getText().length() < 14){
+
+                if(et_address.getText().length() <= 14){
 
                     et_address.setError("Minimum length 15 characters.");
                     return;
+                }
+
+
+                if(et_address_city.getText().length() <= 2 ){
+                    et_address_city.setError("Required");
+                    return;
+                }else {
+                    city = et_address_city.getText().toString().trim();
+                    dialog_address.dismiss();
                 }
 
                 textView_task_address.setText(et_address.getText()+" - "+et_address_city.getText());

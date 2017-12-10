@@ -20,7 +20,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -50,6 +49,7 @@ import killbit.taskrabbit.utils.sp_task;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
@@ -65,11 +65,15 @@ public class MainActivity extends AppCompatActivity
     List<data_main_home> list_main_cat = new ArrayList<>();
     ProgressBar pb;
     DrawerLayout drawer;
-    TextView tvNbActviteTask,tvNbAccount,tvNbSignout,tvProfileName,tvToolBarTitle;
+    TextView tvNbActviteTask,tvNbAccount,tvNbSignout,tvProfileName,tvToolBarTitle,tvInbox;
     ImageView ivNbProfilePic;
     ImageButton iv_tool_nav_icon;
     NotificationBadge notificationBadgeNb;
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +120,11 @@ public class MainActivity extends AppCompatActivity
         iv_tool_nav_icon = drawer.findViewById(R.id.tb_normal_back);
         ivNbProfilePic  = drawer.findViewById(R.id.imageView_nb_pro_pic);
         notificationBadgeNb = drawer.findViewById(R.id.notification_nb_inbox);
+        tvInbox = drawer.findViewById(R.id.tv_nb_inbox);
+        ImageButton ivToolBar = drawer.findViewById(R.id.tb_normal_back);
+
+        Glide.with(this).load(R.drawable.button_background).into(ivToolBar);
+        //    ivToolBar.setBackground(getResources().getDrawable(R.drawable.button_signup));
 
         tvToolBarTitle.setText("How can we help ?");
         //iv_tool_nav_icon.setImageDrawable(R.drawable.ic_menu_camera);
@@ -166,7 +175,25 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+
+        tvInbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mtd_inbox();
+            }
+        });
+
+
     }
+
+    private void mtd_inbox() {
+
+        Intent inInbox = new Intent(MainActivity.this,inBox.class);
+        startActivity(inInbox);
+
+
+    }
+
 
     private void setupTabIcons() {
 
@@ -270,14 +297,14 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
+/*    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }
+    }*/
 
-    @Override
+/*    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -290,7 +317,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
