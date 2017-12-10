@@ -100,7 +100,7 @@ public class tasker_details_adapter extends RecyclerView.Adapter<tasker_details_
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.viwepager_tasker_details, parent, false);
+                .inflate(R.layout.adp_tasker_details, parent, false);
 
         return new MyViewHolder(itemView, context);
     }

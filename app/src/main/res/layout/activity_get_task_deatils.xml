@@ -18,6 +18,7 @@
         android:background="@color/white"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_below="@+id/tb_task"
+
         android:layout_marginBottom="25dp">
 
 
@@ -26,6 +27,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_margin="10dp"
+
         >
 
         <TextView
@@ -37,6 +39,7 @@
             android:textAllCaps="true"
             android:textStyle="bold"
             android:textSize="16dp"
+            fontPath="fonts/Montserrat-Bold.ttf"
             android:text="Sub-Category"/>
         <Spinner
             android:layout_marginLeft="18dp"
@@ -45,12 +48,17 @@
             android:layout_marginBottom="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            fontPath="fonts/Montserrat-Regular.ttf"
             android:id="@+id/spinner_task"></Spinner>
 
 
     </LinearLayout>
     </android.support.v7.widget.CardView>
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/scrollView"
+    android:layout_below="@+id/ll_sub">
     <LinearLayout
         android:layout_below="@+id/ll_sub"
         android:orientation="vertical"
@@ -89,14 +97,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/imageViewta5"
+                    android:layout_alignParentTop="true"
                     android:layout_marginLeft="13dp"
                     android:layout_marginStart="13dp"
                     android:layout_toEndOf="@+id/imageViewta5"
                     android:layout_toRightOf="@+id/imageViewta5"
+                    android:gravity="center_vertical"
+                    android:text="TASK ADDRESS"
                     android:textAllCaps="true"
-                    android:textStyle="bold"
                     android:textSize="16dp"
-                    android:text="TASK ADDRESS" />
+                    fontPath="fonts/Montserrat-Bold.ttf"
+
+                    android:textStyle="bold" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -114,6 +126,7 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
                     android:layout_weight="18"
+                    fontPath="fonts/Montserrat-Regular.ttf"
                     android:background="@null"
                     android:hint="What is the task location?"
                     android:focusableInTouchMode="false"
@@ -121,13 +134,13 @@
 
                     <ImageButton
                     android:id="@+id/buttonz12"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:scaleType="centerInside"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/ic_plus"
                     android:padding="3dp"
-                    android:layout_weight="1.4"/>
+                   />
         </LinearLayout>
         </RelativeLayout>
         </android.support.v7.widget.CardView>
@@ -160,14 +173,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/imageViewsz5"
+                    android:layout_alignParentTop="true"
                     android:layout_marginLeft="13dp"
                     android:layout_marginStart="13dp"
                     android:layout_toEndOf="@+id/imageViewsz5"
                     android:layout_toRightOf="@+id/imageViewsz5"
+                    android:text="WHEN"
+                    android:gravity="center_vertical"
+                    fontPath="fonts/Montserrat-Bold.ttf"
+                    android:layout_centerVertical="true"
                     android:textAllCaps="true"
-                    android:textStyle="bold"
                     android:textSize="16dp"
-                    android:text="WHEN" />
+                    android:textStyle="bold" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -185,19 +202,20 @@
                         android:gravity="center_vertical"
                         android:hint="Now or Later ?"
                         android:background="@null"
+                        fontPath="fonts/Montserrat-Regular.ttf"
                         android:focusableInTouchMode="false"
                         android:layout_weight="18"
                         android:textSize="14dp" />
 
                     <ImageButton
                         android:id="@+id/button1s"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:scaleType="centerInside"
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/ic_plus"
                         android:padding="3dp"
-                        android:layout_weight="1.4"/>
+                        />
                 </LinearLayout>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
@@ -230,14 +248,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/imageView5"
+                    android:layout_alignParentTop="true"
                     android:layout_marginLeft="13dp"
                     android:layout_marginStart="13dp"
                     android:layout_toEndOf="@+id/imageView5"
                     android:layout_toRightOf="@+id/imageView5"
+                    android:text="TASK DETAILS"
                     android:textAllCaps="true"
-                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    fontPath="fonts/Montserrat-Bold.ttf"
+                    android:layout_centerVertical="true"
                     android:textSize="16dp"
-                    android:text="TASK DETAILS" />
+                    android:textStyle="bold" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -255,19 +277,20 @@
                         android:gravity="center_vertical"
                         android:hint="What else we should know?"
                         android:background="@null"
+                        fontPath="fonts/Montserrat-Regular.ttf"
                         android:focusableInTouchMode="false"
                         android:layout_weight="18"
                         android:textSize="14dp" />
 
                     <ImageButton
                         android:id="@+id/button12"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:scaleType="centerInside"
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/ic_plus"
                         android:padding="3dp"
-                        android:layout_weight="1.4"/>
+                        />
                 </LinearLayout>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
@@ -300,14 +323,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/imageViewvr"
+                    android:layout_alignParentTop="true"
                     android:layout_marginLeft="13dp"
                     android:layout_marginStart="13dp"
                     android:layout_toEndOf="@+id/imageViewvr"
                     android:layout_toRightOf="@+id/imageViewvr"
+                    android:text="VEHICLE REQUIREMENT"
                     android:textAllCaps="true"
-                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    fontPath="fonts/Montserrat-Bold.ttf"
+                    android:layout_centerVertical="true"
                     android:textSize="16dp"
-                    android:text="VEHICLE REQUIREMENT" />
+                    android:textStyle="bold" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -325,26 +352,28 @@
                         android:gravity="center_vertical"
                         android:background="@null"
                         android:focusableInTouchMode="false"
+                        fontPath="fonts/Montserrat-Regular.ttf"
                         android:hint="is Car or Truck required ?"
                         android:layout_weight="18"
                         android:textSize="14dp" />
 
                     <ImageButton
                         android:id="@+id/button1xz2"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:scaleType="centerInside"
+                        fontPath="fonts/Montserrat-Regular.ttf"
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/ic_plus"
                         android:padding="3dp"
-                        android:layout_weight="1.4"/>
+                       />
                 </LinearLayout>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
     </LinearLayout>
 
-
+</ScrollView>
 
     <Button
         android:id="@+id/button_done"
@@ -354,11 +383,12 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_below="@+id/linearLayout"
+        android:layout_below="@+id/scrollView"
         style="@style/signup_with_email"
         android:textColor="#fdfdf9"
         android:textAllCaps="false"
         android:textSize="20dp"
+
         android:text="Find a Tasker" />
 
 

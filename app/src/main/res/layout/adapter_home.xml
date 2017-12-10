@@ -34,6 +34,7 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:text="Sub"
+            fontPath="fonts/Montserrat-SemiBold.ttf"
             android:gravity="center"
             android:layout_gravity="center_horizontal"
             android:layout_weight="5"
@@ -44,6 +45,7 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:gravity="center"
+            fontPath="fonts/Montserrat-Regular.ttf"
             android:layout_gravity="center_horizontal"
             android:text="1 $"
             android:layout_weight="5"/>
