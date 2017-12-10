@@ -235,7 +235,7 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
                                 }
                                 mtd_taskers();}
                                 else {
-                                Toast.makeText(Get_Task_Details.this, "Taskers not available..."+response.body().getStatus(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Get_Task_Details.this, "Taskers not available..."+response.body().getStatus(),                               Toast.LENGTH_SHORT).show();
                             }
                                // tasker_adapter.notifyDataSetChanged();
 
