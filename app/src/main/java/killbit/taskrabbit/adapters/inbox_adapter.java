@@ -12,15 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
-
 import java.util.List;
 
 import killbit.taskrabbit.R;
-import killbit.taskrabbit.objects.tasker_list_data;
-
-import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
+import killbit.taskrabbit.retrofit.inbox.MessageList;
 
 /**
  * Created by kural mughil selvam on 15-10-2017.
@@ -28,12 +23,12 @@ import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 public class inbox_adapter extends RecyclerView.Adapter<inbox_adapter.MyViewHolder>{
 
-    private List<tasker_list_data> ListDatas;
+    private List<MessageList> ListDatas;
     Context context;
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
     OnRecyclerListener recyclerListener;
-    tasker_list_data listData;
+    MessageList listData;
 
 
 
@@ -68,7 +63,7 @@ public class inbox_adapter extends RecyclerView.Adapter<inbox_adapter.MyViewHold
     }
 
 
-    public inbox_adapter(List<tasker_list_data> ListData, Context context, OnRecyclerListener recyclerListener) {
+    public inbox_adapter(List<MessageList> ListData, Context context, OnRecyclerListener recyclerListener) {
 
         this.ListDatas = ListData;
         this.context = context;
@@ -89,25 +84,6 @@ public class inbox_adapter extends RecyclerView.Adapter<inbox_adapter.MyViewHold
     public void onBindViewHolder( MyViewHolder holder,  int position) {
          listData = ListDatas.get(position);
 
-        holder.btn_tasker_adp_rate.setText(listData.getPrice()+" "+listData.getCurrencySymbol());
-
-        holder.btn_tasker_adp_rate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                recyclerListener.onTaskerSelected(position,listData.getTaskerId(),listData.getProPic(),
-                        listData.getCurrencySymbol()+" "+listData.getPrice(),listData.getFirstName());
-            }
-        });
-
-
-        if(listData.getReviewArray().size()== 2){
-
-        mtd_reviews(holder);}
-        else {
-            holder.ll_rev1.setVisibility(View.GONE);
-
-        }
-
 
 
 
@@ -115,50 +91,10 @@ public class inbox_adapter extends RecyclerView.Adapter<inbox_adapter.MyViewHold
 
     }
 
-    private void mtd_reviews(MyViewHolder holder) {
 
-        String pic1 = null,pic2 = null;
-
-        if(listData.getReviewArray().get(0).getProPic()!=null){
-            pic1 =listData.getReviewArray().get(0).getProPic();
-        }else {
-            holder.ll_rev1.setVisibility(View.GONE);
-        }
-
-
-        if(listData.getReviewArray().get(1).getProPic()!=null){
-            pic2 =listData.getReviewArray().get(1).getProPic();
-        }else {
-
-        }
-
-        Glide.with(context).load(pic1).apply(bitmapTransform(new CircleCrop())).into(holder.iv_review_pic1);
-
-
-        int rat1 = 0,rat2 =0 ;
-        try {
-            rat1  = Integer.parseInt(listData.getReviewArray().get(0).getReviewStar());
-
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-
-        holder.rbr1.setNumStars(rat1);
-
-
-        holder.tv_adp_rew_name.setText(listData.getReviewArray().get(0).getFirstName());
-
-
-        holder.tv_adp_rew_description.setText(listData.getReviewArray().get(0).getReviewMessage());
-
-
-        holder.tv_adp_rew_date.setText(listData.getReviewArray().get(0).getDate());
-
-
-    }
 
     public interface OnRecyclerListener {
-        void onTaskerSelected(int position, String tasker_id, String Profile_pic, String RatePerHr, String TaskerName);
+        void onInboxItemSelected(int position, String tasker_id, String Profile_pic, String RatePerHr, String TaskerName);
 
     }
 

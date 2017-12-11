@@ -45,6 +45,7 @@ import killbit.taskrabbit.objects.data_sub_home;
 import killbit.taskrabbit.retrofit.ApiInterface;
 import killbit.taskrabbit.retrofit.ApiUtils;
 import killbit.taskrabbit.retrofit.home.Home_Resp;
+import killbit.taskrabbit.retrofit.inbox.InboxResp;
 import killbit.taskrabbit.utils.sp_task;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity
     ImageView ivNbProfilePic;
     ImageButton iv_tool_nav_icon;
     NotificationBadge notificationBadgeNb;
-
+    ApiInterface mAPIService;
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -92,6 +93,8 @@ public class MainActivity extends AppCompatActivity
 
         sp =  getSharedPreferences(sp_task.MyPref, Context.MODE_PRIVATE);
         editor =sp.edit();
+
+        mAPIService = ApiUtils.getAPIService();
         api_home();
 
 
@@ -182,9 +185,51 @@ public class MainActivity extends AppCompatActivity
                 mtd_inbox();
             }
         });
+      drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
 
+          @Override
+          public void onDrawerSlide(View drawerView, float slideOffset) {
+              //Called when a drawer's position changes.
+          }
+
+          @Override
+          public void onDrawerOpened(View drawerView) {
+              mtd_inboxCount();
+          }
+
+          @Override
+          public void onDrawerClosed(View drawerView) {
+              // Called when a drawer has settled in a completely closed state.
+          }
+
+          @Override
+          public void onDrawerStateChanged(int newState) {
+              // Called when the drawer motion state changes. The new state will be one of STATE_IDLE, STATE_DRAGGING or STATE_SETTLING.
+          }
+      });
 
     }
+
+    private void mtd_inboxCount() {
+
+        mAPIService.rf_unreadmessage_count(ApiInterface.header_value, sp.getString(sp_task.Sp_email,"")).enqueue(new Callback<InboxResp>() {
+
+
+            @Override
+            public void onResponse(Call<InboxResp> call, Response<InboxResp> response) {
+                if(response.body().getStatus().equals(1)){
+                    notificationBadgeNb.setText(response.body().getUnreadmessageCount());
+                }else {
+                    notificationBadgeNb.setText("0");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<InboxResp> call, Throwable t) {
+
+            }  });
+        }
 
     private void mtd_inbox() {
 
@@ -233,8 +278,7 @@ public class MainActivity extends AppCompatActivity
     }
     private void api_home() {
 
-        ApiInterface mAPIService;
-        mAPIService = ApiUtils.getAPIService();
+
 
         mAPIService.rf_home_page(ApiInterface.header_value, sp.getString(sp_task.Sp_email,"")).enqueue(new Callback<Home_Resp>() {
             @Override
