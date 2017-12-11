@@ -11,6 +11,7 @@ import killbit.taskrabbit.retrofit.bookingStep1.bookingStep1Resp;
 import killbit.taskrabbit.retrofit.findTasker.FindTaskerResp;
 import killbit.taskrabbit.retrofit.forgotPass.ForgoPassResp;
 import killbit.taskrabbit.retrofit.home.Home_Resp;
+import killbit.taskrabbit.retrofit.inbox.InboxResp;
 import killbit.taskrabbit.retrofit.signIn.LoginResp;
 import killbit.taskrabbit.retrofit.signup.signupStatus;
 import killbit.taskrabbit.retrofit.transactionList.transactionsResp;
@@ -161,7 +162,7 @@ public interface ApiInterface {
     Call<ActiveTaskResp> rf_dashboard_user_task_history_completed(@Header(header)String header_value,@Part("email") String email);
 
     @Multipart
-    @POST("dashboard_user_task_history_pending")
+    @POST("dashboard_user_task_history_cancelled")
     Call<ActiveTaskResp> rf_dashboard_user_task_history_Cancelled(@Header(header)String header_value,@Part("email") String email);
 
     @Multipart
@@ -180,7 +181,32 @@ public interface ApiInterface {
     @Multipart
     @POST("billing_info")
     Call<StatusResp> rf_billing_info(@Header(header)String header_value,@Part("email") String email,@Part("number") String number,
-                                         @Part("cvc") String cvc,@Part("exp_month") String exp_month,@Part("exp_year") String exp_year);
+                                             @Part("cvc") String cvc,@Part("exp_month") String exp_month,@Part("exp_year") String exp_year);
+      @Multipart
+      @POST("inbox")
+      Call<InboxResp> rf_inbox(@Header(header)String header_value, @Part("email") String email);
+
+      @Multipart
+      @POST("unreadmessage_count")
+      Call<InboxResp> rf_unreadmessage_count(@Header(header)String header_value,@Part("email") String email);
+
+
+    @Multipart
+    @POST("save_review")
+    Call<InboxResp> rf_save_review(@Header(header)String header_value,@Part("email") String email,
+                            @Part("booking_id") String booking_id,@Part("review_star") String review_star
+                            ,@Part("comments") String comments);
+
+    @Multipart
+    @POST("chat_inner")
+    Call<InboxResp> rf_chat_inner(@Header(header)String header_value,@Part("email") String email,@Part("booking_id") String booking_id);
+
+    @Multipart
+    @POST("send_message")
+    Call<InboxResp> rf_send_message(@Header(header)String header_value,@Part("email") String email,
+                                   @Part("booking_id") String booking_id,@Part("message") String message);
+
+
 
 
 }
