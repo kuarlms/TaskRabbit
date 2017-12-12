@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,15 +33,17 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
  * Created by kural on 11/10/17.
  */
 
-public class inBox extends FragmentActivity implements  inbox_adapter.OnRecyclerListener{
+public class chat extends FragmentActivity implements  inbox_adapter.OnRecyclerListener{
 
     MessageList data;
     List<MessageList> Listdata = new ArrayList<>();
     inbox_adapter adapter;
 
-    @BindView(R.id.recycleView_tasker_details)
+    @BindView(R.id.recycleViewChat)
     RecyclerView rv_at_list;
 
+    @BindView(R.id.swiperereshChat)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @BindView(R.id.tb_normal_title)
     TextView tv_title;
@@ -60,7 +63,7 @@ public class inBox extends FragmentActivity implements  inbox_adapter.OnRecycler
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tasker_recycler);
+        setContentView(R.layout.activity_chat);
         ButterKnife.bind(this);
         mAPIService = ApiUtils.getAPIService();
         sp =  getSharedPreferences(sp_task.MyPref, Context.MODE_PRIVATE);
@@ -69,20 +72,41 @@ public class inBox extends FragmentActivity implements  inbox_adapter.OnRecycler
         tv_title.setText("Inbox");
         email = sp.getString(sp_task.Sp_email,"");
 
-        adapter = new inbox_adapter(Listdata,this,inBox.this);
+        adapter = new inbox_adapter(Listdata,this,chat.this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         rv_at_list.setLayoutManager(mLayoutManager);
         rv_at_list.setItemAnimator(new DefaultItemAnimator());
         rv_at_list.setAdapter(adapter);
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+            }
+        });
 
 
     }
+
+
 
     @OnClick({R.id.tb_normal_back})
     public void tb_back(){
 
         finish();
+
+    }
+
+
+
+    @OnClick(R.id.imageViewChatSend)
+    public void sendMsg(){
+
+    }
+
+
+    @OnClick(R.id.imageViewPickChat)
+    public void attachImg(){
 
     }
 
