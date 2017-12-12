@@ -12,10 +12,15 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+
 import java.util.List;
 
 import killbit.taskrabbit.R;
 import killbit.taskrabbit.retrofit.inbox.MessageList;
+
+import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 /**
  * Created by kural mughil selvam on 15-10-2017.
@@ -34,7 +39,7 @@ public class inbox_adapter extends RecyclerView.Adapter<inbox_adapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tv_adp_rew_name,tv_adp_rew_description
-                ,tv_adp_rew_date;
+                ,tv_adp_rew_date,tv_adp_lookingfor;
 
         ImageView iv_review_pic1;
         Button btn_tasker_adp_rate;
@@ -59,6 +64,8 @@ public class inbox_adapter extends RecyclerView.Adapter<inbox_adapter.MyViewHold
 
             tv_adp_rew_date=view.findViewById(R.id.tv_adp_rew_date);
 
+            tv_adp_lookingfor=view.findViewById(R.id.tv_adp_inbox_looking);
+
         }
     }
 
@@ -75,7 +82,7 @@ public class inbox_adapter extends RecyclerView.Adapter<inbox_adapter.MyViewHold
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.adp_reviews, parent, false);
+                .inflate(R.layout.adp_inbox, parent, false);
 
         return new MyViewHolder(itemView, context);
     }
@@ -84,7 +91,12 @@ public class inbox_adapter extends RecyclerView.Adapter<inbox_adapter.MyViewHold
     public void onBindViewHolder( MyViewHolder holder,  int position) {
          listData = ListDatas.get(position);
 
-
+         holder.tv_adp_rew_name.setText(listData.getName());
+         holder.tv_adp_lookingfor.setText(listData.getTaskName());
+         holder.tv_adp_rew_date.setText(listData.getCreatedTime());
+         holder.tv_adp_rew_description.setText(listData.getMessage());
+        Glide.with(context).load(listData.getProfileImage()).
+        apply(bitmapTransform(new CircleCrop())).into(holder.iv_review_pic1);
 
 
 
@@ -94,7 +106,7 @@ public class inbox_adapter extends RecyclerView.Adapter<inbox_adapter.MyViewHold
 
 
     public interface OnRecyclerListener {
-        void onInboxItemSelected(int position, String tasker_id, String Profile_pic, String RatePerHr, String TaskerName);
+        void onInboxItemSelected(int position, String tasker_id, String TaskerName);
 
     }
 
