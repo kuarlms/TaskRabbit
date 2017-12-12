@@ -26,6 +26,7 @@ import killbit.taskrabbit.utils.sp_task;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by kural on 11/10/17.
@@ -49,6 +50,12 @@ public class inBox extends FragmentActivity implements  inbox_adapter.OnRecycler
 
     SharedPreferences sp;
     SharedPreferences.Editor  editor ;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,8 +124,10 @@ public class inBox extends FragmentActivity implements  inbox_adapter.OnRecycler
 
     }
 
+
+
     @Override
-    public void onInboxItemSelected(int position, String tasker_id, String Profile_pic, String RatePerHr, String TaskerName) {
+    public void onInboxItemSelected(int position, String tasker_id, String TaskerName) {
 
     }
 }
