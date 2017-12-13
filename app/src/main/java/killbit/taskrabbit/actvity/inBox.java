@@ -1,6 +1,7 @@
 package killbit.taskrabbit.actvity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,5 +131,10 @@ public class inBox extends FragmentActivity implements  inbox_adapter.OnRecycler
     @Override
     public void onInboxItemSelected(int position, String tasker_id, String TaskerName) {
 
+        Toast.makeText(this, "Clk", Toast.LENGTH_SHORT).show();
+        Intent inChat = new Intent(inBox.this,chat.class);
+        inChat.putExtra("taskId",tasker_id);
+        inChat.putExtra("taskerName",TaskerName);
+        startActivity(inChat);
     }
 }

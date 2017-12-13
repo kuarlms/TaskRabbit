@@ -1,4 +1,4 @@
-package killbit.taskrabbit.actvity;
+package killbit.taskrabbit.utils;
 
 import android.app.Application;
 
@@ -22,4 +22,7 @@ public class app extends Application {
         );
 
     }
+
+
+
 }
