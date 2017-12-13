@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -18,11 +19,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import killbit.taskrabbit.R;
-import killbit.taskrabbit.adapters.inbox_adapter;
+import killbit.taskrabbit.adapters.chat_adapter;
 import killbit.taskrabbit.retrofit.ApiInterface;
 import killbit.taskrabbit.retrofit.ApiUtils;
-import killbit.taskrabbit.retrofit.inbox.InboxResp;
-import killbit.taskrabbit.retrofit.inbox.MessageList;
+import killbit.taskrabbit.retrofit.Chattingreceive.ChatMessage;
+import killbit.taskrabbit.retrofit.Chattingreceive.ChatResp;
+import killbit.taskrabbit.retrofit.Chattingreceive.ChatUserInfo;
 import killbit.taskrabbit.utils.sp_task;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,11 +35,14 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
  * Created by kural on 11/10/17.
  */
 
-public class chat extends FragmentActivity implements  inbox_adapter.OnRecyclerListener{
+public class chat extends FragmentActivity implements  chat_adapter.OnRecyclerListener{
 
-    MessageList data;
-    List<MessageList> Listdata = new ArrayList<>();
-    inbox_adapter adapter;
+    ChatMessage data;
+    List<ChatMessage> Listdata = new ArrayList<>();
+    chat_adapter adapter;
+    String bookingId;
+    ChatUserInfo chatUserInfo;
+    String  chatUserInfoz;
 
     @BindView(R.id.recycleViewChat)
     RecyclerView rv_at_list;
@@ -69,10 +74,10 @@ public class chat extends FragmentActivity implements  inbox_adapter.OnRecyclerL
         sp =  getSharedPreferences(sp_task.MyPref, Context.MODE_PRIVATE);
         editor =sp.edit();
 
-        tv_title.setText("Inbox");
+        tv_title.setText("Chat");
         email = sp.getString(sp_task.Sp_email,"");
 
-        adapter = new inbox_adapter(Listdata,this,chat.this);
+        adapter = new chat_adapter(Listdata,this,chat.this,chatUserInfoz);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         rv_at_list.setLayoutManager(mLayoutManager);
         rv_at_list.setItemAnimator(new DefaultItemAnimator());
@@ -113,45 +118,62 @@ public class chat extends FragmentActivity implements  inbox_adapter.OnRecyclerL
     @Override
     protected void onStart() {
         super.onStart();
-        mAPIService.rf_inbox(ApiInterface.header_value, sp.getString(sp_task.Sp_email,"")).enqueue(new Callback<InboxResp>() {
+
+        bookingId = getIntent().getStringExtra("taskId");
+        tv_title.setText(getIntent().getStringExtra("TaskerName"));
+
+
+        mAPIService.rf_chat_inner(ApiInterface.header_value, sp.getString(sp_task.Sp_email,""),bookingId).enqueue(new Callback<ChatResp>() {
 
 
 
             @Override
-            public void onResponse(Call<InboxResp> call, Response<InboxResp> response) {
+            public void onResponse(Call<ChatResp> call, Response<ChatResp> response) {
                 if(response.body().getStatus().equals(1)){
-                    for (int i = 0; i <response.body().getMessageList().size() ; i++) {
 
-                        data = new MessageList(response.body().getMessageList().get(i).getName(),
-                                response.body().getMessageList().get(i).getProfileImage(),
-                                response.body().getMessageList().get(i).getTaskName(),
-                                response.body().getMessageList().get(i).getCreatedTime(),
-                                response.body().getMessageList().get(i).getMessage(),
-                                response.body().getMessageList().get(i).getBookingId());
+                    Listdata.clear();
+                    chatUserInfo = null;
 
-                        Listdata.add(data);
-                        adapter.notifyDataSetChanged();
+                    for (int i = 0; i <response.body().getChatMessages().size() ; i++) {
+                    data = new ChatMessage(response.body().getChatMessages().get(i).getMessage(),
+                            response.body().getChatMessages().get(i).getPosition(),
+                            response.body().getChatMessages().get(i).getBookingId(),
+                           response.body().getChatMessages().get(i).getCreatedTime());
+
+
+                    Listdata.add(data);
                     }
 
+                   chatUserInfo = new ChatUserInfo(response.body().getChatUserInfo().getName(),
+                           response.body().getChatUserInfo().getProfileImage(),
+                           response.body().getChatUserInfo().getCity());
+
+                   chatUserInfoz =  response.body().getChatUserInfo().getProfileImage();
+                    Log.d("ppic",chatUserInfoz);
+                    adapter.notifyDataSetChanged();
 
                 }else {
 
+
                 }
+
 
             }
 
             @Override
-            public void onFailure(Call<InboxResp> call, Throwable t) {
+            public void onFailure(Call<ChatResp> call, Throwable t) {
 
-            }  });
-
+            }
+        });
 
     }
 
 
 
+
+
     @Override
-    public void onInboxItemSelected(int position, String tasker_id, String TaskerName) {
+    public void onChatItemSelected(int position, String Booking_id, String TaskerName) {
 
     }
 }

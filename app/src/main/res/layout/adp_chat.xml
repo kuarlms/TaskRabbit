@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="5dp"
+    >
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/ll_rev1">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:id="@+id/iv_adp_chat_pic"
+            android:layout_gravity="center_vertical"
+            android:background="@color/white"
+            />
+
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="3dp"
+            android:id="@+id/llChatParent"
+           >
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="..."
+                android:layout_weight="5"
+                android:gravity="center_vertical|left"
+                android:maxLines="2"
+                android:textColor="@color/Black_nb"
+                fontPath="fonts/Montserrat-Regular"
+                android:id="@+id/tv_adp_chat_text"
+                android:textStyle="normal"
+                android:padding="5dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:maxLines="1"
+                android:layout_weight="3"
+                android:padding="2dp"
+                android:gravity="right"
+                android:text="00:00"
+                fontPath="fonts/Montserrat-Regular"
+                android:textColor="@color/hint"
+                android:id="@+id/tv_adp_chat_time"/>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="200dp"
+            android:visibility="gone"
+            android:id="@+id/iv_adp_chat_attachedImage"
+            android:scaleType="centerInside"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

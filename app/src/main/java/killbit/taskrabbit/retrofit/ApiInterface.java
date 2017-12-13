@@ -5,6 +5,7 @@ import android.database.Observable;
 import android.preference.PreferenceManager;
 
 import killbit.taskrabbit.actvity.Launcher;
+import killbit.taskrabbit.retrofit.Chattingreceive.ChatResp;
 import killbit.taskrabbit.retrofit.activeTasks.ActiveTaskResp;
 import killbit.taskrabbit.retrofit.bookingConfirmation.bookingConfirmation;
 import killbit.taskrabbit.retrofit.bookingStep1.bookingStep1Resp;
@@ -199,7 +200,7 @@ public interface ApiInterface {
 
     @Multipart
     @POST("chat_inner")
-    Call<InboxResp> rf_chat_inner(@Header(header)String header_value,@Part("email") String email,@Part("booking_id") String booking_id);
+    Call<ChatResp> rf_chat_inner(@Header(header)String header_value, @Part("email") String email, @Part("booking_id") String booking_id);
 
     @Multipart
     @POST("send_message")
