@@ -97,7 +97,12 @@ public class inbox_adapter extends RecyclerView.Adapter<inbox_adapter.MyViewHold
          holder.tv_adp_rew_description.setText(listData.getMessage());
         Glide.with(context).load(listData.getProfileImage()).
         apply(bitmapTransform(new CircleCrop())).into(holder.iv_review_pic1);
-
+        holder.ll_rev1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recyclerListener.onInboxItemSelected(position,listData.getBookingId(),listData.getTaskName());
+            }
+        });
 
 
 
