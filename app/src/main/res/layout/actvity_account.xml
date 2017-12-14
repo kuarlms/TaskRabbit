@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/windowBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.design.widget.AppBarLayout
@@ -49,11 +50,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:textColor="@color/labelcolor"
+                fontPath="fonts/Montserrat-Regular.ttf"
                 android:text="FULL NAME"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="name"
                 android:textColor="@color/Black_nb"
                 android:id="@+id/et_account_name"/>
 
@@ -69,11 +72,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:textColor="@color/labelcolor"
+            fontPath="fonts/Montserrat-Regular.ttf"
             android:text="EMAIL"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="email"
             android:textColor="@color/Black_nb"
             android:id="@+id/et_account_email"/>
 
@@ -89,11 +94,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:textColor="@color/labelcolor"
+                fontPath="fonts/Montserrat-Regular.ttf"
                 android:text="MOBILE"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="mobile"
                 android:textColor="@color/Black_nb"
                 android:id="@+id/et_account_mobile"/>
 
@@ -108,11 +115,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:textColor="@color/labelcolor"
+                fontPath="fonts/Montserrat-Regular.ttf"
                 android:text="ZIPCODE"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="zipcode"
                 android:textColor="@color/Black_nb"
                 android:id="@+id/et_account_zipcode"/>
 
@@ -122,8 +131,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btn_account"
-            style="@style/button_style"
-            android:text="SAVE CHANGES"/>
+            android:textColor="#ffffff"
+            fontPath="fonts/Montserrat-SemiBold.ttf"
+            android:textSize="18dp"
+            android:textAllCaps="false"
+            android:paddingVertical="10dp"
+            android:elevation="5dp"
+            android:background="@drawable/button_save"
+            android:text="Save Changes"/>
          </LinearLayout>
 
 

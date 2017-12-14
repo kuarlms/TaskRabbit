@@ -18,6 +18,8 @@
     <color name="listTextColor">#898989</color>
     <color name="duskYellow">#0064A8</color>
     <color name="lightGrey">#0064A8</color>
-
+    <color name="bordercustom">#b7b7b7</color>
+    <color name="labelcolor">#999999</color>
+    <color name="textcolor1">#666666</color>
 
 </resources>
