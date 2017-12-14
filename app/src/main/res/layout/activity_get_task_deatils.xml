@@ -31,16 +31,19 @@
         >
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="18dp"
             android:layout_marginStart="18dp"
             android:layout_marginTop="13dp"
-            android:textAllCaps="true"
-            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:letterSpacing="0.1"
+            fontPath="fonts/Montserrat-Regular.ttf"
             android:textSize="16dp"
-            fontPath="fonts/Montserrat-Bold.ttf"
+            android:textColor="@color/Black_nb"
             android:text="Sub-Category"/>
+
+
         <Spinner
             android:layout_marginLeft="18dp"
             android:layout_marginStart="18dp"
@@ -48,6 +51,8 @@
             android:layout_marginBottom="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:letterSpacing="0.05"
+            android:textSize="14dp"
             fontPath="fonts/Montserrat-Regular.ttf"
             android:id="@+id/spinner_task"></Spinner>
 
@@ -105,10 +110,11 @@
                     android:gravity="center_vertical"
                     android:text="TASK ADDRESS"
                     android:textAllCaps="true"
+                    android:letterSpacing="0.1"
+                    android:textColor="@color/Black_nb"
                     android:textSize="16dp"
-                    fontPath="fonts/Montserrat-Bold.ttf"
-
-                    android:textStyle="bold" />
+                    fontPath="fonts/Montserrat-Regular.ttf"
+                     />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -125,6 +131,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
+                    android:letterSpacing="0.05"
                     android:layout_weight="18"
                     fontPath="fonts/Montserrat-Regular.ttf"
                     android:background="@null"
@@ -180,11 +187,12 @@
                     android:layout_toRightOf="@+id/imageViewsz5"
                     android:text="WHEN"
                     android:gravity="center_vertical"
-                    fontPath="fonts/Montserrat-Bold.ttf"
                     android:layout_centerVertical="true"
                     android:textAllCaps="true"
+                    android:textColor="@color/Black_nb"
                     android:textSize="16dp"
-                    android:textStyle="bold" />
+                    android:letterSpacing="0.1"
+                    fontPath="fonts/Montserrat-Regular.ttf" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -201,6 +209,7 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
                         android:hint="Now or Later ?"
+                        android:letterSpacing="0.05"
                         android:background="@null"
                         fontPath="fonts/Montserrat-Regular.ttf"
                         android:focusableInTouchMode="false"
@@ -256,10 +265,11 @@
                     android:text="TASK DETAILS"
                     android:textAllCaps="true"
                     android:gravity="center_vertical"
-                    fontPath="fonts/Montserrat-Bold.ttf"
                     android:layout_centerVertical="true"
+                    android:letterSpacing="0.1"
+                    android:textColor="@color/Black_nb"
                     android:textSize="16dp"
-                    android:textStyle="bold" />
+                    fontPath="fonts/Montserrat-Regular.ttf"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -280,6 +290,7 @@
                         fontPath="fonts/Montserrat-Regular.ttf"
                         android:focusableInTouchMode="false"
                         android:layout_weight="18"
+                        android:letterSpacing="0.05"
                         android:textSize="14dp" />
 
                     <ImageButton
@@ -330,11 +341,12 @@
                     android:layout_toRightOf="@+id/imageViewvr"
                     android:text="VEHICLE REQUIREMENT"
                     android:textAllCaps="true"
+                    android:letterSpacing="0.1"
                     android:gravity="center_vertical"
-                    fontPath="fonts/Montserrat-Bold.ttf"
                     android:layout_centerVertical="true"
+                    android:textColor="@color/Black_nb"
                     android:textSize="16dp"
-                    android:textStyle="bold" />
+                    fontPath="fonts/Montserrat-Regular.ttf" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -355,6 +367,7 @@
                         fontPath="fonts/Montserrat-Regular.ttf"
                         android:hint="is Car or Truck required ?"
                         android:layout_weight="18"
+                        android:letterSpacing="0.05"
                         android:textSize="14dp" />
 
                     <ImageButton
@@ -388,7 +401,7 @@
         android:textColor="#fdfdf9"
         android:textAllCaps="false"
         android:textSize="20dp"
-
+        android:letterSpacing="0.05"
         android:text="Find a Tasker" />
 
 
