@@ -194,7 +194,7 @@ public interface ApiInterface {
 
     @Multipart
     @POST("save_review")
-    Call<InboxResp> rf_save_review(@Header(header)String header_value,@Part("email") String email,
+    Call<StatusResp> rf_save_review(@Header(header)String header_value,@Part("email") String email,
                             @Part("booking_id") String booking_id,@Part("review_star") String review_star
                             ,@Part("comments") String comments);
 
@@ -204,7 +204,7 @@ public interface ApiInterface {
 
     @Multipart
     @POST("send_message")
-    Call<InboxResp> rf_send_message(@Header(header)String header_value,@Part("email") String email,
+    Call<StatusResp> rf_send_message(@Header(header)String header_value,@Part("email") String email,
                                    @Part("booking_id") String booking_id,@Part("message") String message);
 
 

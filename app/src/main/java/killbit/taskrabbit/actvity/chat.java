@@ -10,6 +10,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ import killbit.taskrabbit.retrofit.ApiUtils;
 import killbit.taskrabbit.retrofit.Chattingreceive.ChatMessage;
 import killbit.taskrabbit.retrofit.Chattingreceive.ChatResp;
 import killbit.taskrabbit.retrofit.Chattingreceive.ChatUserInfo;
+import killbit.taskrabbit.retrofit.StatusResp;
 import killbit.taskrabbit.utils.sp_task;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,6 +56,12 @@ public class chat extends FragmentActivity implements  chat_adapter.OnRecyclerLi
 
     @BindView(R.id.tb_normal_title)
     TextView tv_title;
+
+    @BindView(R.id.pb_chat_send)
+    ProgressBar pb_send;
+
+    @BindView(R.id.et_chatPost)
+    EditText etMessage;
 
     ApiInterface mAPIService;
     String email;
@@ -106,6 +116,33 @@ public class chat extends FragmentActivity implements  chat_adapter.OnRecyclerLi
 
     @OnClick(R.id.imageViewChatSend)
     public void sendMsg(){
+    pb_send.setVisibility(View.VISIBLE);
+    etMessage.setVisibility(View.GONE);
+        mAPIService.rf_send_message(ApiInterface.header_value, sp.getString(sp_task.Sp_email,""),bookingId,etMessage.getText().toString())
+                .enqueue(new Callback<StatusResp>() {
+                    @Override
+                    public void onResponse(Call<StatusResp> call, Response<StatusResp> response) {
+                        if(response.body().getStatus().equals(1)){
+                            etMessage.setVisibility(View.VISIBLE);
+                            pb_send.setVisibility(View.GONE);
+                            onStart();
+                            etMessage.setText("");
+
+                        }else {
+                            etMessage.setVisibility(View.VISIBLE);
+                            pb_send.setVisibility(View.GONE);
+                            onStart();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<StatusResp> call, Throwable t) {
+                        etMessage.setVisibility(View.VISIBLE);
+                        pb_send.setVisibility(View.GONE);
+                        onStart();
+                    }
+                });
+
 
     }
 
