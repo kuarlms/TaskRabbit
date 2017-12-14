@@ -9,7 +9,7 @@
    >
 
     <FrameLayout
-        android:layout_width="180dp"
+        android:layout_width="200dp"
         android:layout_height="220dp"
         android:background="@color/hint"
         android:layout_gravity="center"
@@ -29,7 +29,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_gravity="center"
-            android:padding="8dp"
+            android:paddingVertical="50dp"
             android:background="@color/hint">
             <TextView
                 android:id="@+id/txt_adp_month"
@@ -40,9 +40,9 @@
                 fontPath="fonts/Montserrat-Regular.ttf"
                 android:gravity="center"
                 android:textColor="@color/white"
+                android:textAllCaps="true"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="5"
-                android:textSize="22sp"/>
+                android:textSize="20dp"/>
 
             <TextView android:id="@+id/txt_adp_day"
                 android:layout_width="wrap_content"
@@ -50,11 +50,11 @@
                 android:padding="3dp"
                 android:textColor="@color/white"
                 android:gravity="center"
-                android:textSize="18sp"
+                android:textSize="20dp"
                 android:layout_gravity="center_horizontal"
                 android:text="Day"
                 fontPath="fonts/Montserrat-Regular.ttf"
-                android:layout_weight="5"/>
+                />
 
             <TextView android:id="@+id/txt_adp_date"
                 android:layout_width="wrap_content"
@@ -64,9 +64,9 @@
                 android:gravity="center"
                 android:layout_gravity="center_horizontal"
                 android:text="10"
-                android:textSize="38sp"
+                android:textSize="25dp"
                 fontPath="fonts/Montserrat-Regular.ttf"
-                android:layout_weight="5"/>
+                />
 
         </LinearLayout>
 

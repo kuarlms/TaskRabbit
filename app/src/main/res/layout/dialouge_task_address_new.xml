@@ -28,8 +28,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:textSize="14dp"
-        android:padding="15sp"
-        android:layout_weight="12"
+        android:padding="15dp"
+        android:layout_weight="3"
         android:imeOptions="actionGo"
         android:hint="@string/task_address" />
 <LinearLayout
@@ -44,18 +44,26 @@
             android:layout_height="0dp"
             android:textSize="18dp"
             android:textStyle="bold"
-            android:padding="10sp"
+            android:padding="10dp"
             android:imeOptions="actionGo"
-            android:layout_weight="5"
+            fontPath="fonts/Montserrat-Regular.ttf"
+            android:layout_weight="3"
             android:hint="Enter city here." />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="2sp"
+            android:background="@color/colorPrimary"></LinearLayout>
 
 
     <Button
         android:id="@+id/button_task_dialouge"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_weight="3"
+        android:layout_marginTop="20dp"
         style="@style/done"
+        fontPath="fonts/Montserrat-SemiBold.ttf"
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
         android:textAllCaps="false"
