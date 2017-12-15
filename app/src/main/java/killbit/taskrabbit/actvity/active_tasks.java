@@ -29,6 +29,7 @@ import killbit.taskrabbit.utils.sp_task;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by kural on 11/10/17.
@@ -57,6 +58,9 @@ public class active_tasks extends FragmentActivity implements active_tasks_adp.O
 
     @BindView(R.id.tv_empty)
     TextView tv_empty;
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

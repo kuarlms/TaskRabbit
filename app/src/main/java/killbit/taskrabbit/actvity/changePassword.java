@@ -21,6 +21,7 @@ import killbit.taskrabbit.utils.sp_task;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by kural on 10/10/17.
@@ -52,6 +53,10 @@ public class changePassword extends Activity {
     Button btn_confirm;
 
     ApiInterface mAPIService;
+
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
