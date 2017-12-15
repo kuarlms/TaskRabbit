@@ -3,13 +3,13 @@ package killbit.taskrabbit.actvity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,7 +48,8 @@ public class chat extends FragmentActivity implements  chat_adapter.OnRecyclerLi
     chat_adapter adapter;
     String bookingId;
     ChatUserInfo chatUserInfo;
-    String  chatUserInfoz;
+    List<ChatUserInfo>chatUserInfoList = new ArrayList<>();
+
 
     @BindView(R.id.recycleViewChat)
     RecyclerView rv_at_list;
@@ -69,6 +72,11 @@ public class chat extends FragmentActivity implements  chat_adapter.OnRecyclerLi
     SharedPreferences sp;
     SharedPreferences.Editor  editor ;
 
+
+
+    Handler   handler_vp_scroll;
+    Runnable   Update_vp_scroll;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -87,7 +95,7 @@ public class chat extends FragmentActivity implements  chat_adapter.OnRecyclerLi
         tv_title.setText("Chat");
         email = sp.getString(sp_task.Sp_email,"");
 
-        adapter = new chat_adapter(Listdata,this,chat.this,chatUserInfoz);
+        adapter = new chat_adapter(Listdata,this,chat.this,chatUserInfoList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         rv_at_list.setLayoutManager(mLayoutManager);
         rv_at_list.setItemAnimator(new DefaultItemAnimator());
@@ -99,6 +107,28 @@ public class chat extends FragmentActivity implements  chat_adapter.OnRecyclerLi
 
             }
         });
+
+
+        handler_vp_scroll = new Handler();
+        Update_vp_scroll = new Runnable() {
+            public void run() {
+
+               onStart();
+
+                }
+               };
+
+        Timer timer = new Timer(); // This will create a new Thread
+        timer .schedule(new TimerTask() { // task to be scheduled
+
+            @Override
+            public void run() {
+                   handler_vp_scroll.post(Update_vp_scroll  );
+            }
+        }, 3000, 8000);
+
+
+
 
 
     }
@@ -168,6 +198,7 @@ public class chat extends FragmentActivity implements  chat_adapter.OnRecyclerLi
             public void onResponse(Call<ChatResp> call, Response<ChatResp> response) {
                 if(response.body().getStatus().equals(1)){
 
+
                     Listdata.clear();
                     chatUserInfo = null;
 
@@ -185,9 +216,9 @@ public class chat extends FragmentActivity implements  chat_adapter.OnRecyclerLi
                            response.body().getChatUserInfo().getProfileImage(),
                            response.body().getChatUserInfo().getCity());
 
-                   chatUserInfoz =  response.body().getChatUserInfo().getProfileImage();
-                    Log.d("ppic",chatUserInfoz);
-                    adapter.notifyDataSetChanged();
+                   chatUserInfoList.add(chatUserInfo);
+
+                   adapter.notifyDataSetChanged();
 
                 }else {
 
@@ -205,9 +236,16 @@ public class chat extends FragmentActivity implements  chat_adapter.OnRecyclerLi
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
 
-
-
+        try {
+            handler_vp_scroll.removeCallbacks(Update_vp_scroll);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void onChatItemSelected(int position, String Booking_id, String TaskerName) {

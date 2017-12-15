@@ -22,6 +22,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -51,6 +52,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
 
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
@@ -76,6 +78,22 @@ public class MainActivity extends AppCompatActivity
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
+    public static void changeTabsFont(TabLayout tabLayout, String fontName) {
+
+        ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
+        int tabsCount = vg.getChildCount();
+        for (int j = 0; j < tabsCount; j++) {
+            ViewGroup vgTab = (ViewGroup) vg.getChildAt(j);
+            int tabChildsCount = vgTab.getChildCount();
+            for (int i = 0; i < tabChildsCount; i++) {
+                View tabViewChild = vgTab.getChildAt(i);
+                if (tabViewChild instanceof TextView) {
+                    CalligraphyUtils.applyFontToTextView(tabLayout.getContext(), (TextView) tabViewChild, fontName);
+                }
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +107,7 @@ public class MainActivity extends AppCompatActivity
         pagerTabStrip.setTabIndicatorColor(Color.WHITE);
         pagerTabStrip.setTextColor(Color.WHITE);*/
         tabLayout = (TabLayout) findViewById(R.id.tab_home);
+        changeTabsFont(tabLayout,"fonts/Montserrat-SemiBold.ttf");
         tabLayout.setupWithViewPager(vpPager);
 
         sp =  getSharedPreferences(sp_task.MyPref, Context.MODE_PRIVATE);
@@ -208,8 +227,18 @@ public class MainActivity extends AppCompatActivity
           }
       });
 
-    }
 
+    }
+    void changeFontInViewGroup(ViewGroup viewGroup, String fontPath) {
+        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+            View child = viewGroup.getChildAt(i);
+            if (TextView.class.isAssignableFrom(child.getClass())) {
+                CalligraphyUtils.applyFontToTextView(child.getContext(), (TextView) child, fontPath);
+            } else if (ViewGroup.class.isAssignableFrom(child.getClass())) {
+                changeFontInViewGroup((ViewGroup) viewGroup.getChildAt(i), fontPath);
+            }
+        }
+    }
     private void mtd_inboxCount() {
 
         mAPIService.rf_unreadmessage_count(ApiInterface.header_value, sp.getString(sp_task.Sp_email,"")).enqueue(new Callback<InboxResp>() {

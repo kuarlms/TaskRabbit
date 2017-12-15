@@ -32,6 +32,7 @@ import killbit.taskrabbit.utils.sp_task;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by kural on 10/10/17.
@@ -58,6 +59,11 @@ public class SignIn_email extends Activity implements Validator.ValidationListen
     @BindView(R.id.textView19) TextView tv_forgot;
 
     @BindView(R.id.button_login)Button btn_login;
+
+
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
