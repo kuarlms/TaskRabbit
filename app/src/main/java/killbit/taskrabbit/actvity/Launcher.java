@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import killbit.taskrabbit.utils.sp_task;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by kural mughil selvam on 08-10-2017.
@@ -63,5 +64,9 @@ public class Launcher extends AppCompatActivity {
 
     public static Context getContextOfApplication(){
         return contextOfApplication;
+    }
+
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

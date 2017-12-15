@@ -28,6 +28,7 @@ import killbit.taskrabbit.fragments.pending;
 import killbit.taskrabbit.retrofit.ApiInterface;
 import killbit.taskrabbit.retrofit.ApiUtils;
 import killbit.taskrabbit.utils.sp_task;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by kural on 11/10/17.
@@ -54,6 +55,10 @@ public class taskHistory extends FragmentActivity {
     SharedPreferences.Editor  editor ;
     ApiInterface mAPIService;
 
+
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

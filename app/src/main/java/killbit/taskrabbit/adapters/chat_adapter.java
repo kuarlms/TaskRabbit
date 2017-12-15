@@ -16,6 +16,7 @@ import java.util.List;
 
 import killbit.taskrabbit.R;
 import killbit.taskrabbit.retrofit.Chattingreceive.ChatMessage;
+import killbit.taskrabbit.retrofit.Chattingreceive.ChatUserInfo;
 import killbit.taskrabbit.utils.GlideApp;
 
 
@@ -33,7 +34,7 @@ public class chat_adapter extends RecyclerView.Adapter<chat_adapter.MyViewHolder
     OnRecyclerListener recyclerListener;
     ChatMessage DataItem;
 
-    String chatUserInfox ;
+   List <ChatUserInfo> chatUserInfox;
     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
     LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -41,7 +42,7 @@ public class chat_adapter extends RecyclerView.Adapter<chat_adapter.MyViewHolder
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tv_time;
-        ImageView iv_review_pic1;
+        ImageView iv_review_pic1,ivChatImg;
         TextView tv_chatmsg;
         LinearLayout ll_rev1;
 
@@ -53,6 +54,7 @@ public class chat_adapter extends RecyclerView.Adapter<chat_adapter.MyViewHolder
              ll_rev1=view.findViewById(R.id.llChatParent);
              tv_time = view.findViewById(R.id.tv_adp_chat_time);
              tv_chatmsg=view.findViewById(R.id.tv_adp_chat_text);
+             ivChatImg=view.findViewById(R.id.iv_adp_chat_attachedImage);
 
 
         }
@@ -60,7 +62,7 @@ public class chat_adapter extends RecyclerView.Adapter<chat_adapter.MyViewHolder
 
 
     public chat_adapter(List<ChatMessage> ListDatas, Context context, OnRecyclerListener recyclerListener
-    ,String chatUserInfo) {
+    , List<ChatUserInfo> chatUserInfo) {
 
         this.ListDatas = ListDatas;
         this.context = context;
@@ -84,6 +86,18 @@ public class chat_adapter extends RecyclerView.Adapter<chat_adapter.MyViewHolder
 
         lp.gravity = Gravity.RIGHT;
 
+              /*  if (chatUserInfox!=null){
+                    holder.ivChatImg.setVisibility(View.VISIBLE);
+                   // holder.ll_rev1.setVisibility(View.GONE);
+
+                    GlideApp.with(context).load(chatUserInfox.get(0).getProfileImage())
+                            .error(R.mipmap.ic_launcher)
+                            .placeholder(R.drawable.com_facebook_profile_picture_blank_portrait)
+                            .circleCrop()
+                            .into(holder.ivChatImg);
+
+                }
+*/
             if(DataItem.getPosition().equalsIgnoreCase("left")){
 
                 holder.tv_chatmsg.setBackgroundResource(R.drawable.button_background);
@@ -95,7 +109,7 @@ public class chat_adapter extends RecyclerView.Adapter<chat_adapter.MyViewHolder
             }
 
         try {
-            GlideApp.with(context).load(chatUserInfox)
+            GlideApp.with(context).load(chatUserInfox.get(0).getProfileImage())
                     .error(R.mipmap.ic_launcher)
                     .placeholder(R.drawable.com_facebook_profile_picture_blank_portrait)
                     .circleCrop()
