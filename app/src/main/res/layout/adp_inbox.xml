@@ -4,20 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_margin="5dp"
+    android:layout_margin="2sp"
+
     >
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="140dp"
+        android:paddingVertical="20sp"
+        android:paddingHorizontal="10sp"
         android:orientation="horizontal"
+        android:layout_marginBottom="1sp"
+        android:elevation="3sp"
         android:id="@+id/ll_rev1">
         <ImageView
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:id="@+id/iv_adp_rew_pic"
-
+            android:layout_marginRight="15sp"
             android:layout_gravity="center_vertical"
             android:src="@drawable/com_facebook_profile_picture_blank_portrait"/>
 
@@ -32,57 +36,61 @@
            >
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center"
 
-                android:padding="3dp">
+                android:paddingHorizontal="0sp">
+
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Name"
                     android:id="@+id/tv_adp_rew_name"
-                    android:textStyle="bold"
-                    android:drawableRight="@drawable/round"
-                    fontPath="fonts/Montserrat-Bold.ttf"
-                    android:layout_alignParentLeft="true"
-                    />
-                <TextView
+                    fontPath="fonts/Montserrat-SemiBold.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="00/00/00"
-                    android:layout_toLeftOf="@+id/tv_adp_rew_name"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentLeft="true"
+                    android:drawableRight="@drawable/round"
+                    android:text="Name"
+                    android:letterSpacing="0.05"
+                    android:textColor="@color/Black_nb"
+                    android:textSize="22sp" />
+
+                <TextView
                     android:id="@+id/tv_adp_rew_date"
-                    fontPath="fonts/Montserrat-SemiBold"
-                    android:textStyle="bold"
-                    />
+                    fontPath="fonts/Montserrat-Regular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.05"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10sp"
+                    android:layout_marginTop="5sp"
+                    android:text="00/00/00" />
 
             </RelativeLayout>
             <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:maxLines="1"
-            android:layout_weight="3"
             android:padding="2dp"
+                android:letterSpacing="0.1"
             android:gravity="center_vertical"
             android:text="Looking for..."
             fontPath="fonts/Montserrat-Regular"
-            android:textColor="@color/hint"
+            android:textColor="#a9a9a9"
+                android:textSize="18sp"
             android:id="@+id/tv_adp_inbox_looking"/>
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:text="@string/chat"
-                android:layout_weight="5"
                 android:gravity="left|center_vertical"
                 android:maxLines="2"
+                android:textSize="16sp"
+                android:letterSpacing="0.05"
+                android:textColor="@color/textcolor1"
                 fontPath="fonts/Montserrat-Regular"
                 android:layout_toLeftOf="@+id/tv_adp_rew_name"
                 android:layout_alignParentRight="true"
                 android:id="@+id/tv_adp_rew_description"
-                android:textStyle="normal"
                 />
         </LinearLayout>
 

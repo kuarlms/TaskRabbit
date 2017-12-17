@@ -29,6 +29,8 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:textSize="14dp"
+        fontPath="fonts/Montserrat-Regular.ttf"
+        android:letterSpacing="0.05"
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
         android:layout_weight="14"
@@ -39,10 +41,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
       android:layout_weight="5"
-     style="@style/done"
+            style="@style/done"
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
         android:textAllCaps="false"
+        fontPath="fonts/Montserrat-Regular.ttf"
+        android:textSize="20sp"
+        android:letterSpacing="0.1"
         android:text="Done" />
 
     </LinearLayout>

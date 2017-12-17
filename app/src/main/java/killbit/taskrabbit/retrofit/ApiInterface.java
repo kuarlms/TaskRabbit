@@ -1,7 +1,6 @@
 package killbit.taskrabbit.retrofit;
 
 import android.content.Context;
-import android.database.Observable;
 import android.preference.PreferenceManager;
 
 import killbit.taskrabbit.actvity.Launcher;
@@ -56,12 +55,12 @@ public interface ApiInterface {
 
   @Multipart
   @POST("social_login_process")
-  Call<LoginResp> rf_signIn_social(@Header(header)String header_value, @Part("login_email") String login_email);
+  Call<LoginResp> rf_signIn_social(@Header(header)String header_value, @Part("email") String login_email);
     //https://stackoverflow.com/questions/39953457/how-to-upload-image-file-in-retrofit-2
 
-    @Multipart
+  /*  @Multipart
     @POST("upload_profile_picture")
-    Observable<UpdateAccountResp> rf_updateProfile(@Header(header)String header_value,@Part("email") String email, @Part MultipartBody.Part upload_profile_picture);
+    Observable<UpdateAccountResp> rf_updateProfile(@Header(header)String header_value,@Part("email") String email, @Part MultipartBody.Part  upload_profile_picture);*/
 
 
   @Multipart

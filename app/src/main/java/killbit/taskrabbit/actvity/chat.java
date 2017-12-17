@@ -186,8 +186,12 @@ public class chat extends FragmentActivity implements  chat_adapter.OnRecyclerLi
     protected void onStart() {
         super.onStart();
 
-        bookingId = getIntent().getStringExtra("taskId");
-        tv_title.setText(getIntent().getStringExtra("TaskerName"));
+        try {
+            bookingId = getIntent().getStringExtra("taskId");
+            tv_title.setText(getIntent().getStringExtra("TaskerName"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         mAPIService.rf_chat_inner(ApiInterface.header_value, sp.getString(sp_task.Sp_email,""),bookingId).enqueue(new Callback<ChatResp>() {

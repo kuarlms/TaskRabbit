@@ -173,14 +173,7 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
 
 
             page = "1";
-            if(vehicle_list.isEmpty()){
 
-            }else {
-                if(vehicle_id == null){
-                    Toast.makeText(this, "Select Vehicle type...", Toast.LENGTH_LONG).show();
-                    return;
-                }
-            }
             if(task_description!=null){
 
             }else {
@@ -195,6 +188,19 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
                 return;
 
             }
+
+
+       /*     if(vehicle_list.isEmpty()){
+
+            }else {
+                if(vehicle_id == null){
+                    Toast.makeText(this, "Select Vehicle type...", Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }*/
+
+
+
             pd = new ProgressDialog(this);
             pd.ShowTheDialog("Loading...", "please wait...", false);
 
@@ -384,12 +390,12 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
             @Override
             public void onClick(View view) {
 
-                if(et_address.getText().length() <= 14){
+             /*   if(et_address.getText().length() <= 14){
 
                     et_address.setError("Minimum length 15 characters.");
                     return;
                 }
-
+*/
 
                 if(et_address_city.getText().length() <= 2 ){
                     et_address_city.setError("Required");
@@ -447,7 +453,8 @@ public class Get_Task_Details extends Activity implements Validator.ValidationLi
                 if(vehicle_details!= null){
                     dialouge_vehicle.dismiss();
                 }else {
-                    textView_task_vehicle.setError("Please select a vehicle type.");
+                    textView_task_vehicle.setText("Vehicle not required.");
+                    //textView_task_vehicle.setError("Please select a vehicle type.");
                     dialouge_vehicle.dismiss();
                 }
 

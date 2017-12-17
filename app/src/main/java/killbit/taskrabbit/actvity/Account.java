@@ -35,6 +35,9 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -104,7 +107,8 @@ public class Account extends FragmentActivity implements CropImageView.OnSetImag
        editor =sp.edit();
        mAPIService = ApiUtils.getAPIService();
 
-        Glide.with(this).load(sp.getString(sp_task.Sp_profile_pic, "")).apply(bitmapTransform(new CircleCrop())).into(iv_pic);
+        Glide.with(this).load(sp.getString(sp_task.Sp_profile_pic, "")).
+                apply(bitmapTransform(new CircleCrop())).into(iv_pic);
         et_name.setText(sp.getString(sp_task.Sp_name,""));
         et_mobile.setText(sp.getString(sp_task.Sp_mobile,""));
         et_email.setText(sp.getString(sp_task.Sp_email,""));
@@ -294,18 +298,40 @@ public class Account extends FragmentActivity implements CropImageView.OnSetImag
     public void onCropImageComplete(CropImageView view, CropImageView.CropResult result) {
         if(result != null){
 
-
-            Bitmap bitmap = mCropImageView.getCroppedImage();
+/*
+            Bitmap bitmap = result.getBitmap();
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 80, bytes);
             String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, "ProfilePic", null);
 
-            String filePath = getRealPathFromURI(Uri.parse(path));
+            String filePath = getRealPathFromURI(Uri.parse(path));*/
 
+            File f = new File(getApplicationContext().getCacheDir(), "ProfilePic");
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-            RequestBody fileBody = RequestBody.create(MediaType.parse("multipart/form-data"), filePath);
-            MultipartBody.Part filePart =
-            MultipartBody.Part.createFormData("upload_profile_picture", "ProfilePic", fileBody);
+            //Convert bitmap to byte array
+            FileOutputStream fos;
+            Bitmap bitmaps =result.getBitmap();
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            bitmaps.compress(Bitmap.CompressFormat.JPEG, 90 /*ignored for PNG*/, bos);
+            byte[] bitmapdata = bos.toByteArray();
+
+            //write the bytes in file
+            try {
+                fos = new FileOutputStream(f);
+                fos.write(bitmapdata);
+                fos.flush();
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            MultipartBody.Part filePart = MultipartBody.Part.createFormData("upload_profile_picture", f.getName(),
+            RequestBody.create(MediaType.parse("image/jpeg"), f));
 
             mtd_updateProfile(filePart);
             cropping_dialog.dismiss();
