@@ -18,6 +18,7 @@ import killbit.taskrabbit.R;
 import killbit.taskrabbit.retrofit.Chattingreceive.ChatMessage;
 import killbit.taskrabbit.retrofit.Chattingreceive.ChatUserInfo;
 import killbit.taskrabbit.utils.GlideApp;
+import killbit.taskrabbit.utils.sp_task;
 
 
 /**
@@ -34,7 +35,7 @@ public class chat_adapter extends RecyclerView.Adapter<chat_adapter.MyViewHolder
     OnRecyclerListener recyclerListener;
     ChatMessage DataItem;
 
-   List <ChatUserInfo> chatUserInfox;
+    List <ChatUserInfo> chatUserInfox;
     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
     LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -75,50 +76,45 @@ public class chat_adapter extends RecyclerView.Adapter<chat_adapter.MyViewHolder
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.adp_chat, parent, false);
-
+        sharedpreferences =  context.getSharedPreferences(sp_task.MyPref, Context.MODE_PRIVATE);
         return new MyViewHolder(itemView, context);
     }
 
     @Override
     public void onBindViewHolder( MyViewHolder holder,  int position) {
 
-         DataItem = ListDatas.get(position);
+        DataItem = ListDatas.get(position);
 
         lp.gravity = Gravity.RIGHT;
 
-              /*  if (chatUserInfox!=null){
-                    holder.ivChatImg.setVisibility(View.VISIBLE);
-                   // holder.ll_rev1.setVisibility(View.GONE);
 
-                    GlideApp.with(context).load(chatUserInfox.get(0).getProfileImage())
-                            .error(R.mipmap.ic_launcher)
-                            .placeholder(R.drawable.com_facebook_profile_picture_blank_portrait)
-                            .circleCrop()
-                            .into(holder.ivChatImg);
-
-                }
-*/
             if(DataItem.getPosition().equalsIgnoreCase("left")){
 
                 holder.tv_chatmsg.setBackgroundResource(R.drawable.button_background);
                 holder.tv_chatmsg.setTextColor(ContextCompat.getColor(context,(R.color.white)));
 
+                try {
+                    GlideApp.with(context).load(chatUserInfox.get(0).getProfileImage())
+                            .error(R.mipmap.ic_launcher)
+                            .placeholder(R.drawable.com_facebook_profile_picture_blank_portrait)
+                            .circleCrop()
+                            .into(holder.iv_review_pic1);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+
             }else {
                 holder.tv_chatmsg.setLayoutParams(lp);
+                GlideApp.with(context).load(sharedpreferences.getString(sp_task.Sp_profile_pic,""))
+                        .circleCrop().into(holder.iv_review_pic1);
 
             }
 
-        try {
-            GlideApp.with(context).load(chatUserInfox.get(0).getProfileImage())
-                    .error(R.mipmap.ic_launcher)
-                    .placeholder(R.drawable.com_facebook_profile_picture_blank_portrait)
-                    .circleCrop()
-                    .into(holder.iv_review_pic1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        // Glide.with(context).load(chatUserInfox.getProfileImage()).into(holder.iv_review_pic1);
+
+
 
 
         holder.tv_chatmsg.setText(DataItem.getMessage());

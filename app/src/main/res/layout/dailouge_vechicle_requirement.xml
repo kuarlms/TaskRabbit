@@ -37,6 +37,12 @@
             android:layout_height="0dp"
             android:layout_gravity="center|bottom"
             android:id="@+id/btn_vehicle_done"
+            fontPath="fonts/Montserrat-Regular.ttf"
+            android:letterSpacing="0.1"
+            android:elevation="3sp"
+            android:textAllCaps="false"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="10sp"
             style="@style/done"
             android:text="Done"/>
 

@@ -296,6 +296,7 @@
            android:layout_height="wrap_content"
            android:orientation="horizontal"
            android:layout_weight="1"
+           android:layout_marginTop="5dp"
            android:weightSum="4"
            android:id="@+id/ll_rev1">
            <ImageView
@@ -309,7 +310,6 @@
 
            <LinearLayout
                android:layout_width="wrap_content"
-               android:layout_weight="3"
                android:layout_height="wrap_content"
                android:orientation="vertical"
                android:weightSum="10">
@@ -360,7 +360,8 @@
                    android:layout_toLeftOf="@+id/tv_adp_rew_name"
                    android:layout_alignParentRight="true"
                    android:id="@+id/tv_adp_rew_description"
-                   android:textSize="17sp"
+                   android:padding="10sp"
+                   android:textSize="16sp"
                    />
            </LinearLayout>
 
@@ -370,15 +371,15 @@
        <LinearLayout
            android:layout_marginTop="5dp"
            xmlns:android="http://schemas.android.com/apk/res/android"
-           android:layout_width="match_parent"
+           android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:orientation="horizontal"
            android:layout_weight="1"
            android:id="@+id/ll_rev2"
            android:weightSum="4">
            <ImageView
-               android:layout_width="0dp"
-               android:layout_height="100dp"
+               android:layout_width="75dp"
+               android:layout_height="75dp"
                android:layout_weight="1"
                android:layout_gravity="center_vertical"
                android:id="@+id/iv_adp_rew_pic2"
@@ -387,15 +388,14 @@
 
 
            <LinearLayout
-               android:layout_width="0dp"
-               android:layout_weight="3"
-               android:layout_height="match_parent"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
                android:orientation="vertical"
                android:weightSum="10">
 
                <RelativeLayout
                    android:layout_width="match_parent"
-                   android:layout_height="0dp"
+                   android:layout_height="wrap_content"
                    android:layout_weight="2"
                    android:gravity="center"
                    android:padding="3dp">
@@ -403,40 +403,46 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:text="Name"
+                       fontPath="fonts/Montserrat-Regular.ttf"
+                       android:textSize="28sp"
                        android:id="@+id/tv_adp_rew_name2"
-                       android:textStyle="bold"
+                       android:textColor="@color/Black_nb"
                        android:layout_alignParentLeft="true"
                        />
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
+                       fontPath="fonts/Montserrat-Light.ttf"
+                       android:textSize="17sp"
                        android:text="00/00/00"
                        android:layout_toLeftOf="@+id/tv_adp_rew_name2"
                        android:layout_alignParentRight="true"
                        android:id="@+id/tv_adp_rew_date2"
-                       android:textStyle="bold"
                        />
 
                </RelativeLayout>
 
                <RatingBar
                    android:layout_width="wrap_content"
-                   android:layout_height="0dp"
+                   android:layout_height="wrap_content"
                    android:layout_gravity="center"
                    style="@style/RatingBar"
-                   android:id="@+id/rattingbar2"
-                   android:layout_weight="3" />
+                   android:id="@+id/rattingbar2" />
 
                <TextView
                    android:layout_width="match_parent"
-                   android:layout_height="0dp"
+                   android:layout_height="wrap_content"
                    android:text="@string/chat"
                    android:layout_weight="5"
                    android:gravity="left"
+                   fontPath="fonts/Montserrat-Light.ttf"
+                   android:textColor="@color/Black_nb"
                    android:layout_toLeftOf="@+id/tv_adp_rew_name2"
                    android:layout_alignParentRight="true"
                    android:id="@+id/tv_adp_rew_description2"
                    android:textStyle="normal"
+                   android:padding="10sp"
+                   android:textSize="16sp"
                    />
            </LinearLayout>
 
