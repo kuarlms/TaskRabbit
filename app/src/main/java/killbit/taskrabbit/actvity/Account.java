@@ -76,6 +76,10 @@ public class Account extends FragmentActivity implements CropImageView.OnSetImag
     @BindView(R.id.et_account_name)
     EditText et_name;
 
+
+    @BindView(R.id.et_account_name_last)
+    EditText et_nameLast;
+
     @BindView(R.id.et_account_email)
     EditText et_email;
     @BindView(R.id.et_account_mobile)
@@ -110,6 +114,7 @@ public class Account extends FragmentActivity implements CropImageView.OnSetImag
         et_mobile.setText(sp.getString(sp_task.Sp_mobile,""));
         et_email.setText(sp.getString(sp_task.Sp_email,""));
         et_zip.setText(sp.getString(sp_task.Sp_zip,""));
+        et_nameLast.setText(sp.getString(sp_task.Sp_namelast,""));
 
     iv_pic.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -137,25 +142,62 @@ public class Account extends FragmentActivity implements CropImageView.OnSetImag
     @OnClick({R.id.btn_account})
     public void btn_save(){
         if(! (et_name.getText().toString().length() >= 3)){
-            et_name.setText("Required");
+            et_name.setError("Required");
             return;
         }
-
+        if(! (et_nameLast.getText().toString().length() >= 3)){
+            et_nameLast.setError("Required");
+            return;
+        }
         if(! (et_email.getText().toString().length() >= 3)){
-            et_name.setText("Required");
+            et_email.setError("Required");
             return;
         }
 
         if(! (et_mobile.getText().toString().length() >= 3)){
-            et_name.setText("Required");
+            et_mobile.setError("Required");
             return;
         }
 
         if(! (et_zip.getText().toString().length() >= 3)){
-            et_name.setText("Required");
+            et_zip.setError("Required");
             return;
         }
-      //  mAPIService.rf_updateProfile(ApiInterface.header_value, email,cat_id,subcat_id,task_date,task_time,city,vehicle_id,
+
+        mtd_updateProfileDetails();
+
+    }
+
+    private void mtd_updateProfileDetails() {
+
+        mAPIService.rf_updateProfileDetails(ApiInterface.header_value, sp.getString(sp_task.Sp_email,""),
+               et_name.getText().toString(),et_nameLast.getText().toString(),et_mobile.getText().toString()
+        ).enqueue(new Callback<UpdateAccountResp>() {
+            @Override
+            public void onResponse(Call<UpdateAccountResp> call, Response<UpdateAccountResp> response) {
+
+                if (response.body().getStatus().equals(1)){
+                    Toast.makeText(_activity, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    editor.putString(sp_task.Sp_profile_pic,response.body().getProPic());
+                    editor.putString(sp_task.Sp_name,response.body().getResult().getFirstName());
+                    editor.putString(sp_task.Sp_namelast,response.body().getResult().getLastName());
+                    editor.putString(sp_task.Sp_mobile,response.body().getResult().getPhone());
+                    editor.putString(sp_task.Sp_zip,response.body().getResult().getZipcode());
+                    editor.commit();
+                    Glide.with(getApplicationContext()).load(response.body().getProPic()).apply(bitmapTransform(new CircleCrop())).into(iv_pic);
+
+
+                }else {
+                    Toast.makeText(_activity, "Failed retry later..", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<UpdateAccountResp> call, Throwable t) {
+
+            }
+        });
 
     }
 
@@ -335,13 +377,17 @@ public class Account extends FragmentActivity implements CropImageView.OnSetImag
 
 
         mAPIService.rf_uploadPic(ApiInterface.header_value, sp.getString(sp_task.Sp_email,""),
-                requestFile).enqueue(new Callback<UpdateAccountResp>() {
+                requestFile,et_name.getText().toString(),et_nameLast.getText().toString(),et_mobile.getText().toString()
+        ).enqueue(new Callback<UpdateAccountResp>() {
             @Override
             public void onResponse(Call<UpdateAccountResp> call, Response<UpdateAccountResp> response) {
 
                 if (response.body().getStatus().equals(1)){
                     Toast.makeText(_activity, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     editor.putString(sp_task.Sp_profile_pic,response.body().getProPic());
+                    editor.putString(sp_task.Sp_name,response.body().getResult().getFirstName());
+                    editor.putString(sp_task.Sp_namelast,response.body().getResult().getLastName());
+                    editor.putString(sp_task.Sp_mobile,response.body().getResult().getPhone());
                     editor.commit();
                     Glide.with(getApplicationContext()).load(response.body().getProPic()).apply(bitmapTransform(new CircleCrop())).into(iv_pic);
 
