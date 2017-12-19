@@ -330,7 +330,7 @@ public class Account extends FragmentActivity implements CropImageView.OnSetImag
                 e.printStackTrace();
             }
 
-            MultipartBody.Part filePart = MultipartBody.Part.createFormData("upload_profile_picture", f.getName(),
+            MultipartBody.Part filePart = MultipartBody.Part.createFormData("upload_profile_picture.jpeg", f.getName(),
             RequestBody.create(MediaType.parse("image/jpeg"), f));
 
             mtd_updateProfile(filePart);
