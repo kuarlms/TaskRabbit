@@ -124,7 +124,6 @@ public class Account extends FragmentActivity implements CropImageView.OnSetImag
                 permissionGranted();
 
 
-
         }
     });
 
@@ -297,16 +296,8 @@ public class Account extends FragmentActivity implements CropImageView.OnSetImag
     @Override
     public void onCropImageComplete(CropImageView view, CropImageView.CropResult result) {
         if(result != null){
-
-/*
-            Bitmap bitmap = result.getBitmap();
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, bytes);
-            String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, "ProfilePic", null);
-
-            String filePath = getRealPathFromURI(Uri.parse(path));*/
-
-            File f = new File(getApplicationContext().getCacheDir(), "ProfilePic");
+            MultipartBody.Part body = null;
+            File f = new File(getApplicationContext().getCacheDir(), "ProfilePicx.jpg");
             try {
                 f.createNewFile();
             } catch (IOException e) {
@@ -317,23 +308,28 @@ public class Account extends FragmentActivity implements CropImageView.OnSetImag
             FileOutputStream fos;
             Bitmap bitmaps =result.getBitmap();
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            bitmaps.compress(Bitmap.CompressFormat.JPEG, 90 /*ignored for PNG*/, bos);
+            bitmaps.compress(Bitmap.CompressFormat.JPEG, 90, bos);
             byte[] bitmapdata = bos.toByteArray();
 
             //write the bytes in file
             try {
                 fos = new FileOutputStream(f);
                 fos.write(bitmapdata);
+                RequestBody requestFile = RequestBody.create(MediaType.parse("image/form-data"), f);
+                body = MultipartBody.Part.createFormData("upload_profile_picture", f.getName(), requestFile);
+
                 fos.flush();
                 fos.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            MultipartBody.Part filePart = MultipartBody.Part.createFormData("upload_profile_picture.jpeg", f.getName(),
-            RequestBody.create(MediaType.parse("image/jpeg"), f));
 
-            mtd_updateProfile(filePart);
+
+
+
+
+            mtd_updateProfile(body);
             cropping_dialog.dismiss();
         }
     }
