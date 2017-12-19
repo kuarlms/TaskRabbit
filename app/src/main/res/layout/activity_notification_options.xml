@@ -15,11 +15,12 @@
 
     <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
         android:paddingBottom="45dp"
         android:elevation="5dp"
+        android:gravity="center_vertical"
         android:background="@color/windowBackground"
     android:layout_below="@+id/tb_task"
     android:orientation="vertical">
@@ -29,6 +30,7 @@
         android:textSize="16dp"
         android:layout_marginTop="30dp"
         android:textColor="@color/labelcolor"
+
         fontPath="fonts/Montserrat-Regular.ttf"
         android:text="FORM OF COMMUNICATION"/>
 

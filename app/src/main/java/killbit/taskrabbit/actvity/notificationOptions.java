@@ -27,8 +27,9 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
  */
 
 public class notificationOptions extends Activity {
-        String email,
-                str_cb_email,str_cb_sms;
+
+    String email,
+    str_cb_email,str_cb_sms;
 
     SharedPreferences sp;
     SharedPreferences.Editor  editor ;
@@ -61,7 +62,7 @@ public class notificationOptions extends Activity {
         setContentView(R.layout.activity_notification_options);
         ButterKnife.bind(this);
 
-         mAPIService = ApiUtils.getAPIService();
+        mAPIService = ApiUtils.getAPIService();
         sp =  getSharedPreferences(sp_task.MyPref, Context.MODE_PRIVATE);
         editor =sp.edit();
         tv_title.setText("Notification");
@@ -69,6 +70,34 @@ public class notificationOptions extends Activity {
         email = sp.getString(sp_task.Sp_email,"");
 
 
+
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(sp.getBoolean(sp_task.Sp_notify_email,false) ){
+
+            cb_email.setChecked(true);
+
+        }else {
+
+            cb_email.setChecked(false);
+
+        }
+
+        if(sp.getBoolean(sp_task.Sp_notify_sms,false) ){
+
+            cb_sms.setChecked(true);
+
+        }else {
+
+            cb_sms.setChecked(false);
+
+        }
     }
 
     @OnClick(R.id.button_change_noti)
@@ -79,21 +108,24 @@ public class notificationOptions extends Activity {
         if(cb_email.isChecked() ){
 
             str_cb_email = "1";
+            editor.putBoolean(sp_task.Sp_notify_email,true);
+
 
         }else {
 
             str_cb_email = "0";
-
+            editor.putBoolean(sp_task.Sp_notify_email,false);
         }
 
         if(cb_sms.isChecked() ){
 
             str_cb_sms = "1";
+            editor.putBoolean(sp_task.Sp_notify_sms,true);
 
         }else {
 
             str_cb_sms = "0";
-
+            editor.putBoolean(sp_task.Sp_notify_sms,false);
         }
 
 
@@ -102,7 +134,10 @@ public class notificationOptions extends Activity {
                     @Override
                     public void onResponse(Call<StatusResp> call, Response<StatusResp> response) {
                         if(response.body().getStatus().equals(1)){
+
                             Toast.makeText(notificationOptions.this, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                            editor.commit();
 
                             finish();
                         }else {
@@ -127,13 +162,5 @@ public class notificationOptions extends Activity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-
-
-
-
-    }
 }
