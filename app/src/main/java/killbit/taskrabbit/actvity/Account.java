@@ -7,17 +7,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
@@ -124,6 +121,7 @@ public class Account extends FragmentActivity implements CropImageView.OnSetImag
                 permissionGranted();
 
 
+
         }
     });
 
@@ -222,8 +220,6 @@ public class Account extends FragmentActivity implements CropImageView.OnSetImag
             @Override
             public void onClick(View view) {
                 mCropImageView.getCroppedImageAsync();
-
-
 
             }
         });
@@ -333,16 +329,7 @@ public class Account extends FragmentActivity implements CropImageView.OnSetImag
             cropping_dialog.dismiss();
         }
     }
-     public String getRealPathFromURI(Uri contentUri) {
-        String[] proj = { MediaStore.Images.Media.DATA };
-               CursorLoader cursorLoader = new CursorLoader(
-                this,
-                contentUri, proj, null, null, null);
-        Cursor cursor = cursorLoader.loadInBackground();
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        return cursor.getString(column_index);
-    }
+
 
     private void mtd_updateProfile(MultipartBody.Part requestFile) {
 
