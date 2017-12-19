@@ -92,7 +92,7 @@ public class changePassword extends Activity {
 
         if(et_new_pass.getText().toString() != null  && et_new_pass.getText().toString().length() > 5 ){
 
-            newPass = et_old_pass.getText().toString();
+            newPass = et_new_pass.getText().toString();
 
         }else {
             et_new_pass.setError("Required min 5 char");
@@ -100,12 +100,12 @@ public class changePassword extends Activity {
             return;
         }
 
-        if(et_new_confirm.getText().toString() != null && et_new_confirm.getText().equals(et_new_pass.getText().toString()) ){
-
+        if(et_new_confirm.getText().toString() != null &&
+                et_new_confirm.getText().toString().equals(et_new_pass.getText().toString()) ){
 
 
         }else {
-            et_new_confirm.setError("Required min 5 char or do not match!");
+            et_new_confirm.setError("Passwords do not match!");
 
             return ;
         }
