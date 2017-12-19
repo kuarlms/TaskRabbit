@@ -19,4 +19,10 @@ public class sp_task {
     public static  String Sp_card_mm = "Sp_card_mm";
     public static  String Sp_card_yr = "Sp_card_yr";
     public static String Sp_card_cvv="Sp_card_cvv";
+
+    public static String Sp_notify_sms="Sp_notify_sms";
+    public static String Sp_notify_email="Sp_notify_email";
+
+
+
 }
