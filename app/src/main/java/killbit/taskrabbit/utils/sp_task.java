@@ -10,6 +10,7 @@ public class sp_task {
     public static  String Sp_IsLoggedIn = "Sp_IsLoggedIn";
     public static  String Sp_email = "Sp_email";
     public static  String Sp_name = "Sp_name";
+    public static  String Sp_namelast = "Sp_namelast";
     public static  String Sp_mobile = "Sp_mobile";
     public static  String Sp_zip = "Sp_zip";
 

@@ -58,15 +58,22 @@ public interface ApiInterface {
   Call<LoginResp> rf_signIn_social(@Header(header)String header_value, @Part("email") String login_email);
     //https://stackoverflow.com/questions/39953457/how-to-upload-image-file-in-retrofit-2
 
-  /*  @Multipart
-    @POST("upload_profile_picture")
-    Observable<UpdateAccountResp> rf_updateProfile(@Header(header)String header_value,@Part("email") String email, @Part MultipartBody.Part  upload_profile_picture);*/
+  @Multipart
+  @POST("upload_profile_picture")
+  Call<UpdateAccountResp> rf_updateProfileDetails(@Header(header)String header_value,
+                                                  @Part("email") String email,
+                                                  @Part("first_name") String first_name,
+                                                  @Part("last_name")String last_name,
+                                                  @Part("phone")String phone);
+
+
 
 
   @Multipart
   @POST("upload_profile_picture")
   Call<UpdateAccountResp> rf_uploadPic(@Header(header)String header_value,@Part("email") String email,
-                                       @Part MultipartBody.Part upload_profile_picture);
+                                       @Part MultipartBody.Part upload_profile_picture, String  first_name,
+                                        String last_name,String phone);
 
 
     @Multipart
