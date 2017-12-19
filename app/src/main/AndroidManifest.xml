@@ -35,7 +35,7 @@
         </activity>
 
 
-        <activity android:name=".actvity.Launcher"
+        <activity android:name=".actvity.Account"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/SpeedyTheme">
         <intent-filter>
@@ -121,13 +121,13 @@
             android:screenOrientation="sensorPortrait">
 
         </activity>
-        <activity
+       <!-- <activity
         android:name=".actvity.Account"
         android:label="@string/app_name"
         android:theme="@style/MyMaterialTheme"
         android:screenOrientation="sensorPortrait">
 
-        </activity>
+        </activity>-->
 
         <activity
             android:name=".actvity.taskHistory"

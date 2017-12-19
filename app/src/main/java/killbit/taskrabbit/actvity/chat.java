@@ -104,7 +104,8 @@ public class chat extends FragmentActivity implements  chat_adapter.OnRecyclerLi
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
+                mtd_showChat();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 
@@ -113,7 +114,7 @@ public class chat extends FragmentActivity implements  chat_adapter.OnRecyclerLi
         Update_vp_scroll = new Runnable() {
             public void run() {
 
-               onStart();
+                mtd_showChat();
 
                 }
                };
@@ -128,11 +129,66 @@ public class chat extends FragmentActivity implements  chat_adapter.OnRecyclerLi
         }, 3000, 8000);
 
 
-
+        mtd_showChat();
 
 
     }
 
+    private void mtd_showChat() {
+
+        try {
+            bookingId = getIntent().getStringExtra("taskId");
+            tv_title.setText(getIntent().getStringExtra("TaskerName"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        mAPIService.rf_chat_inner(ApiInterface.header_value, sp.getString(sp_task.Sp_email,""),bookingId).enqueue(new Callback<ChatResp>() {
+
+
+
+            @Override
+            public void onResponse(Call<ChatResp> call, Response<ChatResp> response) {
+                if(response.body().getStatus().equals(1)){
+
+
+                    Listdata.clear();
+                    chatUserInfo = null;
+
+                    for (int i = 0; i <response.body().getChatMessages().size() ; i++) {
+                        data = new ChatMessage(response.body().getChatMessages().get(i).getMessage(),
+                                response.body().getChatMessages().get(i).getPosition(),
+                                response.body().getChatMessages().get(i).getBookingId(),
+                                response.body().getChatMessages().get(i).getCreatedTime());
+
+
+                        Listdata.add(data);
+                    }
+
+                    chatUserInfo = new ChatUserInfo(response.body().getChatUserInfo().getName(),
+                            response.body().getChatUserInfo().getProfileImage(),
+                            response.body().getChatUserInfo().getCity());
+
+                    chatUserInfoList.add(chatUserInfo);
+
+                    adapter.notifyDataSetChanged();
+
+                }else {
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ChatResp> call, Throwable t) {
+
+            }
+        });
+
+    }
 
 
     @OnClick({R.id.tb_normal_back})
@@ -182,63 +238,7 @@ public class chat extends FragmentActivity implements  chat_adapter.OnRecyclerLi
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-        try {
-            bookingId = getIntent().getStringExtra("taskId");
-            tv_title.setText(getIntent().getStringExtra("TaskerName"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        mAPIService.rf_chat_inner(ApiInterface.header_value, sp.getString(sp_task.Sp_email,""),bookingId).enqueue(new Callback<ChatResp>() {
-
-
-
-            @Override
-            public void onResponse(Call<ChatResp> call, Response<ChatResp> response) {
-                if(response.body().getStatus().equals(1)){
-
-
-                    Listdata.clear();
-                    chatUserInfo = null;
-
-                    for (int i = 0; i <response.body().getChatMessages().size() ; i++) {
-                    data = new ChatMessage(response.body().getChatMessages().get(i).getMessage(),
-                            response.body().getChatMessages().get(i).getPosition(),
-                            response.body().getChatMessages().get(i).getBookingId(),
-                           response.body().getChatMessages().get(i).getCreatedTime());
-
-
-                    Listdata.add(data);
-                    }
-
-                   chatUserInfo = new ChatUserInfo(response.body().getChatUserInfo().getName(),
-                           response.body().getChatUserInfo().getProfileImage(),
-                           response.body().getChatUserInfo().getCity());
-
-                   chatUserInfoList.add(chatUserInfo);
-
-                   adapter.notifyDataSetChanged();
-
-                }else {
-
-
-                }
-
-
-            }
-
-            @Override
-            public void onFailure(Call<ChatResp> call, Throwable t) {
-
-            }
-        });
-
-    }
 
     @Override
     protected void onPause() {
@@ -254,5 +254,15 @@ public class chat extends FragmentActivity implements  chat_adapter.OnRecyclerLi
     @Override
     public void onChatItemSelected(int position, String Booking_id, String TaskerName) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            handler_vp_scroll.removeCallbacks(Update_vp_scroll);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
