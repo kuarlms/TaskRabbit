@@ -99,7 +99,9 @@ public class cancelled extends Fragment implements taskHistory_canceled_adapter.
                                 response.body().getTaskPendingArray().get(i).getProPic(),
                                 response.body().getTaskPendingArray().get(i).getBookingId(),
                                 response.body().getTaskPendingArray().get(i).getTaskerId(),
-                                response.body().getTaskPendingArray().get(i).getBookingId()
+                                response.body().getTaskPendingArray().get(i).getBookingId(),
+                                response.body().getTaskPendingArray().get(i).getBookingDay(),
+                                response.body().getTaskPendingArray().get(i).getBookingMonth()
                         );
 
                         tasks_datas.add(tasks_data);
