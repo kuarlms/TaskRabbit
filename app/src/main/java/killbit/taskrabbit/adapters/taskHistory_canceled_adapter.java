@@ -92,7 +92,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         Glide.with(context).load(actvie_task.getProfile_pic()).apply(bitmapTransform(new CircleCrop())).into(holder.iv_profile_pic);
         holder.tv_description.setText(actvie_task.getLocation());
         holder.tv_time.setText(actvie_task.getActive_time());
-        holder.btn_chat.setText(actvie_task.getCost());
+        holder.btn_chat.setText(actvie_task.getBookingDay()+" "+actvie_task.getBookingMonth());
 
         holder.btn_taskDone.setOnClickListener(new View.OnClickListener() {
             @Override

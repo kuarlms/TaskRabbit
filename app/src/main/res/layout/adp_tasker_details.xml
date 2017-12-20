@@ -142,8 +142,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:id="@+id/tv_adp_tasker_about"/>
+        android:visibility="visible"
+        android:id="@+id/tv_adp_tasker_about"
+        android:padding="10dp"/>
 
 </LinearLayout>
 
@@ -225,7 +226,18 @@
             android:id="@+id/ll6"
             android:visibility="visible"
             android:orientation="vertical">
-        <TextView
+                <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:text="When I'm tasking I always make sure to..."
+                android:gravity="center|left"
+                fontPath="fonts/Montserrat-SemiBold.ttf"
+                android:textSize="18sp"
+                android:letterSpacing="0.05"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/tv_adp_tasker_title1"/>
+            <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/Black_nb"
@@ -236,6 +248,17 @@
             android:textSize="16sp"
             android:layout_gravity="center_horizontal"
             android:id="@+id/tv_adp_tasker_details1"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:text="When I'm not tasking"
+                android:gravity="center|left"
+                fontPath="fonts/Montserrat-SemiBold.ttf"
+                android:textSize="18sp"
+                android:letterSpacing="0.05"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/tv_adp_tasker_title2"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -247,6 +270,17 @@
             android:letterSpacing="0.05"
             android:layout_gravity="center_horizontal"
             android:id="@+id/tv_adp_tasker_details2"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:text="I'm the right person for the job"
+                android:gravity="center|left"
+                fontPath="fonts/Montserrat-SemiBold.ttf"
+                android:textSize="18sp"
+                android:letterSpacing="0.05"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/tv_adp_tasker_title3"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -274,7 +308,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
-        android:text="What people said about me..."
+        android:text="Recent things people have said about me :"
         android:gravity="center|left"
         fontPath="fonts/Montserrat-SemiBold.ttf"
         android:textSize="18sp"
@@ -303,7 +337,6 @@
                android:layout_width="75dp"
                android:layout_height="75dp"
                android:id="@+id/iv_adp_rew_pic"
-               android:layout_gravity="center_vertical"
                android:src="@drawable/com_facebook_profile_picture_blank_portrait"/>
 
 
@@ -324,7 +357,7 @@
                        android:layout_height="wrap_content"
                        android:text="Name"
                        fontPath="fonts/Montserrat-Regular.ttf"
-                       android:textSize="28sp"
+                       android:textSize="22sp"
                        android:id="@+id/tv_adp_rew_name"
                        android:textColor="@color/Black_nb"
                        android:layout_alignParentLeft="true"
@@ -334,9 +367,10 @@
                        android:layout_height="wrap_content"
                        android:text="00/00/00"
                        fontPath="fonts/Montserrat-Light.ttf"
-                       android:textSize="17sp"
+                       android:textSize="15sp"
                        android:layout_alignRight="@+id/tv_adp_rew_name"
                        android:layout_alignParentRight="true"
+                       android:paddingLeft="5dp"
                        android:id="@+id/tv_adp_rew_date"
                        />
 
@@ -345,22 +379,26 @@
                <RatingBar
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:layout_gravity="center"
-                    style="@style/RatingBar"
+                   android:layout_gravity="left"
+                   android:layout_alignParentLeft="true"
+                   android:paddingLeft="5dp"
+                   android:scaleX="0.5"
+                   android:scaleY="0.5"
+                   android:isIndicator="true"
+                   android:progressBackgroundTint="#fc8c14"
+                   android:textSize="0sp"
                    android:id="@+id/rattingbar"/>
 
                <TextView
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:text="@string/chat"
-                   android:layout_weight="5"
                    android:gravity="left"
                    fontPath="fonts/Montserrat-Light.ttf"
                    android:textColor="@color/Black_nb"
                    android:layout_toLeftOf="@+id/tv_adp_rew_name"
                    android:layout_alignParentRight="true"
                    android:id="@+id/tv_adp_rew_description"
-                   android:padding="10sp"
                    android:textSize="16sp"
                    />
            </LinearLayout>
@@ -426,7 +464,14 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:layout_gravity="center"
-                   style="@style/RatingBar"
+                   android:scaleX="0.5"
+                   android:scaleY="0.5"
+                   android:isIndicator="true"
+                   android:progressBackgroundTint="#fc8c14"
+                   android:padding="10sp"
+                   android:textSize="16sp"
+                   android:layout_toLeftOf="@+id/tv_adp_rew_name"
+                   android:layout_alignParentRight="true"
                    android:id="@+id/rattingbar2" />
 
                <TextView

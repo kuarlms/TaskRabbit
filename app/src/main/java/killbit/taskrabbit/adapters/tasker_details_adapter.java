@@ -111,7 +111,7 @@ public class tasker_details_adapter extends RecyclerView.Adapter<tasker_details_
 
         Glide.with(context).load(listData.getProPic()).apply(bitmapTransform(new CircleCrop())).into(holder.iv_taker_pic);
         holder.tv_adp_tasker_name.setText(listData.getFirstName());
-        holder.btn_tasker_adp_rate.setText(listData.getPrice()+" "+listData.getCurrencySymbol());
+        holder.btn_tasker_adp_rate.setText("Pick me! - "+listData.getCurrencySymbol()+listData.getPrice()+"/hr");
         holder.tv_adp_tasker_about.setText(listData.getAbout().toString());
        /*
 
@@ -125,15 +125,15 @@ public class tasker_details_adapter extends RecyclerView.Adapter<tasker_details_
         tv_adp_tasker_details3= view.findViewById(R.id.tv_adp_tasker_details3);
         tv_adp_tasker_pleople_said= view.findViewById(R.id.tv_adp_tasker_pleople_said);
         btn_tasker_adp_rate = view.findViewById(R.id.btn_tasker_adp_rate);*/
-       holder.tv_adp_tasker_review.setText(listData.getReviewResponseRate().toString()+ "  %");
+       holder.tv_adp_tasker_review.setText(listData.getReviewResponseRate().toString()+ "  % Positive review");
        holder.tv_adp_tasker_iv_verifed.setText(listData.getIdVerified().toString());
-       holder.tv_adp_tasker_tearms_txt_description.setText(listData.getServicePercentage());
+       holder.tv_adp_tasker_tearms_txt_description.setText( "Tasks have a one-hour minimum. A "+listData.getServicePercentage()+" % Trust and Support fee is added to the tasker's total rate");
        holder.tv_adp_tasker_details1.setText(listData.getDetail1().toString());
-        holder.tv_adp_tasker_details2.setText(listData.getDetail3().toString());
+        holder.tv_adp_tasker_details2.setText(listData.getDetail2().toString());
         holder.tv_adp_tasker_details3.setText(listData.getDetail3().toString());
-        holder.tv_adp_tasker_since.setText(listData.getServiceStartYear().toString());
-        holder.tv_adp_tasker_number_of_tasks.setText(listData.getAbout());
-        holder.tv_adp_tasker_quick_notes.setText(listData.getLastName().toString());
+        holder.tv_adp_tasker_since.setText("Been a Servicer since "+listData.getServiceStartYear().toString());
+        holder.tv_adp_tasker_number_of_tasks.setText("I've done "+ listData.getTaskDone()+" Tasks");
+        holder.tv_adp_tasker_quick_notes.setText("I respond quickly");
         holder.btn_tasker_adp_rate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
