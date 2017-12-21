@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -85,8 +84,8 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        active_tasks_data actvie_task = taskList.get(position);
+    public void onBindViewHolder(MyViewHolder holder, int positionz) {
+        active_tasks_data actvie_task = taskList.get(holder.getAdapterPosition());
         holder.tv_name.setText(actvie_task.getTasker_name());
         holder.tv_task_name.setText(actvie_task.getTask_name());
         Glide.with(context).load(actvie_task.getProfile_pic()).apply(bitmapTransform(new CircleCrop())).into(holder.iv_profile_pic);
@@ -98,7 +97,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(context, "LongPress to confirm cancellation", Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(context, "LongPress to confirm cancellation", Toast.LENGTH_SHORT).show();
 
 
 
@@ -117,7 +116,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         holder.btn_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                taskDoneListner.onBtnChat(actvie_task.getBooking_id(),position);
+                taskDoneListner.onBtnChat(actvie_task.getBooking_id(),holder.getAdapterPosition());
             }
         });
 

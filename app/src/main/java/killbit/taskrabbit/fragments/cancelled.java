@@ -25,7 +25,6 @@ import killbit.taskrabbit.adapters.taskHistory_canceled_adapter;
 import killbit.taskrabbit.objects.active_tasks_data;
 import killbit.taskrabbit.retrofit.ApiInterface;
 import killbit.taskrabbit.retrofit.ApiUtils;
-import killbit.taskrabbit.retrofit.StatusResp;
 import killbit.taskrabbit.retrofit.activeTasks.ActiveTaskResp;
 import killbit.taskrabbit.utils.sp_task;
 import retrofit2.Call;
@@ -136,7 +135,7 @@ public class cancelled extends Fragment implements taskHistory_canceled_adapter.
     @Override
     public void onBtnTaskDone(String booking_id, String task_hour) {
 
-        mAPIService.rf_user_cancel_task(ApiInterface.header_value, sp.getString(sp_task.Sp_email,""),booking_id).enqueue(new Callback<StatusResp>() {
+       /* mAPIService.rf_user_cancel_task(ApiInterface.header_value, sp.getString(sp_task.Sp_email,""),booking_id).enqueue(new Callback<StatusResp>() {
 
             @Override
             public void onResponse(Call<StatusResp> call, Response<StatusResp> response) {
@@ -152,7 +151,7 @@ public class cancelled extends Fragment implements taskHistory_canceled_adapter.
             public void onFailure(Call<StatusResp> call, Throwable t) {
 
             }
-        });
+        });*/
     }
 
     @Override

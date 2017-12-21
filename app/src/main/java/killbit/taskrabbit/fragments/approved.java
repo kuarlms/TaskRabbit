@@ -25,6 +25,7 @@ import killbit.taskrabbit.adapters.taskHistory_Approved_adapter;
 import killbit.taskrabbit.objects.active_tasks_data;
 import killbit.taskrabbit.retrofit.ApiInterface;
 import killbit.taskrabbit.retrofit.ApiUtils;
+import killbit.taskrabbit.retrofit.StatusResp;
 import killbit.taskrabbit.retrofit.activeTasks.ActiveTaskResp;
 import killbit.taskrabbit.utils.sp_task;
 import retrofit2.Call;
@@ -137,6 +138,25 @@ public class approved extends Fragment implements taskHistory_Approved_adapter.O
 
     @Override
     public void onBtnTaskDone(String booking_id, String task_hour) {
+
+        mAPIService.rf_user_cancel_task(ApiInterface.header_value, sp.getString(sp_task.Sp_email,""),booking_id).enqueue(new Callback<StatusResp>() {
+
+            @Override
+            public void onResponse(Call<StatusResp> call, Response<StatusResp> response) {
+                if(response.body().getStatus().equals(1)){
+                    Toast.makeText(getActivity(), ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    onStart();
+                }else {
+                    Toast.makeText(getActivity(), ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<StatusResp> call, Throwable t) {
+
+            }
+        });
+
 
     }
 

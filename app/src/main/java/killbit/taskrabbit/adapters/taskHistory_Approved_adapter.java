@@ -100,7 +100,10 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
                 if(holder.et_active_hrs.getText().length() >= 1){
 
                 taskDoneListner.onBtnTaskDone(actvie_task.getBooking_id(),holder.et_active_hrs.getText().toString());
+
+
                 }else {
+
                     holder.et_active_hrs.setError("Enter the number of hours the Task took to complete.");
                 }
 
