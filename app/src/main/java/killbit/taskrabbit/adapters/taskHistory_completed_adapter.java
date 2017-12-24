@@ -8,7 +8,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -19,6 +22,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import killbit.taskrabbit.R;
 import killbit.taskrabbit.objects.active_tasks_data;
+import killbit.taskrabbit.retrofit.taskHistoryComplete.TaskPendingArray;
+import killbit.taskrabbit.utils.GlideApp;
 
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
@@ -28,7 +33,7 @@ import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 public class taskHistory_completed_adapter extends RecyclerView.Adapter<taskHistory_completed_adapter.MyViewHolder> {
 
-private List<active_tasks_data> taskList;
+private List<TaskPendingArray> taskList;
 Context context;
 OnTaskDoneListner taskDoneListner;
 
@@ -52,6 +57,12 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     Button btn_chat;
     @BindView(R.id.button10_taskDone)
     Button btn_taskDone;
+    @BindView(R.id.ll_postReview)
+    LinearLayout llPostReveiw;
+    @BindView(R.id.tv_postedreviewTwxt)
+    TextView tvPostedText;
+    @BindView(R.id.ratingBarCompleated)
+    RatingBar ratingBar;
 
 
 
@@ -69,7 +80,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
 }
 
 
-    public taskHistory_completed_adapter(List<active_tasks_data> taskList, Context context, OnTaskDoneListner taskDoneListner) {
+    public taskHistory_completed_adapter(List<TaskPendingArray> taskList, Context context, OnTaskDoneListner taskDoneListner) {
         this.taskList = taskList;
         this.context =context;
         this.taskDoneListner =taskDoneListner;
@@ -85,23 +96,30 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        active_tasks_data actvie_task = taskList.get(position);
-        holder.tv_name.setText(actvie_task.getTasker_name());
-        holder.tv_task_name.setText(actvie_task.getTask_name());
-        Glide.with(context).load(actvie_task.getProfile_pic()).apply(bitmapTransform(new CircleCrop())).into(holder.iv_profile_pic);
-        holder.tv_description.setText(actvie_task.getLocation());
-        holder.tv_time.setText(actvie_task.getActive_time());
+        TaskPendingArray actvie_task = taskList.get(position);
+
+        holder.tv_name.setText(actvie_task.getFirstName());
+        holder.tv_task_name.setText(actvie_task.getCatName());
+       // Glide.with(context).load(actvie_task.getProPic()).apply(bitmapTransform(new CircleCrop())).into(holder.iv_profile_pic);
+        GlideApp.with(context).load(actvie_task.getProPic()).circleCrop().into(holder.iv_profile_pic);
+        holder.tv_description.setText(actvie_task.getCity());
+        holder.tv_time.setText(actvie_task.getBookingDay());
         holder.btn_chat.setText(actvie_task.getBookingDay()+" "+actvie_task.getBookingMonth());
+
 
         holder.btn_taskDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(holder.et_active_hrs.getText().length() >= 1){
+                if(holder.et_active_hrs.getText().length() > 10 ){
 
-                taskDoneListner.onBtnTaskDone(actvie_task.getBooking_id(),holder.et_active_hrs.getText().toString());
+                    if(holder.ratingBar.getRating() <= 0){
+                        Toast.makeText(context, "Please select a Ratimg.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }else {
+                taskDoneListner.onBtnTaskDone(actvie_task.getBookingId(),holder.et_active_hrs.getText().toString(),""+holder.ratingBar.getRating());}
                 }else {
-                    holder.et_active_hrs.setError("Enter the number of hours the Task took to complete.");
+                    holder.et_active_hrs.setError("Enter the your review and post.");
                 }
 
             }
@@ -111,14 +129,23 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         holder.btn_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                taskDoneListner.onBtnChat(actvie_task.getBooking_id(),position);
+                taskDoneListner.onBtnChat(actvie_task.getBookingId(),position);
+            }
+        });
+
+        holder.tvPostedText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                holder.llPostReveiw.setVisibility(View.VISIBLE);
+
             }
         });
 
     }
     public interface OnTaskDoneListner{
-    void onBtnTaskDone(String booking_id, String task_hour);
-        void onBtnChat(String booking_id, int position);
+    void onBtnTaskDone(String booking_id, String task_hour, String reviewvalues);
+    void onBtnChat(String booking_id, int position);
     }
 
     @Override

@@ -25,7 +25,10 @@ import killbit.taskrabbit.adapters.taskHistory_completed_adapter;
 import killbit.taskrabbit.objects.active_tasks_data;
 import killbit.taskrabbit.retrofit.ApiInterface;
 import killbit.taskrabbit.retrofit.ApiUtils;
+import killbit.taskrabbit.retrofit.StatusResp;
 import killbit.taskrabbit.retrofit.activeTasks.ActiveTaskResp;
+import killbit.taskrabbit.retrofit.taskHistoryComplete.TaskHistoryCompleted;
+import killbit.taskrabbit.retrofit.taskHistoryComplete.TaskPendingArray;
 import killbit.taskrabbit.utils.sp_task;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,8 +40,8 @@ import retrofit2.Response;
 
 public class completed extends Fragment implements taskHistory_completed_adapter.OnTaskDoneListner {
     View view;
-    active_tasks_data tasks_data;
-    List<active_tasks_data> tasks_datas = new ArrayList<>();
+    TaskPendingArray tasks_data;
+    List<TaskPendingArray> tasks_datas = new ArrayList<>();
     taskHistory_completed_adapter adapter;
 
 
@@ -80,28 +83,52 @@ public class completed extends Fragment implements taskHistory_completed_adapter
     @Override
     public void onStart() {
         super.onStart();
-        mAPIService.rf_dashboard_user_task_history_completed(ApiInterface.header_value, sp.getString(sp_task.Sp_email,"")).enqueue(new Callback<ActiveTaskResp>() {
+        mAPIService.rf_dashboard_user_task_history_completed(ApiInterface.header_value, sp.getString(sp_task.Sp_email,"")).enqueue(new Callback<TaskHistoryCompleted>() {
             @Override
-            public void onResponse(Call<ActiveTaskResp> call, Response<ActiveTaskResp> response) {
+            public void onResponse(Call<TaskHistoryCompleted> call, Response<TaskHistoryCompleted> response) {
 
                 if(response.body().getStatus().equals(1)){
                     tasks_datas.clear();
 
                     for (int i = 0; i < response.body().getTaskPendingArray().size(); i++) {
 
-
-                        tasks_data = new active_tasks_data(response.body().getTaskPendingArray().get(i).getFirstName(),
-                                response.body().getTaskPendingArray().get(i).getCatName(),
+                     /*   @param lastName
+                                * @param bookingId
+                                * @param currencyCode
+                                * @param bookingDay
+                                * @param bookingTime
+                                * @param subcatName
+                                * @param reviewDone
+                                * @param city
+                                * @param bookingMonth
+                                * @param proPic
+                                * @param needVehicle
+                                * @param currencySymbol
+                                * @param catName
+                                * @param totalAmount
+                                * @param taskerId
+                                * @param reviewStar
+                                * @param reviewMessage
+                                * @param firstName*/
+                        tasks_data = new TaskPendingArray(response.body().getTaskPendingArray().get(i).getLastName(),
+                                response.body().getTaskPendingArray().get(i).getBookingId(),
+                                response.body().getTaskPendingArray().get(i).getCurrencyCode(),
                                 response.body().getTaskPendingArray().get(i).getBookingDay(),
                                 response.body().getTaskPendingArray().get(i).getBookingTime(),
+                                response.body().getTaskPendingArray().get(i).getSubcatName(),
+                                response.body().getTaskPendingArray().get(i).getReviewDone(),
                                 response.body().getTaskPendingArray().get(i).getCity(),
-                                response.body().getTaskPendingArray().get(i).getNeedVehicle(),
+                                response.body().getTaskPendingArray().get(i).getBookingMonth(),
                                 response.body().getTaskPendingArray().get(i).getProPic(),
-                                response.body().getTaskPendingArray().get(i).getBookingId(),
+                                response.body().getTaskPendingArray().get(i).getNeedVehicle(),
+                                response.body().getTaskPendingArray().get(i).getCurrencySymbol(),
+                                response.body().getTaskPendingArray().get(i).getCatName(),
+                                response.body().getTaskPendingArray().get(i).getTotalAmount(),
                                 response.body().getTaskPendingArray().get(i).getTaskerId(),
-                                response.body().getTaskPendingArray().get(i).getBookingId(),
-                                response.body().getTaskPendingArray().get(i).getBookingDay(),
-                                response.body().getTaskPendingArray().get(i).getBookingMonth()
+                                response.body().getTaskPendingArray().get(i).getReviewStar(),
+                                response.body().getTaskPendingArray().get(i).getReviewMessage(),
+                                response.body().getTaskPendingArray().get(i).getFirstName()
+
 
                         );
 
@@ -114,28 +141,45 @@ public class completed extends Fragment implements taskHistory_completed_adapter
                     adapter.notifyDataSetChanged();
                     pb_task.setVisibility(View.GONE);
                 }else {
-                   // Toast.makeText(getActivity(), "Failed  "+response.body().getStatus(), Toast.LENGTH_LONG).show();
+                    // Toast.makeText(getActivity(), "Failed  "+response.body().getStatus(), Toast.LENGTH_LONG).show();
                     pb_task.setVisibility(View.GONE);
                     tv_empty.setVisibility(View.VISIBLE);
                 }
 
-
             }
 
             @Override
-            public void onFailure(Call<ActiveTaskResp> call, Throwable t) {
-
-                Toast.makeText(getContext(), ""+t, Toast.LENGTH_LONG).show();
+            public void onFailure(Call<TaskHistoryCompleted> call, Throwable t) {
 
             }
-        } );
 
+
+        });
 
 
     }
 
     @Override
-    public void onBtnTaskDone(String booking_id, String task_hour) {
+    public void onBtnTaskDone(String booking_id, String task_hour, String ratting) {
+
+        mAPIService.rf_save_review(ApiInterface.header_value, sp.getString(sp_task.Sp_email,""),booking_id,ratting,task_hour).enqueue(new Callback<StatusResp>() {
+
+            @Override
+            public void onResponse(Call<StatusResp> call, Response<StatusResp> response) {
+                if(response.body().getStatus().equals(1)){
+                    Toast.makeText(getActivity(), ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    onStart();
+                }else {
+                    Toast.makeText(getActivity(), ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<StatusResp> call, Throwable t) {
+
+            }
+        });
+
 
     }
 

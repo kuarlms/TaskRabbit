@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -97,23 +98,26 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
 
-                if(holder.et_active_hrs.getText().length() >= 1){
-
-                taskDoneListner.onBtnTaskDone(actvie_task.getBooking_id(),holder.et_active_hrs.getText().toString());
+                Toast.makeText(context, "Long Press to confirm CANCELLATION.", Toast.LENGTH_LONG).show();
 
 
-                }else {
-
-                    holder.et_active_hrs.setError("Enter the number of hours the Task took to complete.");
-                }
 
             }
         });
 
+        holder.btn_taskDone.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                taskDoneListner.onBtnTaskDone(actvie_task.getBooking_id(),holder.et_active_hrs.getText().toString());
+                return false;
+            }
+        });
 
         holder.btn_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Toast.makeText(context, "chat", Toast.LENGTH_SHORT).show();
                 taskDoneListner.onBtnChat(actvie_task.getBooking_id(),position);
             }
         });

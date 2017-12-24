@@ -107,7 +107,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         holder.btn_taskDone.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                taskDoneListner.onBtnTaskDone(actvie_task.getBooking_id(),holder.et_active_hrs.getText().toString());
+              //  taskDoneListner.onBtnTaskDone(actvie_task.getBooking_id(),holder.et_active_hrs.getText().toString());
                 return false;
             }
         });
@@ -116,7 +116,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         holder.btn_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                taskDoneListner.onBtnChat(actvie_task.getBooking_id(),holder.getAdapterPosition());
+              //  taskDoneListner.onBtnChat(actvie_task.getBooking_id(),holder.getAdapterPosition());
             }
         });
 

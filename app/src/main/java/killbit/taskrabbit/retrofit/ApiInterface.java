@@ -14,6 +14,7 @@ import killbit.taskrabbit.retrofit.home.Home_Resp;
 import killbit.taskrabbit.retrofit.inbox.InboxResp;
 import killbit.taskrabbit.retrofit.signIn.LoginResp;
 import killbit.taskrabbit.retrofit.signup.signupStatus;
+import killbit.taskrabbit.retrofit.taskHistoryComplete.TaskHistoryCompleted;
 import killbit.taskrabbit.retrofit.transactionList.transactionsResp;
 import killbit.taskrabbit.retrofit.uploadPpic.UpdateAccountResp;
 import killbit.taskrabbit.utils.sp_task;
@@ -166,7 +167,7 @@ public interface ApiInterface {
 
     @Multipart
     @POST("dashboard_user_task_history_completed")
-    Call<ActiveTaskResp> rf_dashboard_user_task_history_completed(@Header(header)String header_value,@Part("email") String email);
+    Call<TaskHistoryCompleted> rf_dashboard_user_task_history_completed(@Header(header)String header_value, @Part("email") String email);
 
     @Multipart
     @POST("dashboard_user_task_history_cancelled")
