@@ -12,9 +12,9 @@
      <ImageButton
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:layout_margin="5dp"
-         android:padding="15dp"
          android:src="@drawable/ic_arrow_back"
+         android:scaleX=".65"
+         android:scaleY=".65"
          android:background="@android:color/transparent"
          android:id="@+id/tb_normal_back"/>
     </FrameLayout>

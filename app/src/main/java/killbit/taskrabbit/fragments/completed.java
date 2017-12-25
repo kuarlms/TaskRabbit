@@ -92,42 +92,24 @@ public class completed extends Fragment implements taskHistory_completed_adapter
 
                     for (int i = 0; i < response.body().getTaskPendingArray().size(); i++) {
 
-                     /*   @param lastName
-                                * @param bookingId
-                                * @param currencyCode
-                                * @param bookingDay
-                                * @param bookingTime
-                                * @param subcatName
-                                * @param reviewDone
-                                * @param city
-                                * @param bookingMonth
-                                * @param proPic
-                                * @param needVehicle
-                                * @param currencySymbol
-                                * @param catName
-                                * @param totalAmount
-                                * @param taskerId
-                                * @param reviewStar
-                                * @param reviewMessage
-                                * @param firstName*/
-                        tasks_data = new TaskPendingArray(response.body().getTaskPendingArray().get(i).getLastName(),
-                                response.body().getTaskPendingArray().get(i).getBookingId(),
-                                response.body().getTaskPendingArray().get(i).getCurrencyCode(),
-                                response.body().getTaskPendingArray().get(i).getBookingDay(),
-                                response.body().getTaskPendingArray().get(i).getBookingTime(),
-                                response.body().getTaskPendingArray().get(i).getSubcatName(),
-                                response.body().getTaskPendingArray().get(i).getReviewDone(),
-                                response.body().getTaskPendingArray().get(i).getCity(),
-                                response.body().getTaskPendingArray().get(i).getBookingMonth(),
-                                response.body().getTaskPendingArray().get(i).getProPic(),
-                                response.body().getTaskPendingArray().get(i).getNeedVehicle(),
-                                response.body().getTaskPendingArray().get(i).getCurrencySymbol(),
-                                response.body().getTaskPendingArray().get(i).getCatName(),
-                                response.body().getTaskPendingArray().get(i).getTotalAmount(),
+                        tasks_data = new TaskPendingArray(response.body().getTaskPendingArray().get(i).getBookingId(),
                                 response.body().getTaskPendingArray().get(i).getTaskerId(),
+                                response.body().getTaskPendingArray().get(i).getFirstName(),
+                                response.body().getTaskPendingArray().get(i).getLastName(),
+                                response.body().getTaskPendingArray().get(i).getProPic(),
+                                response.body().getTaskPendingArray().get(i).getCatName(),
+                                response.body().getTaskPendingArray().get(i).getSubcatName(),
+                                response.body().getTaskPendingArray().get(i).getBookingDay(),
+                                response.body().getTaskPendingArray().get(i).getBookingMonth(),
+                                response.body().getTaskPendingArray().get(i).getBookingTime(),
                                 response.body().getTaskPendingArray().get(i).getReviewStar(),
+                                response.body().getTaskPendingArray().get(i).getReviewDone(),
                                 response.body().getTaskPendingArray().get(i).getReviewMessage(),
-                                response.body().getTaskPendingArray().get(i).getFirstName()
+                                response.body().getTaskPendingArray().get(i).getNeedVehicle(),
+                                response.body().getTaskPendingArray().get(i).getCity(),
+                                response.body().getTaskPendingArray().get(i).getTotalAmount(),
+                                response.body().getTaskPendingArray().get(i).getCurrencyCode(),
+                                response.body().getTaskPendingArray().get(i).getCurrencySymbol()
 
 
                         );

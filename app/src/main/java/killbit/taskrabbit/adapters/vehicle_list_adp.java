@@ -68,7 +68,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         holder.tv_vehicle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, ""+vehicle_data.getVehicle_name(), Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(context, ""+vehicle_data.getVehicle_name(), Toast.LENGTH_SHORT).show();
                 recyclerListener.onItemClickedVehicle(position,vehicle_data.getVehicle_name());
 
             }

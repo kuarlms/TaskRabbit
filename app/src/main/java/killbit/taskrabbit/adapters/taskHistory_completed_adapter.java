@@ -106,6 +106,25 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         holder.tv_time.setText(actvie_task.getBookingDay());
         holder.btn_chat.setText(actvie_task.getBookingDay()+" "+actvie_task.getBookingMonth());
 
+        if(actvie_task.getReviewDone().equalsIgnoreCase("yes")){
+
+            holder.tvPostedText.setVisibility(View.GONE);
+            holder.llPostReveiw.setVisibility(View.VISIBLE);
+
+            int rat1 = 0 ;
+            try {
+                rat1  = Integer.parseInt(actvie_task.getReviewStar());
+                holder.ratingBar.setRating(rat1);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+            holder.et_active_hrs.clearFocus();
+            holder.et_active_hrs.setBackground(null);
+            holder.et_active_hrs.setFocusable(false);
+            holder.et_active_hrs.setText(actvie_task.getReviewMessage());
+            holder.btn_taskDone.setVisibility(View.GONE);
+
+        }
 
         holder.btn_taskDone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +133,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
                 if(holder.et_active_hrs.getText().length() > 10 ){
 
                     if(holder.ratingBar.getRating() <= 0){
-                        Toast.makeText(context, "Please select a Ratimg.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Please select a Rating.", Toast.LENGTH_SHORT).show();
                         return;
                     }else {
                 taskDoneListner.onBtnTaskDone(actvie_task.getBookingId(),holder.et_active_hrs.getText().toString(),""+holder.ratingBar.getRating());}

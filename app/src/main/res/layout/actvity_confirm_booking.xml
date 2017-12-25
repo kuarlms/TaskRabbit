@@ -16,15 +16,30 @@
         android:id="@+id/lltasker"
         android:gravity="center_horizontal">
 
-
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="3">
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:src="@drawable/ic_card"
+        android:background="@android:color/transparent"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:id="@+id/imagebtn_savedCard"/>
     <ImageView
-        android:layout_width="100dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="100dp"
         android:src="@drawable/a"
         android:layout_margin="15dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/iv_confirm_tasker_pic"/>
+</LinearLayout>
+
+
 
 <TextView
     android:layout_width="match_parent"

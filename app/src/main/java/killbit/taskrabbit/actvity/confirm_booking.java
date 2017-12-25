@@ -3,10 +3,12 @@ package killbit.taskrabbit.actvity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ import killbit.taskrabbit.retrofit.ApiInterface;
 import killbit.taskrabbit.retrofit.ApiUtils;
 import killbit.taskrabbit.retrofit.bookingConfirmation.bookingConfirmation;
 import killbit.taskrabbit.utils.FourDigitsView;
+import killbit.taskrabbit.utils.sp_task;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -73,7 +76,11 @@ public class confirm_booking extends Activity {
     @BindView(R.id.btn_confim_tasker_payment)
     Button btn_confirm;
 
+    @BindView(R.id.imagebtn_savedCard)
+    ImageButton btn_savedCards;
     ApiInterface mAPIService;
+    SharedPreferences sp;
+    SharedPreferences.Editor  editor ;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -89,7 +96,8 @@ public class confirm_booking extends Activity {
 
          mAPIService = ApiUtils.getAPIService();
          et_card_number.addTextChangedListener(new FourDigitsView());
-
+        sp =  getSharedPreferences(sp_task.MyPref, Context.MODE_PRIVATE);
+        editor =sp.edit();
 
 
     }
@@ -145,6 +153,13 @@ public class confirm_booking extends Activity {
 
                         if(response.body().getStatus().equals(1)){
                             Toast.makeText(confirm_booking.this, "Booking Successfull, Check Active screen for updates", Toast.LENGTH_SHORT).show();
+                            editor.putString(sp_task.Sp_cardnumber, String.valueOf(et_card_number.getText()));
+                            editor.putString(sp_task.Sp_card_mm, String.valueOf(et_card_expMonth.getText()));
+                            editor.putString(sp_task.Sp_card_yr, String.valueOf(et_card_expYear.getText()));
+                            editor.putString(sp_task.Sp_card_cvv, String.valueOf(et_card_cvv.getText()));
+
+                            editor.commit();
+
                             finish();
                         }else {
                             Toast.makeText(confirm_booking.this, "Booking Failed Retry with proper details.", Toast.LENGTH_LONG).show();
@@ -162,7 +177,12 @@ public class confirm_booking extends Activity {
 
 
     }
-
+@OnClick(R.id.imagebtn_savedCard)
+public void fillsaved(){
+    et_card_number.setText(sp.getString(sp_task.Sp_cardnumber,""));
+    et_card_expMonth.setText(sp.getString(sp_task.Sp_card_mm,""));
+    et_card_expYear.setText(sp.getString(sp_task.Sp_card_yr,""));
+}
 
 
     @Override

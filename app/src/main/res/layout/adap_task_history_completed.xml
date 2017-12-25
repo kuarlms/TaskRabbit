@@ -162,6 +162,10 @@
                             android:id="@+id/ratingBarCompleated"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:scaleX="0.5"
+                            android:scaleY="0.5"
+                            android:isIndicator="true"
+                            android:progressBackgroundTint="#fc8c14"
                             android:visibility="visible"/>
 
                         <EditText

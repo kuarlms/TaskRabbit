@@ -24,6 +24,7 @@ import killbit.taskrabbit.adapters.active_tasks_adp;
 import killbit.taskrabbit.objects.active_tasks_data;
 import killbit.taskrabbit.retrofit.ApiInterface;
 import killbit.taskrabbit.retrofit.ApiUtils;
+import killbit.taskrabbit.retrofit.StatusResp;
 import killbit.taskrabbit.retrofit.activeTasks.ActiveTaskResp;
 import killbit.taskrabbit.utils.sp_task;
 import retrofit2.Call;
@@ -151,9 +152,25 @@ public class active_tasks extends FragmentActivity implements active_tasks_adp.O
     @Override
     public void onBtnTaskDone(String booking_id, String task_hour) {
 
-     //   mAPIService.rf_task_completed(ApiInterface.header_value, sp.getString(sp_task.Sp_email,"")).enqueue(new Callback<ActiveTaskResp>() {
+      mAPIService.rf_task_completed(ApiInterface.header_value, sp.getString(sp_task.Sp_email,""),booking_id,task_hour).enqueue(new Callback<StatusResp>() {
 
-        Toast.makeText(this, ""+booking_id, Toast.LENGTH_SHORT).show();
+          @Override
+          public void onResponse(Call<StatusResp> call, Response<StatusResp> response) {
+
+             if (response.body().getStatus().equals(1)){
+                 Toast.makeText(active_tasks.this, "Successfully post the the hours.", Toast.LENGTH_SHORT).show();
+                 tasks_datas.clear();
+                 onStart();
+             }else {
+
+             }
+
+          }
+
+          @Override
+          public void onFailure(Call<StatusResp> call, Throwable t) {
+
+          }});
 
     }
 

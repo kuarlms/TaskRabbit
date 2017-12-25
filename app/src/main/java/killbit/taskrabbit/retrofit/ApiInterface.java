@@ -179,7 +179,7 @@ public interface ApiInterface {
 
     @Multipart
     @POST("task_completed")
-    Call<signupStatus> rf_task_completed(@Header(header)String header_value,@Part("email") String email,@Part("booking_id") String booking_id,
+    Call<StatusResp> rf_task_completed(@Header(header)String header_value,@Part("email") String email,@Part("booking_id") String booking_id,
                                          @Part("task_hour") String task_hour);
 
     @Multipart
