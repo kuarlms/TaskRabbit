@@ -1,6 +1,7 @@
 package killbit.taskrabbit.actvity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -175,7 +176,12 @@ public class active_tasks extends FragmentActivity implements active_tasks_adp.O
     }
 
     @Override
-    public void onBtnChat(String booking_id, int position) {
-        Toast.makeText(this, ""+position, Toast.LENGTH_SHORT).show();
+    public void onBtnChat(String booking_id, String position) {
+
+        Intent inChat = new Intent(active_tasks.this,chat.class);
+        inChat.putExtra("taskId",booking_id);
+        inChat.putExtra("taskerName",position);
+        startActivity(inChat);
+
     }
 }

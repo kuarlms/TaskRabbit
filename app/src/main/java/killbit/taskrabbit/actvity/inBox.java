@@ -131,7 +131,7 @@ public class inBox extends FragmentActivity implements  inbox_adapter.OnRecycler
     @Override
     public void onInboxItemSelected(int position, String tasker_id, String TaskerName) {
 
-        Toast.makeText(this, "Clk", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "Clk", Toast.LENGTH_SHORT).show();
         Intent inChat = new Intent(inBox.this,chat.class);
         inChat.putExtra("taskId",tasker_id);
         inChat.putExtra("taskerName",TaskerName);

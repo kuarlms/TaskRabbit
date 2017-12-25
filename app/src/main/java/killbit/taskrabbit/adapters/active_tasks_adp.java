@@ -99,14 +99,14 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         holder.btn_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                taskDoneListner.onBtnChat(actvie_task.getBooking_id(),position);
+                taskDoneListner.onBtnChat(actvie_task.getBooking_id(),actvie_task.getTasker_name());
             }
         });
 
     }
     public interface OnTaskDoneListner{
     void onBtnTaskDone(String booking_id, String task_hour);
-        void onBtnChat(String booking_id, int position);
+        void onBtnChat(String booking_id, String name);
     }
 
     @Override
