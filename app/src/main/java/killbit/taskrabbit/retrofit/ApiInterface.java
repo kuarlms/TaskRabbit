@@ -73,8 +73,7 @@ public interface ApiInterface {
   @Multipart
   @POST("upload_profile_picture")
   Call<UpdateAccountResp> rf_uploadPic(@Header(header)String header_value,@Part("email") String email,
-                                       @Part MultipartBody.Part upload_profile_picture, String  first_name,
-                                        String last_name,String phone);
+                                       @Part MultipartBody.Part upload_profile_picture);
 
 
     @Multipart

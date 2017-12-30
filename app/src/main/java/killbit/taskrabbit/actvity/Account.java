@@ -377,8 +377,7 @@ public class Account extends FragmentActivity implements CropImageView.OnSetImag
 
 
         mAPIService.rf_uploadPic(ApiInterface.header_value, sp.getString(sp_task.Sp_email,""),
-                requestFile,et_name.getText().toString(),et_nameLast.getText().toString(),et_mobile.getText().toString()
-        ).enqueue(new Callback<UpdateAccountResp>() {
+                requestFile).enqueue(new Callback<UpdateAccountResp>() {
             @Override
             public void onResponse(Call<UpdateAccountResp> call, Response<UpdateAccountResp> response) {
 

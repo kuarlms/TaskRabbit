@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TaskRabbit.iml" filepath="$PROJECT_DIR$/TaskRabbit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TaskRabbitx.iml" filepath="$PROJECT_DIR$/TaskRabbitx.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/tasker/tasker.iml" filepath="$PROJECT_DIR$/tasker/tasker.iml" />
     </modules>
